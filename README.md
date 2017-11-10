@@ -1,3 +1,6 @@
+## before you run ##
+```npm install --save prop-types```
+
 ## File Structure ##
 ```
 /TripStackNav 
