@@ -17,7 +17,7 @@ export default StyleSheet.create({
     margin: Metrics.baseMargin
   },
   label: {
-    fontFamily: 'Montserrat',
+    //fontFamily: 'Montserrat',
     fontSize: 14,
     color: '#000000'
   }

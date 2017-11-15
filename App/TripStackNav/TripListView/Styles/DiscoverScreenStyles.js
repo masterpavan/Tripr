@@ -46,7 +46,7 @@ export default StyleSheet.create({
   },
   sectionText: {
     textAlign: 'center',
-    fontFamily: 'Montserrat_black',
+    //fontFamily: 'Montserrat_black',
     fontSize: 24,
     marginHorizontal: Metrics.baseMargin,
     lineHeight: 30,
