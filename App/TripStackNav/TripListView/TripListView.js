@@ -65,7 +65,11 @@ export default class TripListView extends React.Component {
                 <View>
                     <Button
                         title="+"
-                        onPress={() => this.props.navigation.navigate('AddTripView')}
+                        onPress={() => {
+                            var oldState = this.state.currentTrips;
+                            oldState['trip to UCSD'] = {name: "Trip to Italy"};
+                            this.setState({currentTrips: oldState});
+                        }}
                     />
                 </View>
                 <ScrollView showsVerticalScrollIndicator={false} bounces={true} style={styles.container}>
