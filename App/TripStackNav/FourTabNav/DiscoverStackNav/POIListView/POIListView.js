@@ -8,10 +8,13 @@ export default class POIListView extends React.Component {
     };
     render() {
         return (
-            <FlatList
-                data={[{key: 'a'}, {key: 'b'}, {key: 'c'}, {key: 'd'}, {key: 'e'}, {key: 'f'}]}
-                renderItem={({item}) => <TouchableOpacity onPress={() => this.props.navigation.navigate('POIDetailView')}><View style={{ height: 50, backgroundColor: '#61aa75'}}><Text>{item.key}</Text></View></TouchableOpacity>}
-            />
+            <View>
+               <Text>Search bar goes here</Text>
+              <FlatList
+                 data={[{key: 'a'}, {key: 'b'}, {key: 'c'}, {key: 'd'}, {key: 'e'}, {key: 'f'}]}
+                 renderItem={({item}) => <TouchableOpacity onPress={() => this.props.navigation.navigate('POIDetailView')}><View style={{ height: 50, backgroundColor: '#2854aa'}}><Text>{item.key}</Text></View></TouchableOpacity>}
+              />
+            </View>
         )
     }
 }
