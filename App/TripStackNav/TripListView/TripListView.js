@@ -7,8 +7,13 @@ import styles from './Styles/ChooseCityPlannerStyles'
 
 export default class TripListView extends React.Component {
 
+    constructor(props) {
+        super(props)
+        this.state = {currentTrips: {}}
+    }
+
     componentDidMount() {
-        AsyncStorage.setItem("currentTrips", {
+        AsyncStorage.setItem("currentTrips", JSON.stringify({
             tripToItaly: {
                 name: "Trip to Italy"
             },
@@ -17,10 +22,20 @@ export default class TripListView extends React.Component {
             },
             tripToRussia: {
                 name: "Trip to Russia"
-            }
-        });
+            },
+            tripToChina: {
+                name: "Trip to China"
+            },
+            tripToCanada: {
+                name: "Trip to Canada"
+            },
+            tripToIndia: {
+                name: "Trip to India"
+            },
+        }));
         AsyncStorage.getItem("currentTrips").then((value) => {
-            this.setState({"currentTrips": value});
+            this.setState({currentTrips: JSON.parse(value)});
+            console.log("We set the state!");
         }).done();
     };
 
@@ -29,14 +44,16 @@ export default class TripListView extends React.Component {
     };
 
     generateButton() {
-        this.state.currentTrips.forEach(element => {
+        return Object.keys(this.state.currentTrips).map(element => {
             return (
-                <ButtonRectangle
-                    onPress={() => this.props.navigation.navigate('TripDetailView')}
-                    style={styles.componentButton}
-                    image={require('./icon_food.png')}
-                    text={element.name}
-                />
+                <View style={styles.buttonsContainer} key = {this.state.currentTrips[element].name} >
+                    <ButtonRectangle
+                        onPress={() => this.props.navigation.navigate('TripDetailView')}
+                        style={styles.componentButton}
+                        image={require('./icon_food.png')}
+                        text={this.state.currentTrips[element].name}
+                    />
+                </View>
             )
         })
     }
@@ -45,14 +62,16 @@ export default class TripListView extends React.Component {
         return (
             <View style={styles.mainContainer}>
                 <Image source={require('./navyblue.png')} style={styles.backgroundImage} resizeMode='stretch' />
-                <Text style={styles.sectionText}>
-                    Discover
-                </Text>
-                <ScrollView showsVerticalScrollIndicator={false} bounces={false} style={styles.container}>
-                    <View style={styles.buttonsContainer}>
-                        {this.generateButton()}
-                    </View>
+                <View>
+                    <Button
+                        title="+"
+                        onPress={() => this.props.navigation.navigate('AddTripView')}
+                    />
+                </View>
+                <ScrollView showsVerticalScrollIndicator={false} bounces={true} style={styles.container}>
+                    {this.generateButton()}
                 </ScrollView>
+
             </View>
             /*<View>
                 <Text>Trip To Italy</Text>
