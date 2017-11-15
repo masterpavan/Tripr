@@ -17,21 +17,6 @@ export default class TripListView extends React.Component {
             tripToItaly: {
                 name: "Trip to Italy"
             },
-            tripToEngland: {
-                name: "Trip to England"
-            },
-            tripToRussia: {
-                name: "Trip to Russia"
-            },
-            tripToChina: {
-                name: "Trip to China"
-            },
-            tripToCanada: {
-                name: "Trip to Canada"
-            },
-            tripToIndia: {
-                name: "Trip to India"
-            },
         }));
         AsyncStorage.getItem("currentTrips").then((value) => {
             this.setState({currentTrips: JSON.parse(value)});
@@ -67,7 +52,7 @@ export default class TripListView extends React.Component {
                         title="+"
                         onPress={() => {
                             var oldState = this.state.currentTrips;
-                            oldState['trip to UCSD'] = {name: "Trip to Italy"};
+                            oldState[Math.random()] = {name: ""+Math.random()};
                             this.setState({currentTrips: oldState});
                         }}
                     />
