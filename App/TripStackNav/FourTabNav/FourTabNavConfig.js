@@ -18,14 +18,14 @@ const routeConfig = {
 
 const tabNavConfig = {
 
-
-
+    swipeEnabled:true,
+    animationEnabled:true,
     tabBarPosition: 'bottom',
     tabBarOptions: {
         activeBackgroundColor: '#2a5596',
         labelStyle: {
             fontSize: 16,
-            color: '#000000'
+            color: '#eeeeee'
         },
         style: {
             backgroundColor:'#4378ca'
