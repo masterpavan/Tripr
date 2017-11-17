@@ -7,7 +7,7 @@ export default StyleSheet.create({
     aspectRatio: 2.8,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#eeeeee',
+    backgroundColor: '#f58d4e',
     marginLeft: 10,
     marginBottom: 15
   },
@@ -17,9 +17,9 @@ export default StyleSheet.create({
     margin: Metrics.baseMargin
   },
   label: {
-   // fontFamily: 'Montserrat',
-    fontSize: 20,
-    color: '#000000',
+      fontFamily: 'Hallo Sans',
+    fontSize: 30,
+    color: '#eeeeee',
       fontWeight: 'bold'
   }
 })
