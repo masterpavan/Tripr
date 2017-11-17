@@ -46,7 +46,6 @@ export default class TripListView extends React.Component {
     render() {
         return (
             <View style={styles.mainContainer}>
-                <Image source={require('./navyblue.png')} style={styles.backgroundImage} resizeMode='stretch' />
                 <View>
                     <Button
                         title="+"

@@ -7,7 +7,7 @@ export default StyleSheet.create({
     aspectRatio: 2.8,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#f8f1e5',
+    backgroundColor: '#4378ca',
     marginLeft: 10,
     marginBottom: 15
   },
@@ -18,7 +18,8 @@ export default StyleSheet.create({
   },
   label: {
    // fontFamily: 'Montserrat',
-    fontSize: 14,
-    color: '#000000'
+    fontSize: 20,
+    color: '#000000',
+      fontWeight: 'bold'
   }
 })
