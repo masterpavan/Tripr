@@ -48,7 +48,10 @@ export default class TripListView extends React.Component {
             <View style={styles.mainContainer}>
                 <View>
                     <Button
-                        title="+"
+                        title='+'
+                        style={{
+                            fontSize:200
+                        }}
                         onPress={() => {
                             var oldState = this.state.currentTrips;
                             oldState[Math.random()] = {name: ""+Math.random()};
