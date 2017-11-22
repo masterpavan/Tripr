@@ -1,0 +1,63 @@
+currentTrips: {
+
+    tripID1: { name: %%%, dateRange: %%%, cities: [cityID1, cityID2, cityID3] ... },
+    tripID2: { name: %%%, dateRange: %%%, cities: [cityID1, cityID2, cityID3] ... },
+    tripID3: { name: %%%, dateRange: %%%, cities: [cityID1, cityID2, cityID3] ... },
+    tripID4: { name: %%%, dateRange: %%%, cities: [cityID1, cityID2, cityID3] ... },
+    tripID5: { name: %%%, dateRange: %%%, cities: [cityID1, cityID2, cityID3] ... },
+
+},
+
+screenState: {
+
+    currentTripID: %%%,
+    currentCityID: %%%,
+    currentPOICategory: %%%,
+    currentPOIID: %%%
+
+}
+
+events: {
+
+    eventID1: { tripID: %%%, poiID: %%%, dateRange: %%%, time: %%%, location: %%% },
+    eventID2: { tripID: %%%, poiID: %%%, dateRange: %%%, time: %%%, location: %%% }
+    eventID3: { tripID: %%%, poiID: %%%, dateRange: %%%, time: %%%, location: %%% }
+    eventID4: { tripID: %%%, poiID: %%%, dateRange: %%%, time: %%%, location: %%% }
+    eventID5: { tripID: %%%, poiID: %%%, dateRange: %%%, time: %%%, location: %%% }
+
+}
+
+
+downloadedCityPackages: {
+
+    cityID1: { name: %%%, coords: %%%, timeZone: %%%, images: %%%, population: %%%, capital: %%%, description: %%%,
+        pois: {
+            POIID1: { Name Rating Coordinates Description Hours picture Contact_info Address Keywords Indexes },
+            POIID2: { Name Rating Coordinates Description Hours picture Contact_info Address Keywords Indexes },
+            POIID3: { Name Rating Coordinates Description Hours picture Contact_info Address Keywords Indexes },
+            POIID4: { Name Rating Coordinates Description Hours picture Contact_info Address Keywords Indexes },
+            POIID5: { Name Rating Coordinates Description Hours picture Contact_info Address Keywords Indexes },
+            ...
+        }
+    },
+    cityID2: { name: %%%, coords: %%%, timeZone: %%%, images: %%%, population: %%%, capital: %%%, description: %%%,
+        pois: {
+            POIID1: { Name Rating Coordinates Description Hours picture Contact_info Address Keywords Indexes },
+            POIID2: { Name Rating Coordinates Description Hours picture Contact_info Address Keywords Indexes },
+            POIID3: { Name Rating Coordinates Description Hours picture Contact_info Address Keywords Indexes },
+            POIID4: { Name Rating Coordinates Description Hours picture Contact_info Address Keywords Indexes },
+            POIID5: { Name Rating Coordinates Description Hours picture Contact_info Address Keywords Indexes },
+            ...
+        }
+    },
+    cityID3: { name: %%%, coords: %%%, timeZone: %%%, images: %%%, population: %%%, capital: %%%, description: %%%,
+        pois: {
+            POIID1: { Name Rating Coordinates Description Hours picture Contact_info Address Keywords Indexes },
+            POIID2: { Name Rating Coordinates Description Hours picture Contact_info Address Keywords Indexes },
+            POIID3: { Name Rating Coordinates Description Hours picture Contact_info Address Keywords Indexes },
+            POIID4: { Name Rating Coordinates Description Hours picture Contact_info Address Keywords Indexes },
+            POIID5: { Name Rating Coordinates Description Hours picture Contact_info Address Keywords Indexes },
+            ...
+        }
+    }
+}
