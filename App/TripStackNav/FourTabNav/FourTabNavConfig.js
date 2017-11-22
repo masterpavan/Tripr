@@ -7,7 +7,7 @@ import MapView from "./MapStackNav/MapView/MapView";
 import ToolTileView from "./ToolStackNav/ToolTileView/ToolTileView";
 
 const routeConfig = {
-    DiscoverStackNav: { screen: DiscoverStackNav },
+    DiscoverStackNav: { screen: DiscoverStackNav},
     //TODO: CHANGE MultiDayView TO PlannerStackNav
     MultiDayView: { screen: MultiDayView },
     //TODO: CHANGE MapView TO MapStackView
@@ -17,13 +17,18 @@ const routeConfig = {
 };
 
 const tabNavConfig = {
+
+    swipeEnabled:true,
+    animationEnabled:true,
     tabBarPosition: 'bottom',
     tabBarOptions: {
+        activeBackgroundColor: '#2a5596',
         labelStyle: {
             fontSize: 16,
+            color: '#eeeeee'
         },
         style: {
-            backgroundColor: '#3f8185',
+            backgroundColor:'#4378ca'
         },
     },
 }

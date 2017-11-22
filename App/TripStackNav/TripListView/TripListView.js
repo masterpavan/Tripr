@@ -1,7 +1,8 @@
 
 import React, {Component} from "react";
-import {Button, Image, ScrollView, Text, View, AsyncStorage} from 'react-native';
-import ButtonRectangle from './ButtonRectangle'
+import {Image, ScrollView, Text, View, AsyncStorage} from 'react-native';
+import { Button } from 'react-native-elements';
+import ButtonRectangle from './ButtonRectangle';
 
 import styles from './Styles/ChooseCityPlannerStyles'
 
@@ -45,9 +46,18 @@ export default class TripListView extends React.Component {
 
         return (
             <View style={styles.mainContainer}>
-                <View>
+                <View style={{alignItems:'center', backgroundColor:'transparent'}}>
                     <Button
-                        title="+"
+                        buttonStyle={{
+                            width:50,
+                            height:50,
+                            backgroundColor:'transparent',
+                        }}
+                        textStyle={{
+                            fontSize:40,
+                            color:'#15bdd9'
+                        }}
+                        title='+'
                         onPress={() => {
                             this.props.navigation.navigate('AddTripView');
                         }}

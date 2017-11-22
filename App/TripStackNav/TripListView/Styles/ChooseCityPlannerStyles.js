@@ -23,7 +23,7 @@ export default StyleSheet.create({
         alignItems: 'center'
     },
     componentButton: {
-        borderColor: Colors.border,
+        borderColor: 'transparent',
         borderTopWidth: 1,
         borderRightWidth: 1,
         borderBottomWidth: 1,
