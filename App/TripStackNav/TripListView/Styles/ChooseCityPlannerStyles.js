@@ -4,6 +4,7 @@ import { Metrics, Colors, Fonts, ApplicationStyles } from './Themes/';
 export default StyleSheet.create({
     ...ApplicationStyles.screen,
     container: {
+        backgroundColor: '#eeeeee',
         marginBottom: 0,
         paddingTop: 0,
         paddingBottom: 0

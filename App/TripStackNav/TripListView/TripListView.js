@@ -9,19 +9,11 @@ export default class TripListView extends React.Component {
 
     constructor(props) {
         super(props)
-        this.state = {currentTrips: {}}
+        this.state = {currentTrips: {} }
     }
 
     componentDidMount() {
-        AsyncStorage.setItem("currentTrips", JSON.stringify({
-            tripToItaly: {
-                name: "Trip to Italy"
-            },
-        }));
-        AsyncStorage.getItem("currentTrips").then((value) => {
-            this.setState({currentTrips: JSON.parse(value)});
-            console.log("We set the state!");
-        }).done();
+        AsyncStorage.setItem("currentTrips", JSON.stringify({}));
     };
 
     static navigationOptions = {
@@ -29,31 +21,35 @@ export default class TripListView extends React.Component {
     };
 
     generateButton() {
-        return Object.keys(this.state.currentTrips).map(element => {
-            return (
-                <View style={styles.buttonsContainer} key = {this.state.currentTrips[element].name} >
-                    <ButtonRectangle
-                        onPress={() => this.props.navigation.navigate('TripDetailView')}
-                        style={styles.componentButton}
-                        image={require('./icon_food.png')}
-                        text={this.state.currentTrips[element].name}
-                    />
-                </View>
-            )
-        })
+        if(Object.keys(this.state.currentTrips).length !== 0) {
+            return Object.keys(this.state.currentTrips).reverse().map(element => {
+                return (
+                    <View style={styles.buttonsContainer} key={this.state.currentTrips[element].name}>
+                        <ButtonRectangle
+                            onPress={() => this.props.navigation.navigate('TripDetailView')}
+                            style={styles.componentButton}
+                            image={require('./icon_food.png')}
+                            text={this.state.currentTrips[element].name}
+                        />
+                    </View>
+                )
+            })
+        }
     }
 
     render() {
+        AsyncStorage.getItem("currentTrips").then((value) => {
+            this.setState({currentTrips: JSON.parse(value)});
+            console.log("We set the state!");
+        }).done();
+
         return (
             <View style={styles.mainContainer}>
-                <Image source={require('./navyblue.png')} style={styles.backgroundImage} resizeMode='stretch' />
                 <View>
                     <Button
                         title="+"
                         onPress={() => {
-                            var oldState = this.state.currentTrips;
-                            oldState[Math.random()] = {name: ""+Math.random()};
-                            this.setState({currentTrips: oldState});
+                            this.props.navigation.navigate('AddTripView');
                         }}
                     />
                 </View>
