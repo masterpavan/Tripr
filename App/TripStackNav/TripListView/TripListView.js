@@ -2,9 +2,9 @@
 import React, {Component} from "react";
 import {Image, ScrollView, Text, View, AsyncStorage} from 'react-native';
 import { Button } from 'react-native-elements';
-import ButtonRectangle from './ButtonRectangle';
+import ButtonRectangle from '../../../assets/elements/ButtonRectangle';
 
-import styles from './Styles/ChooseCityPlannerStyles'
+import styles from '../../../assets/styles/ChooseCityPlannerStyles'
 
 export default class TripListView extends React.Component {
 
@@ -29,7 +29,7 @@ export default class TripListView extends React.Component {
                         <ButtonRectangle
                             onPress={() => this.props.navigation.navigate('TripDetailView')}
                             style={styles.componentButton}
-                            image={require('./icon_food.png')}
+                            image={require('../../../assets/images/icon_food.png')}
                             text={this.state.currentTrips[element].name}
                         />
                     </View>
