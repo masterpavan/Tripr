@@ -17,7 +17,8 @@ export default StyleSheet.create({
     },
     buttonsContainer: {
         flexDirection: 'row',
-        flex: 1
+        flex: 1,
+        flexWrap: 'wrap'
     },
     centered: {
         alignItems: 'center'

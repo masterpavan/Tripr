@@ -1,10 +1,10 @@
 currentTrips: {
 
-    tripID1: { name: %%%, dateRange: %%%, cities: [cityID1, cityID2, cityID3] ... },
-    tripID2: { name: %%%, dateRange: %%%, cities: [cityID1, cityID2, cityID3] ... },
-    tripID3: { name: %%%, dateRange: %%%, cities: [cityID1, cityID2, cityID3] ... },
-    tripID4: { name: %%%, dateRange: %%%, cities: [cityID1, cityID2, cityID3] ... },
-    tripID5: { name: %%%, dateRange: %%%, cities: [cityID1, cityID2, cityID3] ... },
+    tripID1: { name: %%%, dateRange: %%%, cityIDs: {cityID1:cityName1, cityID2:cityName2, cityID3:cityName3} ... },
+    tripID2: { name: %%%, dateRange: %%%, cityIDs: {cityID1:cityName1, cityID2:cityName2, cityID3:cityName3} ... },
+    tripID3: { name: %%%, dateRange: %%%, cityIDs: {cityID1:cityName1, cityID2:cityName2, cityID3:cityName3} ... },
+    tripID4: { name: %%%, dateRange: %%%, cityIDs: {cityID1:cityName1, cityID2:cityName2, cityID3:cityName3} ... },
+    tripID5: { name: %%%, dateRange: %%%, cityIDs: {cityID1:cityName1, cityID2:cityName2, cityID3:cityName3} ... },
 
 },
 

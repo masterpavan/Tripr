@@ -9,11 +9,11 @@ import ToolTileView from "./ToolStackNav/ToolTileView/ToolTileView";
 const routeConfig = {
     DiscoverStackNav: { screen: DiscoverStackNav},
     //TODO: CHANGE MultiDayView TO PlannerStackNav
-    MultiDayView: { screen: MultiDayView },
+    MultiDayView: { screen: MultiDayView},
     //TODO: CHANGE MapView TO MapStackView
-    MapView: { screen: MapView },
+    MapView: { screen: MapView},
     //TODO: CHANGE ToolTileView TO ToolStackNav
-    ToolTileView: { screen: ToolTileView }
+    ToolTileView: { screen: ToolTileView}
 };
 
 const tabNavConfig = {

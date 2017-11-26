@@ -1,9 +1,9 @@
 import React from 'react'
 import { TouchableOpacity, Text, Image, View } from 'react-native'
 import PropTypes from 'prop-types'
-import styles from '../styles/ButtonRectangleStyles'
+import styles from '../styles/ButtonSquareStyles'
 
-export default class ButtonRectangle extends React.Component {
+export default class ButtonSquare extends React.Component {
   static propTypes = {
     onPress: PropTypes.func,
     image: PropTypes.number,

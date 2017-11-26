@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native'
-import { Colors, Metrics, Fonts } from '../../Themes/'
+import { Metrics } from './Themes/index'
 
 export default StyleSheet.create({
   container: {
@@ -7,7 +7,7 @@ export default StyleSheet.create({
     aspectRatio: 0.9,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#f8f1e5',
+    backgroundColor: '#f58d4e',
     marginLeft: 15,
     marginBottom: 15
   },
@@ -17,8 +17,9 @@ export default StyleSheet.create({
     margin: Metrics.baseMargin
   },
   label: {
-    //fontFamily: 'Montserrat',
-    fontSize: 14,
-    color: '#000000'
+      fontFamily: 'Hallo Sans',
+      fontSize: 30,
+      color: '#eeeeee',
+      fontWeight: 'bold'
   }
 })

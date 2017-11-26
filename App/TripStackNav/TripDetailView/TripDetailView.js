@@ -1,20 +1,84 @@
 
 import React, {Component} from "react";
-import {Button, Text, View} from 'react-native';
+import {Text, View, AsyncStorage, ScrollView} from 'react-native';
+
+import { Button } from 'react-native-elements';
+
+import styles from '../../../assets/styles/ChooseCityPlannerStyles'
+import AddCityComponent from "./AddCityComponent";
+import CityListComponent from "./CityListComponent";
 
 export default class TripDetailView extends React.Component {
-    static navigationOptions = {
-        title: 'Trip Details'
-    };
+
+    static navigationOptions = ({ navigation, screenProps }) => ({
+        title: navigation.state.params.name
+    });
+
+    constructor(props) {
+        super(props);
+        this.state = {
+            screen: "list",
+            tripName: null,
+            currentTripID: this.props.navigation.state.params.currentTripID,
+            cityIDs: {}
+        }
+        const { navigate } = this.props.navigation;
+        this.navigate = navigate;
+        this.navigationOptions = {
+            title: this.state.tripName
+        };
+    }
+
+    componentDidMount() {
+        //also update the city IDs according to the trip we are on
+        AsyncStorage.getItem("currentTrips").then((value) => {
+            let thisTrip =JSON.parse(value)[this.state.currentTripID];
+            this.setState({cityIDs: thisTrip.cityIDs, tripName: thisTrip.name})
+
+        })
+    }
+
+    screenOptions() {
+        if(this.state.screen === "list") {
+
+            return (
+                <View>
+                    <View style={{alignItems:'center', backgroundColor:'transparent'}}>
+                        <Button
+                            buttonStyle={{
+                                width:50,
+                                height:50,
+                                backgroundColor:'transparent',
+                            }}
+                            textStyle={{
+                                fontSize:40,
+                                color:'#15bdd9'
+                            }}
+                            title='+'
+                            onPress={() => {
+                                this.setState({screen: "addCity"})
+                            }}
+                        />
+                    </View>
+                    <ScrollView showsVerticalScrollIndicator={false} bounces={true} style={styles.container}>
+                        <CityListComponent currentTripID={this.state.currentTripID} detailsView={this} list={this.state.cityIDs}/>
+                    </ScrollView>
+                </View>
+            )
+
+        } else if(this.state.screen === "addCity") {
+
+            return (
+                <AddCityComponent currentTripID={this.state.currentTripID} detailsView={this}/>
+            )
+
+        }
+    }
 
     render() {
         return (
-            <View>
-                <Text>Rome</Text>
-                <Button onPress={() => this.props.navigation.navigate('FourTabNav')} title="Discover Rome"/>
-                <Text>Venice</Text>
-                <Text>Another city in Italy</Text>
-                <Text>Florence</Text>
+            <View style={styles.mainContainer}>
+                {this.screenOptions()}
             </View>
         )
     }
