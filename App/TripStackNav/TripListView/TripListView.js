@@ -26,6 +26,9 @@ export default class TripListView extends React.Component {
         title: 'TripList'
     };
 
+    setTheState(object) {
+        this.setState(object);
+    }
     screenOptions() {
         if(this.state.screen === "list") {
 
@@ -50,7 +53,7 @@ export default class TripListView extends React.Component {
                         />
                     </View>
                     <ScrollView showsVerticalScrollIndicator={false} bounces={true} style={styles.container}>
-                        <TripListComponent listView={this} list={this.state.currentTrips}/>
+                        <TripListComponent setParentState={this.setTheState.bind(this)} navigate={this.navigate} list={this.state.currentTrips}/>
                     </ScrollView>
                 </View>
             )
@@ -58,7 +61,7 @@ export default class TripListView extends React.Component {
         } else if(this.state.screen === "addTrip") {
 
             return (
-                <AddTripComponent listView={this}/>
+                <AddTripComponent setParentState={this.setTheState.bind(this)} navigate={this.navigate}/>
             )
 
         }
