@@ -20,6 +20,8 @@ export default class CityListComponent extends React.Component {
 
         //then actually navigate
         this.props.navigate('FourTabNav', {cityName: this.props.list[cityID]})
+
+        //download stuff here
     }
 
     generateButtons() {
