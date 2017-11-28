@@ -29,6 +29,7 @@ export default class TripListView extends React.Component {
     setTheState(object) {
         this.setState(object);
     }
+
     screenOptions() {
         if(this.state.screen === "list") {
 

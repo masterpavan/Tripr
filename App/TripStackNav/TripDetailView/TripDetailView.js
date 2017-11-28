@@ -38,6 +38,10 @@ export default class TripDetailView extends React.Component {
         })
     }
 
+    setTheState(object) {
+        this.setState(object);
+    }
+
     screenOptions() {
         if(this.state.screen === "list") {
 
@@ -61,7 +65,7 @@ export default class TripDetailView extends React.Component {
                         />
                     </View>
                     <ScrollView showsVerticalScrollIndicator={false} bounces={true} style={styles.container}>
-                        <CityListComponent currentTripID={this.state.currentTripID} detailsView={this} list={this.state.cityIDs}/>
+                        <CityListComponent currentTripID={this.state.currentTripID} setParentState={this.setTheState.bind(this)} navigate={this.navigate} list={this.state.cityIDs}/>
                     </ScrollView>
                 </View>
             )
@@ -69,7 +73,7 @@ export default class TripDetailView extends React.Component {
         } else if(this.state.screen === "addCity") {
 
             return (
-                <AddCityComponent currentTripID={this.state.currentTripID} detailsView={this}/>
+                <AddCityComponent currentTripID={this.state.currentTripID} setParentState={this.setTheState.bind(this)} navigate={this.navigate}/>
             )
 
         }

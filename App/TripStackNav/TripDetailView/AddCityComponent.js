@@ -18,7 +18,7 @@ export default class AddCityComponent extends React.Component {
     }
 
     render() {
-        this.props.detailsView.navigationOptions = {title:"Add you a Trip now Fam"}
+
         return (
             <View>
                 <FormLabel>Select a city from the dropdown</FormLabel>
@@ -32,7 +32,8 @@ export default class AddCityComponent extends React.Component {
                     <Picker.Item label="Yuba City" value="Yuba City" />
                 </Picker>
                 <Button buttonStyle={{backgroundColor:"#f58d4e"}} title="Add City" onPress={()=>{this.submit()}}/>
-                <Button buttonStyle={{backgroundColor:"#d7833e", marginTop:20}} title="Cancel" onPress={()=>{this.props.detailsView.setState({screen: "list"})}}/>
+                <Button buttonStyle={{backgroundColor:"#d7833e", marginTop:20}}
+                        title="Cancel" onPress={()=>{this.props.setParentState({screen: "list"})}}/>
 
             </View>
         )
@@ -51,11 +52,11 @@ export default class AddCityComponent extends React.Component {
             currentTrip[this.props.currentTripID] = thisTrip;
             //push the current trip back into the database
             AsyncStorage.setItem("currentTrips", JSON.stringify(currentTrip));
-            this.props.detailsView.setState({cityIDs: thisTrip.cityIDs});
+            this.props.setParentState({cityIDs: thisTrip.cityIDs});
             console.log("We set the TripListView state!");
         }).done();
 
-        this.props.detailsView.setState({screen: "list"})
+        this.props.setParentState({screen: "list"})
     }
 
 }
