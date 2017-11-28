@@ -17,7 +17,7 @@ export default class AddTripComponent extends React.Component {
     }
 
     render() {
-        this.props.listView.navigationOptions = {title:"Add you a Trip now Fam"}
+        //this.props.listView.navigationOptions = {title:"Add you a Trip now Fam"}
         return (
             <View>
                 <FormLabel>Name Your Trip</FormLabel>
@@ -37,14 +37,15 @@ export default class AddTripComponent extends React.Component {
             //other trip details
         };
 
-        AsyncStorage.mergeItem("currentTrips", JSON.stringify(thisTrip));
+        AsyncStorage.mergeItem("currentTrips", JSON.stringify(thisTrip)).done();
 
         AsyncStorage.getItem("currentTrips").then((value) => {
-            this.props.listView.setState({currentTrips: JSON.parse(value)});
+            this.props.setParentState({currentTrips: JSON.parse(value)});
             console.log("We set the TripListView state!");
         }).done();
 
-        this.props.listView.setState({screen: "list"})
+        this.props.setParentState({screen: "list"})
+
     }
 
 }

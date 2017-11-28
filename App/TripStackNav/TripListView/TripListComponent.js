@@ -19,7 +19,7 @@ export default class TripListComponent extends React.Component {
         AsyncStorage.setItem("screenState", JSON.stringify(screenState));
 
         //then actually navigate
-        this.props.listView.navigate('TripDetailView', {currentTripID: tripID, name: this.props.list[tripID].name})
+        this.props.navigate('TripDetailView', {currentTripID: tripID, name: this.props.list[tripID].name})
     }
 
     generateButtons() {
