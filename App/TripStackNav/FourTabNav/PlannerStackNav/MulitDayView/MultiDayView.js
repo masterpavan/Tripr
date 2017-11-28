@@ -8,8 +8,8 @@ export default class MultiDayView extends React.Component {
 
         tabBarIcon: <Image source={require('../../../../../assets/images/calendar_icon.png')}
                            style={{
-                               height: 30,
-                               width: 30,
+                               height: 20,
+                               width: 20,
                                resizeMode: 'contain'
                            }} />
 

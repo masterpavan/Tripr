@@ -7,8 +7,8 @@ export default class MapView extends React.Component {
 
         tabBarIcon: <Image source={require('../../../../../assets/images/map_icon.png')}
             style={{
-                height: 30,
-                width: 30,
+                height: 20,
+                width: 20,
                 resizeMode: 'contain'
             }} />
     });

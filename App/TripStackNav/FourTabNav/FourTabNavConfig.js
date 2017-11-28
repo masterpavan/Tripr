@@ -23,6 +23,7 @@ const tabNavConfig = {
     tabBarPosition: 'bottom',
     tabBarOptions: {
         showLabel: false,
+        showIcon: true,
         activeBackgroundColor: '#2a5596',
         labelStyle: {
             fontSize: 16,

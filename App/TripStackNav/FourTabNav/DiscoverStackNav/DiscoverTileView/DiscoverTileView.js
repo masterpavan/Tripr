@@ -10,9 +10,9 @@ export default class DiscoverTileView extends React.Component {
         title: `Discover ${navigation.state.params.cityName}`,
         tabBarIcon: <Image source={require('../../../../../assets/images/discover_icon.png')}
                            style={{
-                               height: 30,
-                               width: 30,
-                               resizeMode: 'contain'
+                               height: 20,
+                               width: 20,
+                               resizeMode: 'center'
                            }} />
     });
 
