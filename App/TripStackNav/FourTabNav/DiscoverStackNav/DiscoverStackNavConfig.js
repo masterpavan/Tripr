@@ -4,6 +4,7 @@ import {StackNavigator} from 'react-navigation';
 import DiscoverTileView from "./DiscoverTileView/DiscoverTileView";
 import POIListView from "./POIListView/POIListView";
 import POIDetailView from "./POIDetailView/POIDetailView";
+import {Image} from "react-native";
 
 const routeConfig = {
     DiscoverTileView: {screen: DiscoverTileView},
@@ -15,8 +16,9 @@ const stackNavConfig = {
     // Default config for all screens
     headerMode: 'none',
     initialRouteName: 'DiscoverTileView',
-    navigationOptions: {
-    }
+    navigationOptions:{
+
+    },
 };
 
 export const DiscoverStackNav = StackNavigator(routeConfig, stackNavConfig);

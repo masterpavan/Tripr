@@ -7,7 +7,13 @@ import styles from "../../../../../assets/styles/ChooseCityPlannerStyles";
 export default class DiscoverTileView extends React.Component {
 
     static navigationOptions = ({ navigation, screenProps }) => ({
-        title: `Discover ${navigation.state.params.cityName}`
+        title: `Discover ${navigation.state.params.cityName}`,
+        tabBarIcon: <Image source={require('../../../../../assets/images/discover_icon.png')}
+                           style={{
+                               height: 30,
+                               width: 30,
+                               resizeMode: 'contain'
+                           }} />
     });
 
     constructor(props) {

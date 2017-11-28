@@ -36,11 +36,14 @@ export default class AddTripComponent extends React.Component {
             cityIDs: {},
             //other trip details
         };
+
         AsyncStorage.mergeItem("currentTrips", JSON.stringify(thisTrip));
+
         AsyncStorage.getItem("currentTrips").then((value) => {
             this.props.listView.setState({currentTrips: JSON.parse(value)});
             console.log("We set the TripListView state!");
         }).done();
+
         this.props.listView.setState({screen: "list"})
     }
 

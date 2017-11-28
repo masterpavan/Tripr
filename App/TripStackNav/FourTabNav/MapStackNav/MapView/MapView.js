@@ -1,10 +1,16 @@
 
 import React, {Component} from "react";
-import {Text, WebView} from 'react-native';
+import {Text, WebView, Image} from 'react-native';
 
 export default class MapView extends React.Component {
     static navigationOptions = ({ navigation, screenProps }) => ({
-        title: `Map of ${navigation.state.params.cityName}`
+
+        tabBarIcon: <Image source={require('../../../../../assets/images/map_icon.png')}
+            style={{
+                height: 30,
+                width: 30,
+                resizeMode: 'contain'
+            }} />
     });
 
     render() {

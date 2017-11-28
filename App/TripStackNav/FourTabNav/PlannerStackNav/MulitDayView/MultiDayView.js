@@ -1,10 +1,18 @@
 
 import React, {Component} from "react";
-import {Text} from 'react-native';
+import {Image, Text} from 'react-native';
 
 export default class MultiDayView extends React.Component {
     static navigationOptions = ({ navigation, screenProps }) => ({
-        title: `Planner for ${navigation.state.params.cityName}`
+        title: `Planner for ${navigation.state.params.cityName}`,
+
+        tabBarIcon: <Image source={require('../../../../../assets/images/calendar_icon.png')}
+                           style={{
+                               height: 30,
+                               width: 30,
+                               resizeMode: 'contain'
+                           }} />
+
     });
 
     render() {
