@@ -8,7 +8,7 @@
 	},
 	"dependencies": {
 		"@mapbox/geo-viewport": "^0.2.2",
-		"@mapbox/react-native-mapbox-gl": "^6.0.0",
+		"@mapbox/react-native-mapbox-gl": "^6.0.1",
 		"prop-types": "^15.6.0",
 		"react": "16.0.0",
 		"react-native": "0.50.3",
