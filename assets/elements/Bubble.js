@@ -3,16 +3,12 @@ import { View, StyleSheet } from 'react-native';
 
 const styles = StyleSheet.create({
     container: {
-        borderRadius: 30,
-        position: 'absolute',
-        bottom: 16,
-        left: 48,
-        right: 48,
-        paddingVertical: 16,
-        minHeight: 60,
+        borderRadius: 5,
+        minHeight: 40,
+        padding: 20,
         alignItems: 'center',
         justifyContent: 'center',
-        backgroundColor: 'white',
+        backgroundColor: 'white'
     },
 });
 
