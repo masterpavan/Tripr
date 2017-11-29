@@ -18,7 +18,7 @@ const routeConfig = {
 
 const tabNavConfig = {
 
-    swipeEnabled:true,
+    swipeEnabled:false,
     animationEnabled:true,
     tabBarPosition: 'bottom',
     tabBarOptions: {
