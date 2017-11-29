@@ -7,19 +7,21 @@ export default StyleSheet.create({
     aspectRatio: 0.9,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#f58d4e',
+    backgroundColor: '#4378ca',
     marginLeft: 15,
     marginBottom: 15
   },
   image: {
-    width: Metrics.icons.xl,
-    height: Metrics.icons.xl,
+    width: 1.5*Metrics.icons.xl,
+    height: 1.5*Metrics.icons.xl,
     margin: Metrics.baseMargin
   },
   label: {
       fontFamily: 'Hallo Sans',
-      fontSize: 30,
+      fontSize: 25,
       color: '#eeeeee',
-      fontWeight: 'bold'
+      fontWeight: 'bold',
+      textAlign: 'center',
+
   }
 })
