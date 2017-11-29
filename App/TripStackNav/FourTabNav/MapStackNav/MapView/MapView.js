@@ -31,14 +31,6 @@ export default class MapView extends React.Component {
     render() {
         return (
             <View style={{flex:1}}>
-                <Button
-                    title = "Download Florence"
-                    onPress={() =>
-                    {
-                        this.refs.create.createPack("Florence Test2", 11.2558, 43.7696);
-                    }
-                    }
-                />
                 <MapboxGL.MapView
                     styleURL= {MapboxGL.StyleURL.Street}
                     zoomLevel={10}
@@ -46,9 +38,6 @@ export default class MapView extends React.Component {
                     centerCoordinate={[0.1278, 51.5074]}
                     style={styles.container}>
                 </MapboxGL.MapView>
-                <View>
-                    <CreateOfflineRegion ref = "create"/>
-                </View>
             </View>
 
         )

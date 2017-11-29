@@ -51,7 +51,7 @@ export default class CreateOfflineRegion extends React.Component {
 
         this.state = {
             name: null,
-            percentage: 0,
+            percentage: 50,
             offlineRegion: null,
         };
 
@@ -60,6 +60,7 @@ export default class CreateOfflineRegion extends React.Component {
 
         this.onResume = this.onResume.bind(this);
         this.onPause = this.onPause.bind(this);
+
     }
 
     componentWillUnmount () {
@@ -96,6 +97,7 @@ export default class CreateOfflineRegion extends React.Component {
             percentage: downloadStatus.percentage,
             offlineRegion: offlineRegion,
         });
+        this.props.setParentState({percentage:downloadStatus.percentage});
     }
 
     onResume () {
@@ -110,13 +112,6 @@ export default class CreateOfflineRegion extends React.Component {
         }
     }
 
-    _formatPercent () {
-        if (!this.state.percentage) {
-            return '0%';
-        }
-        return `${(''+this.state.percentage).split('.')[0]}%`;
-    }
-
     onPress = () =>
     {
         {this.setState({name: null, percentage: 0, offlineRegion: null});}
@@ -124,31 +119,7 @@ export default class CreateOfflineRegion extends React.Component {
 
 
     render () {
-        let downloading = false;
-        return (
-            <View style={styles.container}>
-                {(this.state.percentage < 100) ? (downloading = true) : (downloading = false)}
-                {this.state.name !== null ? (
-                    <Bubble>
-                        <View style={{ flex : 1 }}>
-                            <Progress.Bar
-                                width = {300}
-                                progress={this.state.percentage/100}
-                            />
-                            <Text style={styles.percentageText}>
-                                Downloading Offline Pack {this.state.name}
-                            </Text>
-                            <Button
-                                disabled={downloading}
-                                title={"Dismiss"}
-                                ref = "dismiss"
-                                onPress={() => this.onPress()}
-                            />
-                        </View>
-                    </Bubble>
-                ) : null}
-            </View>
-        );
+        return (null);
     }
 }
 
