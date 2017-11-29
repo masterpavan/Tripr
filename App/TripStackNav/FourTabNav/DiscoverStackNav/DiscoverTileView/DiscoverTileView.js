@@ -35,21 +35,25 @@ export default class DiscoverTileView extends React.Component {
                         <ButtonSquare
                             style={styles.componentButton}
                             onPress={() => this.props.navigation.navigate('POIListView')}
+                            image = {require('../../../../../assets/images/restaurants_icon.png')}
                             text = {'Restaurants'}
                         />
                         <ButtonSquare
                             style={styles.componentButton}
-
+                            onPress={() => this.props.navigation.navigate('POIListView')}
+                            image = {require('../../../../../assets/images/bar_icon.png')}
                             text = {'Bars'}
                         />
                         <ButtonSquare
                             style={styles.componentButton}
-
+                            onPress={() => this.props.navigation.navigate('POIListView')}
+                            image = {require('../../../../../assets/images/discover_icon.png')}
                             text = {'Sightseeing'}
                         />
                         <ButtonSquare
                             style={styles.componentButton}
-
+                            onPress={() => this.props.navigation.navigate('POIListView')}
+                            image = {require('../../../../../assets/images/discover_icon.png')}
                             text = {'Landmarks'}
                         />
                     </View>

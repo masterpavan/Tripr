@@ -1,11 +1,17 @@
 
 import React, {Component} from "react";
-import {FlatList, Text, TouchableOpacity, View} from 'react-native';
+import {FlatList, Image, Text, TouchableOpacity, View} from 'react-native';
 import { SearchBar } from 'react-native-elements'
 
 export default class POIListView extends React.Component {
     static navigationOptions = {
-        title: 'POI'
+        title: 'POI',
+        tabBarIcon: <Image source={require('../../../../../assets/images/discover_icon.png')}
+                           style={{
+                               height: 20,
+                               width: 20,
+                               resizeMode: 'center'
+                           }} />
     };
     render() {
         return (
