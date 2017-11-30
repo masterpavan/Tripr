@@ -18,7 +18,7 @@ export default class AddTripComponent extends React.Component {
     }
 
     render() {
-        //this.props.listView.navigationOptions = {title:"Add you a Trip now Fam"}
+
         return (
             <View>
                 <FormLabel>Name Your Trip</FormLabel>
@@ -31,27 +31,10 @@ export default class AddTripComponent extends React.Component {
     }
 
     submit() {
-        /*let thisTrip = {};
-        let id = Math.random();
-        thisTrip[id] = {
-            id: id,
-            name: "Trip to "+this.state.tripName,
-            dateRange: [],
-            cityIDs: {},
-            //other trip details
-        };*/
-        /*AsyncStorage.mergeItem("currentTrips", JSON.stringify(thisTrip)).done();
-*/
+
         let thisTrip = triprTripController.createNewTripObject(this.state.tripName, '11/29/2017', '12/25/2017', {});
         console.log("created trip: ", thisTrip);
         triprTripController.addTrip(thisTrip, ()=>{this.props.setParentState({screen: "list"})});
-
-
-        /*AsyncStorage.getItem("currentTrips").then((value) => {
-            this.props.setParentState({currentTrips: JSON.parse(value)});
-            console.log("We set the TripListView state!");
-        }).done();
-*/
 
     }
 
