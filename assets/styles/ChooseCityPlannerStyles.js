@@ -9,6 +9,17 @@ export default StyleSheet.create({
         paddingTop: 0,
         paddingBottom: 0
     },
+    infoTextContainer:{
+        marginTop:20,
+        marginHorizontal: 20,
+        alignItems: 'center'
+    },
+    infoText:{
+        textAlign: 'center',
+        fontSize: 16,
+        fontStyle: 'italic'
+
+    },
     logo: {
         height: Metrics.images.logo,
         width: Metrics.images.logo,
