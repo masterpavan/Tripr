@@ -24,13 +24,11 @@ export default class POIListView extends React.Component {
     }
 
     componentDidMount() {
-        let poiList = {};
         TriprStore.readCity('London', function(list) {
 
             this.setState({list: list.map( function(item) {
                 return {key: item.name};
             })});
-            console.log(list);
         }.bind(this));
         //poiList.forEach(function(e) {console.log("this element is",e)});
 
