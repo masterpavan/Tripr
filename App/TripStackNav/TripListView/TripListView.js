@@ -6,7 +6,7 @@ import { Button } from 'react-native-elements';
 import styles from '../../../assets/styles/ChooseCityPlannerStyles'
 import TripListComponent from "./TripListComponent";
 import AddTripComponent from "./AddTripComponent";
-import {GTC} from "../TripStackNavConfig";
+import {triprTripController} from "../TripStackNavConfig";
 
 
 
@@ -15,18 +15,16 @@ export default class TripListView extends React.Component {
 
     constructor(props) {
         super(props);
-        this.state = {currentTrips: {}, screen: "list"}
+        this.state = {screen: "list"}
         const { navigate } = this.props.navigation;
         this.navigate = navigate;
-        this.GTC = GTC;
-        GTC.changeData('INSIDE TRIPLISTVIEW');
+
     }
 
     componentDidMount() {
-        AsyncStorage.setItem("currentTrips", JSON.stringify({}));
-        console.log("the component mounted");
-
-    };
+        triprTripController.emptyTrips();
+        triprTripController.print();
+    }
 
     static navigationOptions = {
         title: 'Tripr'
@@ -60,7 +58,10 @@ export default class TripListView extends React.Component {
                         />
                     </View>
                     <ScrollView showsVerticalScrollIndicator={false} bounces={true} style={styles.container}>
-                        <TripListComponent setParentState={this.setTheState.bind(this)} navigate={this.navigate} list={this.state.currentTrips}/>
+                        <TripListComponent
+                            setParentState={this.setTheState.bind(this)}
+                            navigate={this.navigate}
+                            list={triprTripController.getAllTrips()}/>
                     </ScrollView>
                 </View>
             )
@@ -68,7 +69,9 @@ export default class TripListView extends React.Component {
         } else if(this.state.screen === "addTrip") {
 
             return (
-                <AddTripComponent setParentState={this.setTheState.bind(this)} navigate={this.navigate}/>
+                <AddTripComponent
+                    setParentState={this.setTheState.bind(this)}
+                    navigate={this.navigate}/>
             )
 
         }

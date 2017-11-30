@@ -7,7 +7,7 @@ import { Button } from 'react-native-elements';
 import styles from '../../../assets/styles/ChooseCityPlannerStyles'
 import AddCityComponent from "./AddCityComponent";
 import CityListComponent from "./CityListComponent";
-import {GTC} from "../TripStackNavConfig";
+import {GTC, triprTripController} from "../TripStackNavConfig";
 
 export default class TripDetailView extends React.Component {
 
@@ -17,29 +17,25 @@ export default class TripDetailView extends React.Component {
 
     constructor(props) {
         super(props);
-        this.state = {
-            screen: "list",
-            tripName: null,
-            currentTripID: this.props.navigation.state.params.currentTripID,
-            cityIDs: {}
-        }
+        this.currentTripID = this.props.navigation.state.params.currentTripID;
+
+        this.state = { screen: "list" }
+
         const { navigate } = this.props.navigation;
         this.navigate = navigate;
         this.navigationOptions = {
             title: this.state.tripName
         };
-        this.GTC = GTC;
-        GTC.changeData('INSIDE TRIPDETAILVIEW');
     }
 
-    componentDidMount() {
+    /*componentDidMount() {
         //also update the city IDs according to the trip we are on
         AsyncStorage.getItem("currentTrips").then((value) => {
             let thisTrip = JSON.parse(value)[this.state.currentTripID];
             this.setState({cityIDs: thisTrip.cityIDs, tripName: thisTrip.name})
 
         })
-    }
+    }*/
 
     setTheState(object) {
         this.setState(object);
@@ -68,7 +64,12 @@ export default class TripDetailView extends React.Component {
                         />
                     </View>
                     <ScrollView showsVerticalScrollIndicator={false} bounces={true} style={styles.container}>
-                        <CityListComponent currentTripID={this.state.currentTripID} setParentState={this.setTheState.bind(this)} navigate={this.navigate} list={this.state.cityIDs}/>
+                        <CityListComponent
+                            currentTripID={this.currentTripID}
+                            setParentState={this.setTheState.bind(this)}
+                            navigate={this.navigate}
+                            list={triprTripController.getTripObject(this.currentTripID).cityIDs}
+                        />
                     </ScrollView>
                 </View>
             )
@@ -76,7 +77,11 @@ export default class TripDetailView extends React.Component {
         } else if(this.state.screen === "addCity") {
 
             return (
-                <AddCityComponent currentTripID={this.state.currentTripID} setParentState={this.setTheState.bind(this)} navigate={this.navigate}/>
+                <AddCityComponent
+                    currentTripID={this.currentTripID}
+                    setParentState={this.setTheState.bind(this)}
+                    navigate={this.navigate}
+                />
             )
 
         }

@@ -1,6 +1,7 @@
 import React, {Component} from "react";
 import { View, AsyncStorage } from "react-native";
 import { Button, FormLabel, FormInput } from 'react-native-elements'
+import {triprTripController} from "../TripStackNavConfig";
 
 
 export default class AddTripComponent extends React.Component {
@@ -23,28 +24,34 @@ export default class AddTripComponent extends React.Component {
                 <FormLabel>Name Your Trip</FormLabel>
                 <FormInput onChangeText={(text) => this.setState({tripName:text})}/>
                 <Button buttonStyle={{backgroundColor:"#f58d4e"}} title="Add Trip" onPress={()=>{this.submit()}}/>
+                <Button buttonStyle={{backgroundColor:"#d7833e", marginTop:20}}
+                        title="Cancel" onPress={()=>{this.props.setParentState({screen: "list"})}}/>
             </View>
         )
     }
 
     submit() {
-        let thisTrip = {};
+        /*let thisTrip = {};
         let id = Math.random();
         thisTrip[id] = {
             id: id,
             name: "Trip to "+this.state.tripName,
+            dateRange: [],
             cityIDs: {},
             //other trip details
-        };
+        };*/
+        /*AsyncStorage.mergeItem("currentTrips", JSON.stringify(thisTrip)).done();
+*/
+        let thisTrip = triprTripController.createNewTripObject(this.state.tripName, '11/29/2017', '12/25/2017', {});
+        console.log("created trip: ", thisTrip);
+        triprTripController.addTrip(thisTrip, ()=>{this.props.setParentState({screen: "list"})});
 
-        AsyncStorage.mergeItem("currentTrips", JSON.stringify(thisTrip)).done();
 
-        AsyncStorage.getItem("currentTrips").then((value) => {
+        /*AsyncStorage.getItem("currentTrips").then((value) => {
             this.props.setParentState({currentTrips: JSON.parse(value)});
             console.log("We set the TripListView state!");
         }).done();
-
-        this.props.setParentState({screen: "list"})
+*/
 
     }
 

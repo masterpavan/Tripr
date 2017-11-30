@@ -1,6 +1,7 @@
 import React, {Component} from "react";
 import {View, AsyncStorage, Picker} from "react-native";
 import { Button, FormLabel, FormInput } from 'react-native-elements'
+import {triprTripController} from "../TripStackNavConfig";
 
 
 export default class AddCityComponent extends React.Component {
@@ -41,7 +42,10 @@ export default class AddCityComponent extends React.Component {
 
     submit() {
 
-        AsyncStorage.getItem("currentTrips").then((value) => {
+        triprTripController.addCityToTrip(this.props.currentTripID, this.state.cityID, this.state.cityName, ()=>{
+            this.props.setParentState({screen: "list"})
+        })
+       /* AsyncStorage.getItem("currentTrips").then((value) => {
             //get the current trip
             let currentTrip = JSON.parse(value);
             let thisTrip = currentTrip[this.props.currentTripID];
@@ -53,9 +57,9 @@ export default class AddCityComponent extends React.Component {
             AsyncStorage.setItem("currentTrips", JSON.stringify(currentTrip));
             this.props.setParentState({cityIDs: thisTrip.cityIDs});
 
-        }).done();
+        }).done();*/
 
-        this.props.setParentState({screen: "list"})
+
     }
 
 }
