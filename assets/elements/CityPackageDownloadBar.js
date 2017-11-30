@@ -27,6 +27,11 @@ const styles = StyleSheet.create({
         position: 'absolute',
         right:-55,
         top: -15
+    },
+    loadingCircle: {
+        position: 'absolute',
+        right: -15,
+        top:-10
     }
 });
 
@@ -38,9 +43,7 @@ class CityPackageDownloadBar extends React.PureComponent {
     }
 
     componentDidMount() {
-        MapboxGL.offlineManager.getPack(this.props.cityName).then((pack) => {
-            this.setState({isLoading: false, pack:pack});
-        });
+        this.fixAsync();
     }
 
     fixAsync() {
@@ -142,7 +145,17 @@ class CityPackageDownloadBar extends React.PureComponent {
             }
         }
         else {
-            return (<Text style={styles.percentageText}> Loading... </Text>);
+            return (
+                <View style={{flex:1}}>
+                    <Progress.CircleSnail
+                    style={styles.loadingCircle}
+                    color={[
+                        '#F44336',
+                        '#2196F3',
+                        '#009688',
+                    ]}/>
+                </View>
+            );
         }
     }
 
