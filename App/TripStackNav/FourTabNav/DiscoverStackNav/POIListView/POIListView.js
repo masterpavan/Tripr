@@ -1,12 +1,39 @@
 
 import React, {Component} from "react";
-import {FlatList, Text, TouchableOpacity, View} from 'react-native';
+import {FlatList, Image, Text, TouchableOpacity, View} from 'react-native';
 import { SearchBar } from 'react-native-elements'
+import TriprStore from "../../../../../assets/services/TriprStore";
 
 export default class POIListView extends React.Component {
     static navigationOptions = {
-        title: 'POI'
+        title: 'POI',
+        tabBarIcon: <Image source={require('../../../../../assets/images/discover_icon.png')}
+                           style={{
+                               height: 20,
+                               width: 20,
+                               resizeMode: 'center'
+                           }} />
     };
+
+    constructor(props) {
+        super(props);
+        this.state = {
+            list: [{key: 'a'}, {key: 'b'}, {key: 'c'}, {key: 'd'}, {key: 'e'}, {key: 'f'}]
+        }
+
+    }
+
+    componentDidMount() {
+        TriprStore.readCity('London', function(list) {
+
+            this.setState({list: list.map( function(item) {
+                return {key: item.name};
+            })});
+        }.bind(this));
+        //poiList.forEach(function(e) {console.log("this element is",e)});
+
+    };
+
     render() {
         return (
             <View>
@@ -17,7 +44,10 @@ export default class POIListView extends React.Component {
                     containerStyle={{backgroundColor:'transparent',borderTopColor:'transparent',borderBottomColor:'transparent',marginHorizontal:10,marginVertical:10}}
                     placeholder='Type Here...' />
                 <FlatList
-                    data={[{key: 'a'}, {key: 'b'}, {key: 'c'}, {key: 'd'}, {key: 'e'}, {key: 'f'}]}
+                    data=
+                        {
+                            this.state.list
+                        }
                     renderItem={({item}) =>
                      <TouchableOpacity onPress={() => this.props.navigation.navigate('POIDetailView')}>
                          <View style={{

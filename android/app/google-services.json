@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "23212783478",
+    "firebase_url": "https://tripr-8ad02.firebaseio.com",
+    "project_id": "tripr-8ad02",
+    "storage_bucket": "tripr-8ad02.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:23212783478:android:a0b4895d1eb23feb",
+        "android_client_info": {
+          "package_name": "com.simplenavtest"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "23212783478-8qna5351msmhbisp5odv5l3rkglkpkin.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBuqVh8w8svMkjTqg8Q-qFkd9igN1TxmeI"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

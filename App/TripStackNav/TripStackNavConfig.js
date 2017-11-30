@@ -5,6 +5,7 @@ import TripListView from "./TripListView/TripListView";
 import TripDetailView from "./TripDetailView/TripDetailView";
 import {FourTabNav} from "./FourTabNav/FourTabNavConfig";
 import FourTabNavView from "./FourTabNav/FourTabNavView";
+import TripController from "./TripController";
 
 const routeConfig = {
     TripListView: {screen: TripListView},
@@ -24,3 +25,6 @@ const stackNavConfig = {
 };
 
 export const TripStackNav = StackNavigator(routeConfig, stackNavConfig);
+
+let triprTripController = new TripController();
+export {triprTripController};

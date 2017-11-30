@@ -3,6 +3,8 @@ package com.simplenavtest;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import io.invertase.firebase.RNFirebasePackage;
+import io.invertase.firebase.database.RNFirebaseDatabasePackage; // <-- Add this line
 import com.oblador.vectoricons.VectorIconsPackage;
 import com.mapbox.rctmgl.RCTMGLPackage;
 import com.facebook.react.ReactNativeHost;
@@ -24,9 +26,11 @@ public class MainApplication extends Application implements ReactApplication {
     @Override
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
-          new MainReactPackage(),
-            new VectorIconsPackage(),
-            new RCTMGLPackage()
+              new MainReactPackage(),
+              new RNFirebasePackage(),
+              new VectorIconsPackage(),
+              new RCTMGLPackage(),
+              new RNFirebaseDatabasePackage() // <-- Add this line
       );
     }
 
