@@ -36,7 +36,7 @@ export default class TriprStore {
                 arr.push(item);
             });
 
-            console.log(arr);
+            //console.log(arr);
             let oldState = [];
             for (var i = 0; i < arr.length; i++) {
                 oldState[i] = {name: arr[i].name}

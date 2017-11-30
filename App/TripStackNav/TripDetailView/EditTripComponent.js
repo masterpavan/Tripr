@@ -3,7 +3,7 @@ import {View, AsyncStorage, Picker} from "react-native";
 import { Button, FormLabel, FormInput } from 'react-native-elements'
 
 
-export default class AddCityComponent extends React.Component {
+export default class EditTripComponent extends React.Component {
 
 
     constructor(props) {
@@ -14,7 +14,6 @@ export default class AddCityComponent extends React.Component {
             cityName: "London"
             //tripDates, Icon, Other form inputs
         };
-
     }
 
     render() {

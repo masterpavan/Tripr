@@ -7,6 +7,7 @@ import { Button } from 'react-native-elements';
 import styles from '../../../assets/styles/ChooseCityPlannerStyles'
 import AddCityComponent from "./AddCityComponent";
 import CityListComponent from "./CityListComponent";
+import {GTC} from "../TripStackNavConfig";
 
 export default class TripDetailView extends React.Component {
 
@@ -27,12 +28,14 @@ export default class TripDetailView extends React.Component {
         this.navigationOptions = {
             title: this.state.tripName
         };
+        this.GTC = GTC;
+        GTC.changeData('INSIDE TRIPDETAILVIEW');
     }
 
     componentDidMount() {
         //also update the city IDs according to the trip we are on
         AsyncStorage.getItem("currentTrips").then((value) => {
-            let thisTrip =JSON.parse(value)[this.state.currentTripID];
+            let thisTrip = JSON.parse(value)[this.state.currentTripID];
             this.setState({cityIDs: thisTrip.cityIDs, tripName: thisTrip.name})
 
         })

@@ -37,6 +37,14 @@ export default class TripListComponent extends React.Component {
                     </View>
                 )
             })
+        } else {
+            return (
+                <View style={styles.infoTextContainer}>
+                    <Text style={styles.infoText}>You currently don't have any trips!</Text>
+                    <Text style={styles.infoText}>Click on the plus button above to create a new Trip.</Text>
+                </View>
+
+            )
         }
     }
 

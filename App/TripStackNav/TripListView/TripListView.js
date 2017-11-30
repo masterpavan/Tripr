@@ -6,6 +6,9 @@ import { Button } from 'react-native-elements';
 import styles from '../../../assets/styles/ChooseCityPlannerStyles'
 import TripListComponent from "./TripListComponent";
 import AddTripComponent from "./AddTripComponent";
+import {GTC} from "../TripStackNavConfig";
+
+
 
 export default class TripListView extends React.Component {
 
@@ -15,15 +18,18 @@ export default class TripListView extends React.Component {
         this.state = {currentTrips: {}, screen: "list"}
         const { navigate } = this.props.navigation;
         this.navigate = navigate;
+        this.GTC = GTC;
+        GTC.changeData('INSIDE TRIPLISTVIEW');
     }
 
     componentDidMount() {
         AsyncStorage.setItem("currentTrips", JSON.stringify({}));
         console.log("the component mounted");
+
     };
 
     static navigationOptions = {
-        title: 'TripList'
+        title: 'Tripr'
     };
 
     setTheState(object) {
