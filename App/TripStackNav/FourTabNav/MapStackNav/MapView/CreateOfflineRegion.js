@@ -21,6 +21,12 @@ export default class CreateOfflineRegion extends React.Component {
         MapboxGL.offlineManager.unsubscribe(this.props.cityName, this.onDownloadProgress);
     }
 
+    deletePack () {
+        MapboxGL.offlineManager.deletePack(this.props.cityName).then((placeholder) => {
+            this.props.setParentState({percentage: 0, pack:null, isLoading:false})});
+        MapboxGL.offlineManager.unsubscribe(this.props.cityName, this.onDownloadProgress);
+    }
+
 
     async createPack (packName, long, lat) {
         this.setState({name:packName, percentage:0, offlineRegion:null});
@@ -53,11 +59,8 @@ export default class CreateOfflineRegion extends React.Component {
             offlineRegion: offlineRegion,
         });
 
-        if(downloadStatus.percentage < 100) {
+        if(downloadStatus.percentage <= 100) {
             this.props.setParentState({percentage: downloadStatus.percentage});
-        }
-        else {
-            this.props.setParentState({percentage: 0});
         }
     }
 
