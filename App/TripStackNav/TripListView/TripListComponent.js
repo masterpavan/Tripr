@@ -12,38 +12,36 @@ export default class TripListComponent extends React.Component {
     }
 
     navToTripDetailView(tripID) {
-        //on navigate, update the current trip ID for use later in the app.
-        let screenState = {
-            currentTripID: tripID,
-            currentCityID: null, currentPOICategory: null, currentPOIID: null};
-        AsyncStorage.setItem("screenState", JSON.stringify(screenState));
-
-        //then actually navigate
         this.props.navigate('TripDetailView', {currentTripID: tripID, name: this.props.list[tripID].name})
     }
 
     generateButtons() {
         if(Object.keys(this.props.list).length !== 0) {
-            return Object.keys(this.props.list).reverse().map((element) => {
+            return Object.keys(this.props.list).reverse().map((tripID) => {
                 return (
-                    <View style={styles.buttonsContainer} key={this.props.list[element].name}>
+                    <View style={styles.buttonsContainer} key={this.props.list[tripID]}>
                         <ButtonRectangle
-                            onPress={() => this.navToTripDetailView(element)}
+                            onPress={() => this.navToTripDetailView(tripID)}
                             style={styles.componentButton}
                             image={require('../../../assets/images/icon_food.png')}
                             /*text={this.state.currentTrips[element].name}*/
-                            text = {this.props.list[element].name}
+                            text = {this.props.list[tripID].name}
                         />
                     </View>
                 )
             })
+        } else {
+            return (
+                <View style={styles.infoTextContainer}>
+                    <Text style={styles.infoText}>You currently don't have any trips!</Text>
+                    <Text style={styles.infoText}>Click on the plus button above to create a new Trip.</Text>
+                </View>
+
+            )
         }
     }
 
-
-
     render() {
-
         return (
             <View>
                 {this.generateButtons()}
