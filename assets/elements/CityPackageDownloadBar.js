@@ -5,6 +5,7 @@ import * as Progress from 'react-native-progress';
 import Bubble from "./Bubble";
 import CreateOfflineRegion from "../../App/TripStackNav/FourTabNav/MapStackNav/MapView/CreateOfflineRegion.js";
 import MapboxGL from '@mapbox/react-native-mapbox-gl';
+import TriprStore from "../../assets/services/TriprStore";
 
 const styles = StyleSheet.create({
     percentageText: {
@@ -39,22 +40,14 @@ class CityPackageDownloadBar extends React.PureComponent {
 
     constructor(props) {
         super(props);
-        this.state = {percentage:0, isLoading:true, pack: null, _mounted:true};
+        this.state = {percentage:0, isLoading:true, pack: null};
     }
 
     componentDidMount() {
-        this.setState({_mounted:true});
         this.fixAsync();
-    }
-
-    componentWillUnmount() {
-        this.setState({_mounted:false});
-    }
-
-    resetStates() {
-        if(this.state._mounted) {
-            this.setState({isLoading: false, percentage: 0, pack: null});
-        }
+        TriprStore.getCityCoord(this.props.navigation.state.params.cityName, function(coordinates){
+            this.setState({latitude:coordinates[0], longitude:coordinates[1]});
+        }.bind(this));
     }
 
     fixAsync() {
@@ -80,7 +73,7 @@ class CityPackageDownloadBar extends React.PureComponent {
                         <TouchableOpacity
                             onPress={() =>
                                         {
-                                            this.refs.create.createPack(this.props.cityName, -122.2416, 37.7652);
+                                            this.refs.create.createPack(this.props.cityName, this.state.longitude, this.state.latitude);
                                         }
                                     }
                         >
@@ -145,7 +138,6 @@ class CityPackageDownloadBar extends React.PureComponent {
                                                 alert("Download Canceled!");
                                                 this.setState({isLoading:true});
                                                 this.refs.create.deletePack();
-                                                //this.fixAsync();
                                             }
                                 }
                             />
@@ -177,8 +169,7 @@ class CityPackageDownloadBar extends React.PureComponent {
                     ref = "create"
                     cityName = {this.props.cityName}
                     setParentState = {this.setTheState.bind(this)}
-                    resetParentStates = {this.resetStates.bind(this)}
-                    />
+                />
                 <View style = {{flex: 1}}>
                     {this.renderOptions()}
                 </View>

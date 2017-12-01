@@ -9,7 +9,10 @@ export default class FourTabNavView extends React.Component {
     render() {
         return (
             <View style={{flex: 1}}>
-                <CityPackageDownloadBar ref = "c" cityName = {this.props.navigation.state.params.cityName}/>
+                <CityPackageDownloadBar
+                    cityName = {this.props.navigation.state.params.cityName}
+                    navigation = {this.props.navigation}
+                />
                 <FourTabNav navigation={this.props.navigation}/>
             </View>
         )
