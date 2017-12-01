@@ -1,11 +1,12 @@
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
+import Metrics from "../styles/Themes/Metrics";
 
 const styles = StyleSheet.create({
     container: {
         borderRadius: 5,
-        minHeight: 40,
-        padding: 20,
+        minHeight: Metrics.screenHeight/15,
+        padding: 0,
         alignItems: 'center',
         justifyContent: 'center',
         backgroundColor: 'white'

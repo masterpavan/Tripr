@@ -35,11 +35,9 @@ export default StyleSheet.create({
         alignItems: 'center'
     },
     componentButton: {
-        borderColor: 'transparent',
-        borderTopWidth: 1,
-        borderRightWidth: 1,
-        borderBottomWidth: 1,
-        borderRadius: 10
+        marginRight: 0,
+        marginLeft: 4,
+        marginBottom: 4
     },
     apiButton: {
         borderColor: Colors.border,

@@ -34,7 +34,7 @@ export default class CityListComponent extends React.Component {
                             style={styles.componentButton}
                             image={require('../../../assets/images/icon_food.png')}
                             /*text={this.state.currentTrips[element].name}*/
-                            text = {this.props.list[element]}
+                            text = {this.props.list[element].toUpperCase()}
                         />
                     </View>
                 )
