@@ -14,8 +14,8 @@
     "react-native": "0.50.3",
     "react-native-calendars": "git+https://github.com/bjku/react-native-calendars.git",
     "react-native-elements": "^0.18.4",
-    "react-native-material-ui": "^1.14.0",
     "react-native-firebase": "^3.1.1",
+    "react-native-material-ui": "^1.14.0",
     "react-native-progress": "^3.4.0",
     "react-native-vector-icons": "^4.4.2",
     "react-navigation": "^1.0.0-beta.21"

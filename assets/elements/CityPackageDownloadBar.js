@@ -43,7 +43,18 @@ class CityPackageDownloadBar extends React.PureComponent {
     }
 
     componentDidMount() {
+        this.setState({mounted:true});
         this.fixAsync();
+    }
+
+    componentWillUnmount() {
+        this.setState({mounted:false});
+    }
+
+    resetStates() {
+        if(this.state.mounted) {
+            this.setState({isLoading: false, percentage:0, pack:null});
+        }
     }
 
     fixAsync() {
@@ -166,6 +177,7 @@ class CityPackageDownloadBar extends React.PureComponent {
                     ref = "create"
                     cityName = {this.props.cityName}
                     setParentState = {this.setTheState.bind(this)}
+                    resetParentStates = {this.resetStates.bind(this)}
                     />
                 <View style = {{flex: 1}}>
                     {this.renderOptions()}

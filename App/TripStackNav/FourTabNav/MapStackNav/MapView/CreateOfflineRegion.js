@@ -10,7 +10,7 @@ export default class CreateOfflineRegion extends React.Component {
     constructor (props) {
         super(props);
 
-        this.state = {name:null, percentage: 0, offlineRegion:null};
+        this.state = {name:null, percentage: 0, offlineRegion:null, mounted:true};
         this.onDownloadProgress = this.onDownloadProgress.bind(this);
         MapboxGL.offlineManager.subscribe(this.props.cityName, this.onDownloadProgress);
 
@@ -18,12 +18,14 @@ export default class CreateOfflineRegion extends React.Component {
     }
 
     componentWillUnmount () {
+        this.setState({mounted:false});
         MapboxGL.offlineManager.unsubscribe(this.props.cityName, this.onDownloadProgress);
+
     }
 
     deletePack () {
-        MapboxGL.offlineManager.deletePack(this.props.cityName).then((placeholder) => {
-            this.props.setParentState({percentage: 0, pack:null, isLoading:false})});
+        MapboxGL.offlineManager.deletePack(this.props.cityName).then((placeholder) =>
+        {this.props.resetParentStates});
         MapboxGL.offlineManager.unsubscribe(this.props.cityName, this.onDownloadProgress);
     }
 
