@@ -5,28 +5,34 @@ import * as Progress from 'react-native-progress';
 import Bubble from "./Bubble";
 import CreateOfflineRegion from "../../App/TripStackNav/FourTabNav/MapStackNav/MapView/CreateOfflineRegion.js";
 import MapboxGL from '@mapbox/react-native-mapbox-gl';
+import Metrics from "../styles/Themes/Metrics";
 
 const styles = StyleSheet.create({
     percentageText: {
         padding: 1,
         textAlign: 'center',
+        fontFamily: 'League Gothic'
     },
     infoText: {
         padding: 1,
         textAlign: 'center'
     },
     topMargin: {
+        //backgroundColor:"#0000ff"
     },
     downloadButtons: {
+        paddingTop:10,
+        width:Metrics.screenWidth,
         flex: 1,
         flexDirection: 'row',
-        justifyContent: 'center'
+        justifyContent: 'center',
+        //backgroundColor: "#ff0000"
     },
     cancelIcon: {
-        backgroundColor:'#f44336',
+        backgroundColor:'#6d6d6d',
         position: 'absolute',
-        right:-55,
-        top: -15
+        right:"2%",
+        top:2
     },
     loadingCircle: {
         position: 'absolute',
@@ -86,27 +92,28 @@ class CityPackageDownloadBar extends React.PureComponent {
                     <View style = {styles.downloadButtons}>
                         <View style={styles.topMargin}>
                             <Progress.Bar
-                                width={300}
+                                width={Metrics.screenWidth * 0.7}
                                 color={"#00C853"}
                                 progress={100}
                             />
                             <Text style={styles.percentageText}>
                                 You can now view this area offline
                             </Text>
-                            <Icon
-                                containerStyle = {styles.cancelIcon}
-                                raised
-                                size={18}
-                                name= 'close'
-                                type='font-awesome'
-                                color='#fff'
-                                onPress={() =>
-                                            {
-                                                Alert.alert( 'Delete Pack', `Are you sure you want to delete this pack? You will have to re-download if you do.`, [{text: 'Cancel', style: 'cancel'}, {text: 'OK', onPress: () => this.confirmDelete()}, ], { cancelable: false } )
-                                            }
-                                        }
-                            />
+
                         </View>
+                        <Icon
+                            containerStyle = {styles.cancelIcon}
+                            raised
+                            size={12}
+                            name= 'close'
+                            type='font-awesome'
+                            color='#fff'
+                            onPress={() =>
+                            {
+                                Alert.alert( 'Delete Pack', `Are you sure you want to delete this pack? You will have to re-download if you do.`, [{text: 'Cancel', style: 'cancel'}, {text: 'OK', onPress: () => this.confirmDelete()}, ], { cancelable: false } )
+                            }
+                            }
+                        />
 
                     </View>
                 );
@@ -116,29 +123,30 @@ class CityPackageDownloadBar extends React.PureComponent {
                     <View style = {styles.downloadButtons}>
                         <View style={styles.topMargin}>
                             <Progress.Bar
-                                width={300}
+                                width={Metrics.screenWidth * 0.7}
                                 progress={this.state.percentage / 100}
                             />
                             <Text style={styles.percentageText}>
                                 Downloading {this.props.cityName} Package
                             </Text>
-                            <Icon
-                                containerStyle = {styles.cancelIcon}
-                                raised
-                                size={18}
-                                name= 'close'
-                                type='font-awesome'
-                                color='#fff'
-                                onPress={() =>
-                                            {
-                                                alert("Download Canceled!");
-                                                this.setState({isLoading:true});
-                                                this.refs.create.deletePack();
-                                                //this.fixAsync();
-                                            }
-                                }
-                            />
+
                         </View>
+                        <Icon
+                            containerStyle = {styles.cancelIcon}
+                            raised
+                            size={12}
+                            name= 'close'
+                            type='font-awesome'
+                            color='#fff'
+                            onPress={() =>
+                            {
+                                alert("Download Canceled!");
+                                this.setState({isLoading:true});
+                                this.refs.create.deletePack();
+                                //this.fixAsync();
+                            }
+                            }
+                        />
 
                     </View>
                 )

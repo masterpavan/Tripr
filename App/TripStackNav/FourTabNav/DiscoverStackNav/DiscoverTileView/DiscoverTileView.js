@@ -10,10 +10,11 @@ export default class DiscoverTileView extends React.Component {
         title: `Discover ${navigation.state.params.cityName}`,
         tabBarIcon: <Image source={require('../../../../../assets/images/discover_icon.png')}
                            style={{
-                               height: 20,
-                               width: 20,
-                               resizeMode: 'center'
-                           }} />
+                               height: 30,
+                               width: 30,
+                               resizeMode: 'contain'
+                           }} />,
+        tabBarLabel: "Experience"
     });
 
     constructor(props) {
@@ -27,7 +28,7 @@ export default class DiscoverTileView extends React.Component {
                 <SearchBar
                     lightTheme
                     inputStyle={{
-                        backgroundColor:"#cdcdcd"}}
+                        backgroundColor:"#ffffff"}}
                     containerStyle={{backgroundColor:'transparent',borderTopColor:'transparent',borderBottomColor:'transparent',marginHorizontal:10,marginVertical:10}}
                     placeholder='Type Here...' />
                 <View>
@@ -35,26 +36,26 @@ export default class DiscoverTileView extends React.Component {
                         <ButtonSquare
                             style={styles.componentButton}
                             onPress={() => this.props.navigation.navigate('POIListView')}
-                            image = {require('../../../../../assets/images/restaurants_icon.png')}
-                            text = {'Restaurants'}
+                            image = {require('../../../../../assets/images/eatSquare.png')}
+                            //text = {'Eat'}
                         />
                         <ButtonSquare
                             style={styles.componentButton}
                             onPress={() => this.props.navigation.navigate('POIListView')}
-                            image = {require('../../../../../assets/images/bar_icon.png')}
-                            text = {'Bars'}
+                            image = {require('../../../../../assets/images/drinkSquare.png')}
+                            //text = {'Drink'}
                         />
                         <ButtonSquare
                             style={styles.componentButton}
                             onPress={() => this.props.navigation.navigate('POIListView')}
-                            image = {require('../../../../../assets/images/discover_icon.png')}
-                            text = {'Sightseeing'}
+                            image = {require('../../../../../assets/images/seeSquare.png')}
+                            //text = {'See'}
                         />
                         <ButtonSquare
                             style={styles.componentButton}
                             onPress={() => this.props.navigation.navigate('POIListView')}
-                            image = {require('../../../../../assets/images/discover_icon.png')}
-                            text = {'Landmarks'}
+                            image = {require('../../../../../assets/images/shopSquare.png')}
+                            //text = {'Shop'}
                         />
                     </View>
                 </View>
