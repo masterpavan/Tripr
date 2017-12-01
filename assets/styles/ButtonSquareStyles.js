@@ -21,10 +21,11 @@ export default StyleSheet.create({
   },
   label: {
       fontFamily: 'leaguegothic',
-      fontSize: 25,
+      fontSize: 40,
       color: '#eeeeee',
       //fontWeight: 'bold',
       textAlign: 'center',
+      position:'absolute'
 
   }
 })
