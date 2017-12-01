@@ -25,7 +25,7 @@ export default class TripListComponent extends React.Component {
                             style={styles.componentButton}
                             image={require('../../../assets/images/icon_food.png')}
                             /*text={this.state.currentTrips[element].name}*/
-                            text = {this.props.list[tripID].name}
+                            text = {this.props.list[tripID].name.toUpperCase()}
                         />
                     </View>
                 )

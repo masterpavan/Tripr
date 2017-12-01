@@ -8,8 +8,8 @@ export default class ToolTileView extends React.Component {
 
         tabBarIcon: <Image source={require('../../../../../assets/images/tools_icon.png')}
                            style={{
-                               height: 25,
-                               width: 25,
+                               height: 30,
+                               width: 30,
                                resizeMode: 'contain'
                            }} />
 

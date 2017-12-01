@@ -12,14 +12,15 @@ import {Calendar} from 'react-native-calendars'
 
 export default class MultiDayView extends React.Component {
     static navigationOptions = ({ navigation, screenProps }) => ({
-        title: `Planner for ${navigation.state.params.cityName}`,
+        //title: `Planner for ${navigation.state.params.cityName}`,
 
         tabBarIcon: <Image source={require('../../../../../assets/images/calendar_icon.png')}
                            style={{
-                               height: 20,
-                               width: 20,
+                               height: 30,
+                               width: 30,
                                resizeMode: 'contain'
-                           }} />
+                           }} />,
+        tabBarLabel: "Planner"
 
     });
 
