@@ -46,7 +46,11 @@ export default class MultiDayView extends React.Component {
     }
 
     onDayPress = (day) => {
-      this.props.navigation.navigate('SingleDayView', {day: day.dateString});
+      this.props.navigation.navigate('SingleDayView', {
+          day: day.dateString,
+          currentTripID: this.props.navigation.state.params.currentTripID,
+          cityName: this.props.navigation.state.params.cityName
+      });
     };
 }
 

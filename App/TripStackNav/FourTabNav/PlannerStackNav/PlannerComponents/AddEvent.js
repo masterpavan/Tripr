@@ -1,15 +1,16 @@
 import React, {Componenent} from 'react';
 import {Image, Text, TouchableOpacity, View, TextInput, StyleSheet, Dimensions} from 'react-native';
 import { Button, FormLabel, FormInput } from 'react-native-elements'
+import {eventController} from "../PlannerStackNavConfig";
 
 
 export default class AddEvent extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			eventName: "",
-			startTime: "",
-			endTime: "",
+			name: "",
+			start: "",
+			end: "",
 			address: ""
 		};
 	}
@@ -19,15 +20,15 @@ export default class AddEvent extends React.Component {
 		return (
 			<View>
                 <FormLabel>Event Name:</FormLabel>
-                <FormInput onChangeText={(text) => this.setState({eventName:text})}/>
+                <FormInput onChangeText={(text) => this.setState({name:text})}/>
                 <View style={{flexDirection: 'row'}}>
                 	<View>
 	                	<FormLabel containerStyle= {styles.dateLabel}>Start Time:</FormLabel>
-	                	<FormInput containerStyle= {styles.dateInput} onChangeText={(text) => this.setState({startTime:text})}/>
+	                	<FormInput containerStyle= {styles.dateInput} onChangeText={(text) => this.setState({start:text})}/>
 	                </View>
 	                <View>
                 		<FormLabel containerStyle= {styles.dateLabel}>End Time:</FormLabel>
-                		<FormInput containerStyle= {styles.dateInput} onChangeText={(text) => this.setState({endTime:text})} />                
+                		<FormInput containerStyle= {styles.dateInput} onChangeText={(text) => this.setState({end:text})} />
                 	</View>
                 </View>    
                 <FormLabel>Address:</FormLabel>
@@ -37,15 +38,15 @@ export default class AddEvent extends React.Component {
 		);
 	}
 
-	submit() {
-        let event = {
-        	eventName: this.state.eventName,
-        	startTime: this.state.startTime,
-        	endTime: this.state.endTime,
-        	address: this.state.address
-        }
-        //this.props.navigation.state.params.addEvent(this.state.eventName, this.state.startTime, this.state.endTime, 50)
-        //this.props.navigation.state.params.refresh();
+	async submit() {
+        await eventController.addEvent(this.props.navigation.state.params.currentTripID,
+            this.props.navigation.state.params.cityName,
+            this.props.navigation.state.params.day,
+            this.state.name,
+            this.state.start,
+            this.state.end,
+            this.state.address);
+        this.props.navigation.state.params.refresh();
         this.props.navigation.goBack();
 	}
 }

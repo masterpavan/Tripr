@@ -2,7 +2,7 @@
 import {TabNavigator} from "react-navigation";
 
 import {DiscoverStackNav} from "./DiscoverStackNav/DiscoverStackNavConfig";
-import {PlannerStackNav} from "./PlannerStackNav/PlannerStackNav";
+import {PlannerStackNav} from "./PlannerStackNav/PlannerStackNavConfig";
 import MapView from "./MapStackNav/MapView/MapView";
 import ToolTileView from "./ToolStackNav/ToolTileView/ToolTileView";
 
