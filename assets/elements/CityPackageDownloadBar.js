@@ -39,21 +39,21 @@ class CityPackageDownloadBar extends React.PureComponent {
 
     constructor(props) {
         super(props);
-        this.state = {percentage:0, isLoading:true, pack: null};
+        this.state = {percentage:0, isLoading:true, pack: null, _mounted:true};
     }
 
     componentDidMount() {
-        this.setState({mounted:true});
+        this.setState({_mounted:true});
         this.fixAsync();
     }
 
     componentWillUnmount() {
-        this.setState({mounted:false});
+        this.setState({_mounted:false});
     }
 
     resetStates() {
-        if(this.state.mounted) {
-            this.setState({isLoading: false, percentage:0, pack:null});
+        if(this.state._mounted) {
+            this.setState({isLoading: false, percentage: 0, pack: null});
         }
     }
 

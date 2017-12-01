@@ -64,13 +64,6 @@ export default class MapView extends React.Component {
         )
     }
 
-
-
-
-
-
-
-
     componentDidMount() {
         TriprStore.getCityCoord(this.props.navigation.state.params.cityName, function(coordinates){
             this.setState({latitude:coordinates[0], longitude:coordinates[1]});

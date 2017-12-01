@@ -25,7 +25,7 @@ export default class CreateOfflineRegion extends React.Component {
 
     deletePack () {
         MapboxGL.offlineManager.deletePack(this.props.cityName).then((placeholder) =>
-        {this.props.resetParentStates});
+        {this.props.resetParentStates()});
         MapboxGL.offlineManager.unsubscribe(this.props.cityName, this.onDownloadProgress);
     }
 
