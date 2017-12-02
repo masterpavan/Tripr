@@ -39,7 +39,7 @@ export default class CreateOfflineRegion extends React.Component {
             name: packName,
             styleURL: MapboxGL.StyleURL.Street,
             bounds: [[bounds[0], bounds[1]], [bounds[2], bounds[3]]],
-            minZoom: 0,
+            minZoom: 10,
             maxZoom: 22
         };
 

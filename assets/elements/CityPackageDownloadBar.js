@@ -32,7 +32,7 @@ const styles = StyleSheet.create({
     cancelIcon: {
         backgroundColor:'#6d6d6d',
         position: 'absolute',
-        right:"2%",
+        right:"4%",
         bottom:5
     },
     loadingCircle: {
