@@ -14,7 +14,18 @@ export default class DiscoverTileView extends React.Component {
                                width: 30,
                                resizeMode: 'contain'
                            }} />,
-        tabBarLabel: "Experience"
+        tabBarLabel: "Experience",
+        headerTitle: `Experience ${navigation.state.params.cityName}`.toUpperCase(),
+        headerStyle: {
+        },
+        headerTitleStyle: {
+            color:'#494949',
+            alignSelf:'center',
+            fontFamily: 'LeagueSpartan',
+            fontSize:20,
+            fontWeight:'200'
+        },
+        headerRight:(<View></View>)
     });
 
     constructor(props) {
@@ -35,25 +46,25 @@ export default class DiscoverTileView extends React.Component {
                     <View style={styles.buttonsContainer}>
                         <ButtonSquare
                             style={styles.componentButton}
-                            onPress={() => this.props.navigation.navigate('POIListView')}
+                            onPress={() => this.props.navigation.navigate('POIListView', {cityName: this.props.navigation.state.params.cityName})}
                             image = {require('../../../../../assets/images/eatSquare.png')}
                             //text = {'Eat'}
                         />
                         <ButtonSquare
                             style={styles.componentButton}
-                            onPress={() => this.props.navigation.navigate('POIListView')}
+                            onPress={() => this.props.navigation.navigate('POIListView', {cityName: this.props.navigation.state.params.cityName})}
                             image = {require('../../../../../assets/images/drinkSquare.png')}
                             //text = {'Drink'}
                         />
                         <ButtonSquare
                             style={styles.componentButton}
-                            onPress={() => this.props.navigation.navigate('POIListView')}
+                            onPress={() => this.props.navigation.navigate('POIListView', {cityName: this.props.navigation.state.params.cityName})}
                             image = {require('../../../../../assets/images/seeSquare.png')}
                             //text = {'See'}
                         />
                         <ButtonSquare
                             style={styles.componentButton}
-                            onPress={() => this.props.navigation.navigate('POIListView')}
+                            onPress={() => this.props.navigation.navigate('POIListView', {cityName: this.props.navigation.state.params.cityName})}
                             image = {require('../../../../../assets/images/shopSquare.png')}
                             //text = {'Shop'}
                         />

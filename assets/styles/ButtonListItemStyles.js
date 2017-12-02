@@ -4,11 +4,11 @@ import { Metrics } from './Themes/index'
 export default StyleSheet.create({
   container: {
     width: Metrics.screenWidth - 8,
-    aspectRatio: 2,
+    height: Metrics.screenHeight/15,
       //height: Metrics.screenWidth/2,
     justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#f58d4e',
+    alignItems: 'flex-start',
+    backgroundColor: '#61aa75',
     marginLeft: 10,
     marginBottom: 15
   },
@@ -21,16 +21,16 @@ export default StyleSheet.create({
 
     },
     overlayText:{
-        position:'absolute'
-
+        position:'absolute',
+        marginLeft:15
     },
   label: {
-    fontFamily: 'leaguegothic',
-    fontSize: 60,
+    fontFamily: 'LeagueSpartan',
+    fontSize: 20,
     color: '#eeeeee',
       textShadowColor:'#222222',
-      textShadowRadius: 10,
-      textShadowOffset:{width:2,height:2}
+      textShadowRadius: 5,
+      textShadowOffset:{width:0,height:0}
     //fontWeight: 'bold'
   }
 })

@@ -40,7 +40,18 @@ export default class MapView extends React.Component {
                 width: 30,
                 resizeMode: 'contain'
             }} />,
-        tabBarLabel: "Map"
+        tabBarLabel: "Map",
+        headerTitle: `MAP`,
+        headerStyle: {
+        },
+        headerTitleStyle: {
+            color:'#494949',
+            alignSelf:'center',
+            fontFamily: 'LeagueSpartan',
+            fontSize:20,
+            fontWeight:'200'
+        },
+        headerRight:(<View></View>)
     });
 
     constructor(props) {

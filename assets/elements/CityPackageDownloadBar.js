@@ -22,7 +22,7 @@ const styles = StyleSheet.create({
         //backgroundColor:"#0000ff"
     },
     downloadButtons: {
-        paddingTop:10,
+        paddingTop:Metrics.screenHeight/45,
         width:Metrics.screenWidth,
         flex: 1,
         flexDirection: 'row',
@@ -33,12 +33,12 @@ const styles = StyleSheet.create({
         backgroundColor:'#6d6d6d',
         position: 'absolute',
         right:"2%",
-        top:2
+        bottom:5
     },
     loadingCircle: {
         position: 'absolute',
-        right: -15,
-        top:-10
+        right:-20,
+        top:5
     }
 });
 
@@ -114,7 +114,9 @@ class CityPackageDownloadBar extends React.PureComponent {
                             color='#fff'
                             onPress={() =>
                             {
-                                Alert.alert( 'Delete Pack', `Are you sure you want to delete this pack? You will have to re-download if you do.`, [{text: 'Cancel', style: 'cancel'}, {text: 'OK', onPress: () => this.confirmDelete()}, ], { cancelable: false } )
+                                Alert.alert( 'Delete Pack',
+                                    `Are you sure you want to delete this pack? You will have to re-download if you do.`,
+                                    [{text: 'Cancel', style: 'cancel'}, {text: 'OK', onPress: () => this.confirmDelete()}, ], { cancelable: false } )
                             }
                             }
                         />

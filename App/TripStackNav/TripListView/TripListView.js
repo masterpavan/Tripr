@@ -27,7 +27,17 @@ export default class TripListView extends React.Component {
     }
 
     static navigationOptions = {
-        title: 'Tripr'
+        title: 'Tripr',
+        headerTitle: 'TRIPR',
+        headerStyle: {
+        },
+        headerTitleStyle: {
+            color:'#494949',
+            alignSelf:'center',
+            fontFamily: 'LeagueSpartan',
+            fontSize:25,
+            fontWeight:'200'
+        }
     };
 
     setTheState(object) {
