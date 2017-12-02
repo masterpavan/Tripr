@@ -5,7 +5,6 @@ import MultiDayView from './PlannerComponents/MultiDay';
 import SingleDayView from './PlannerComponents/SingleDay';
 import AddEventView from './PlannerComponents/AddEvent';
 import EditEventView from './PlannerComponents/EditEvent';
-import EventController from './PlannerComponents/EventController';
 
 /*export default class PlannerView extends React.Component {
 	constructor(props) {
@@ -47,6 +46,3 @@ const stackNavConfig = {
 }
 
 export const PlannerStackNav = StackNavigator(routeConfig, stackNavConfig);
-
-let eventController = new EventController();
-export {eventController};

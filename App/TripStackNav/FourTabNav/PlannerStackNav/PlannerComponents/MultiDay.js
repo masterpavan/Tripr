@@ -6,7 +6,8 @@ import {
   StyleSheet,
   ScrollView,
   View, 
-  Button
+  Button,
+  Dimensions
 } from 'react-native';
 import {Calendar} from 'react-native-calendars'
 
@@ -31,8 +32,8 @@ export default class MultiDayView extends React.Component {
     }
 
     render() {
-        return (
-         <View style={{ flex: 1 }}>
+      return (
+        <View style={{ flex: 1 }}>
           <ScrollView style={styles.container}>
             <Calendar
               onDayPress={this.onDayPress}
@@ -41,38 +42,27 @@ export default class MultiDayView extends React.Component {
               markedDates={{[this.state.selected]: {selected: true}}}
             />
           </ScrollView>
-          <Button
-            buttonStyle={{
-              width:50,
-              height:50,
-              backgroundColor:'transparent',
-            }}
-            textStyle={{
-              fontSize:40,
-              color:'#15bdd9'
-            }}
-            title='Add Event'
-            onPress={() => {
-              //this.setState({screen: "addTrip"})
-              this.props.navigation.navigate('AddEventView');
-            }}                
-          />
-          </View>
-        );
+        </View>
+      );
     }
 
     onDayPress = (day) => {
-      this.props.navigation.navigate('SingleDayView', {day: day.dateString});
+      this.props.navigation.navigate('SingleDayView', {
+          day: day.dateString,
+          currentTripID: this.props.navigation.state.params.currentTripID,
+          cityName: this.props.navigation.state.params.cityName
+      });
     };
 }
 
 const styles = StyleSheet.create({
   calendar: {
+    flex: 1,
     borderTopWidth: 1,
     paddingTop: 5,
-    borderBottomWidth: 1,
+    height: Dimensions.get('window').height,
+    //borderBottomWidth: 1,
     borderColor: '#eee',
-    height: 550
   },
   text: {
     textAlign: 'center',
@@ -82,6 +72,6 @@ const styles = StyleSheet.create({
   },
   container: {
     flex: 1,
-    backgroundColor: 'gray'
+    backgroundColor: '#eee'
   }
 });
