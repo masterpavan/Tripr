@@ -20,7 +20,7 @@ export default class CityListComponent extends React.Component {
         AsyncStorage.setItem("screenState", JSON.stringify(screenState));
 
         //then actually navigate
-        this.props.navigate('FourTabNav', {currentTripID: this.props.currentTripID ,cityName: this.props.list[cityID]})
+        this.props.navigate('FourTabNav', {currentTripID: this.props.currentTripID, cityName: this.props.list[cityID]})
 
 
         //download stuff here
@@ -30,7 +30,7 @@ export default class CityListComponent extends React.Component {
         if(Object.keys(this.props.list).length !== 0) {
             return Object.keys(this.props.list).map((element,index) => {
                 return (
-                    <View style={{backgroundColor:'#00ff00'}} key={index}>
+                    <View style={{backgroundColor:'#00ff00',}} key={index}>
                         <ButtonSquare
                             onPress={() => this.navToFourTabView(element)}
                             style={styles.componentButton}

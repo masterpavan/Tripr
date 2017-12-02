@@ -1,8 +1,32 @@
 import React, {Component} from "react";
-import {View, AsyncStorage, Picker} from "react-native";
+import {View,StyleSheet, AsyncStorage, Picker} from "react-native";
 import { Button, FormLabel, FormInput } from 'react-native-elements'
 import {triprTripController} from "../TripStackNavConfig";
+import Metrics from "../../../assets/styles/Themes/Metrics";
 
+let styles = StyleSheet.create({
+    labelStyle:{fontFamily:'LeagueSpartan', fontWeight:'200',color:'#494949'},
+    labelContainerStyle:{marginBottom:5, alignSelf:'center'},
+    inputContainerStyle:{
+        width:Metrics.screenWidth-60,
+        alignItems:"flex-start",
+        marginLeft:30,
+        marginRight:30,
+        borderRadius:4,
+        backgroundColor:'#fff'},
+    inputStyle:{
+        color:'#494949',
+    },
+    dateContainer: {
+        width: (Metrics.screenWidth / 2) - 45,
+        height: 40,
+    },
+    dateInput:{
+        borderRadius:4,
+        borderColor:'#fff',
+        backgroundColor:'#fff'
+    }
+});
 
 export default class AddCityComponent extends React.Component {
 
@@ -22,8 +46,10 @@ export default class AddCityComponent extends React.Component {
 
         return (
             <View>
-                <FormLabel>Select a city from the dropdown</FormLabel>
+                <FormLabel containerStyle={styles.labelContainerStyle}
+                           labelStyle={styles.labelStyle}>SELECT A CITY TO ADD TO YOUR TRIP</FormLabel>
                 <Picker
+                    style={[styles.inputContainerStyle,{borderRadius:5}]}
                     selectedValue={this.state.cityName}
                     onValueChange={(itemValue, itemIndex) => {
                         console.log(itemValue,itemIndex);
@@ -52,9 +78,20 @@ export default class AddCityComponent extends React.Component {
                     <Picker.Item label="Sydney" value="Sydney" />
                     <Picker.Item label="Vancouver" value="Vancouver" />
                 </Picker>
-                <Button buttonStyle={{backgroundColor:"#f58d4e"}} title="Add City" onPress={()=>{this.submit()}}/>
-                <Button buttonStyle={{backgroundColor:"#d7833e", marginTop:20}}
+                <View style={{
+                    flexDirection: 'row',
+                    flex: 0,
+                    flexWrap: 'wrap',
+                    marginTop:40
+                }}>
+                    <Button
+                        containerViewStyle={{width: (Metrics.screenWidth/2)-15, marginLeft:10, marginRight:0 }}
+                        buttonStyle={{backgroundColor:"#f58d4e",marginLeft:0}} title="Add City" onPress={()=>{this.submit()}}/>
+                    <Button
+                        containerViewStyle={{width: (Metrics.screenWidth/2)-15, marginLeft:10, marginRight:0}}
+                        buttonStyle={{backgroundColor:"#494949"}}
                         title="Cancel" onPress={()=>{this.props.setParentState({screen: "list"})}}/>
+                </View>
 
             </View>
         )

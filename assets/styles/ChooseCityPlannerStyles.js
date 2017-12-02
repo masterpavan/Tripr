@@ -10,7 +10,7 @@ export default StyleSheet.create({
         paddingBottom: 0
     },
     infoTextContainer:{
-        marginTop:20,
+        //marginTop:20,
         marginHorizontal: 20,
         alignItems: 'center'
     },

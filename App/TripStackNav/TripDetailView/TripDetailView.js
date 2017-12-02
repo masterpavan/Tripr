@@ -1,19 +1,23 @@
 
 import React, {Component} from "react";
-import {Text, View, StyleSheet, AsyncStorage, ScrollView} from 'react-native';
+import {Alert, View, StyleSheet, AsyncStorage, ScrollView} from 'react-native';
 
-import { Button } from 'react-native-elements';
+import { Button, Icon } from 'react-native-elements';
 
 import styles from '../../../assets/styles/ChooseCityPlannerStyles'
 import AddCityComponent from "./AddCityComponent";
 import CityListComponent from "./CityListComponent";
 import {GTC, triprTripController} from "../TripStackNavConfig";
+import Metrics from "../../../assets/styles/Themes/Metrics";
+import EditTripComponent from "./EditTripComponent";
 
 
 const details = StyleSheet.create({
     container: {
         height:300,
         backgroundColor: '#00ff00'
+    },
+    buttonSelected:{
     }
 });
 
@@ -47,15 +51,6 @@ export default class TripDetailView extends React.Component {
         };
     }
 
-    /*componentDidMount() {
-        //also update the city IDs according to the trip we are on
-        AsyncStorage.getItem("currentTrips").then((value) => {
-            let thisTrip = JSON.parse(value)[this.state.currentTripID];
-            this.setState({cityIDs: thisTrip.cityIDs, tripName: thisTrip.name})
-
-        })
-    }*/
-
     setTheState(object) {
         this.setState(object);
     }
@@ -65,23 +60,6 @@ export default class TripDetailView extends React.Component {
 
             return (
                 <View>
-                    <View style={{alignItems:'center', backgroundColor:'transparent'}}>
-                        <Button
-                            buttonStyle={{
-                                width:50,
-                                height:50,
-                                backgroundColor:'transparent',
-                            }}
-                            textStyle={{
-                                fontSize:40,
-                                color:'#15bdd9'
-                            }}
-                            title='+'
-                            onPress={() => {
-                                this.setState({screen: "addCity"})
-                            }}
-                        />
-                    </View>
                     <ScrollView showsVerticalScrollIndicator={false} bounces={true} style={styles.container}>
                         <CityListComponent
                             currentTripID={this.currentTripID}
@@ -103,7 +81,18 @@ export default class TripDetailView extends React.Component {
                 />
             )
 
+        } else if(this.state.screen === 'editTrip') {
+            return (
+                <EditTripComponent
+                    currentTripID={this.currentTripID}
+                    setParentState={this.setTheState.bind(this)}
+                    navigate={this.navigate}/>
+            )
         }
+    }
+
+    deleteTrip() {
+        this.setState({screen: "editTrip"})
     }
 
     render() {
@@ -111,6 +100,42 @@ export default class TripDetailView extends React.Component {
             <View style={{flex:1}}>
                 <View style={details.container}>
 
+                </View>
+                <View style={{paddingHorizontal:50,paddingVertical:10,flexDirection: 'row', justifyContent: 'space-between', backgroundColor:'#fff'}}>
+                    <Icon
+                        containerStyle = {details.buttonSelected}
+                        size={Metrics.screenWidth/10}
+                        name= 'ios-create-outline'
+                        type='ionicon'
+                        color={this.state.screen === "editTrip" ? '#f58d4e':'#494949'}
+                        onPress={() => {
+                            this.setState({screen: "editTrip"})
+                        }}
+                    />
+                    <Icon
+                        containerStyle = {styles.cancelIcon}
+                        size={Metrics.screenWidth/10}
+                        name= 'md-add'
+                        type='ionicon'
+                        color={this.state.screen === "addCity" ? '#f58d4e':'#494949'}
+                        onPress={() => {
+                            this.setState({screen: "addCity"})
+                        }}
+                    />
+                    <Icon
+                        containerStyle = {styles.cancelIcon}
+                        size={Metrics.screenWidth/10}
+                        name= 'ios-trash-outline'
+                        type='ionicon'
+                        color='#494949'
+                        onPress={() =>
+                        {
+                            Alert.alert( 'Delete Trip',
+                                `Are you sure you want to delete this Trip? It will delete all cities, events, and downloaded information associated.`,
+                                [{text: 'Cancel', style: 'cancel'}, {text: 'Delete', onPress: () => this.deleteTrip()}, ], { cancelable: false } )
+                        }
+                        }
+                    />
                 </View>
                 <View style={styles.mainContainer}>
 

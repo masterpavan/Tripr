@@ -45,7 +45,7 @@ export default class TripListComponent extends React.Component {
                             style={styles.componentButton}
                             image={this.randomImage()}
                             /*text={this.state.currentTrips[element].name}*/
-                            text = {this.props.list[tripID].name.toUpperCase()}
+                            text = {`Trip to ${this.props.list[tripID].name}`.toUpperCase()}
                         />
                     </View>
                 )
