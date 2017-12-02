@@ -85,7 +85,7 @@ class CityPackageDownloadBar extends React.PureComponent {
                         >
                             <View>
                                 <Text style={styles.infoText}>You do not have the {this.props.cityName} Package. Tap
-                                    to download {this.state.longitude}</Text>
+                                    to download</Text>
                             </View>
                         </TouchableOpacity>
                     </View>
