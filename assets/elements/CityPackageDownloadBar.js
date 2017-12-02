@@ -46,7 +46,7 @@ class CityPackageDownloadBar extends React.PureComponent {
 
     constructor(props) {
         super(props);
-        this.state = {percentage:0, isLoading:true, pack: null};
+        this.state = {percentage:0, isLoading:true, pack: null, longitude: 99999999};
     }
 
     componentDidMount() {
@@ -72,7 +72,7 @@ class CityPackageDownloadBar extends React.PureComponent {
     }
 
     renderOptions() {
-        if(!(this.state.isLoading)) {
+        if(!(this.state.isLoading) && (this.state.longitude != 99999999)) {
             if (!(this.state.pack) && this.state.percentage == 0) {
                 return (
                     <View style = {styles.downloadButtons}>
@@ -85,7 +85,7 @@ class CityPackageDownloadBar extends React.PureComponent {
                         >
                             <View>
                                 <Text style={styles.infoText}>You do not have the {this.props.cityName} Package. Tap
-                                    to download</Text>
+                                    to download {this.state.longitude}</Text>
                             </View>
                         </TouchableOpacity>
                     </View>
