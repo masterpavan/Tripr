@@ -31,6 +31,7 @@ export default StyleSheet.create({
         flex: 1,
         flexWrap: 'wrap'
     },
+
     centered: {
         alignItems: 'center'
     },
