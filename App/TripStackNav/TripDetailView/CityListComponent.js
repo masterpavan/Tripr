@@ -19,8 +19,7 @@ export default class CityListComponent extends React.Component {
             currentCityID: cityID, currentPOICategory: null, currentPOIID: null};
         AsyncStorage.setItem("screenState", JSON.stringify(screenState));
 
-        //then actually navigate
-        this.props.navigate('FourTabNav', {cityName: this.props.list[cityID]})
+        this.props.navigate('FourTabNav', {cityName: this.props.list[cityID]});
 
         //download stuff here
     }

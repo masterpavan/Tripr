@@ -4,16 +4,30 @@ import {StyleSheet, Image, View} from 'react-native';
 
 import Mapbox from '@mapbox/react-native-mapbox-gl';
 import MapboxGL from '@mapbox/react-native-mapbox-gl';
-import CreateOfflineRegion from "./CreateOfflineRegion";
-import {Button} from "react-native-elements";
-//import geoViewport from '@mapbox/geo-viewport';
+import TriprStore from "../../../../../assets/services/TriprStore";
 
 Mapbox.setAccessToken('pk.eyJ1Ijoia3JlYmluIiwiYSI6ImNqOXRyN2NpNjAxbDUyeG9lcnVxNXV3aHYifQ.Co5xDA25ehe16YgaFk0t2w');
+
 
 
 const styles = StyleSheet.create({
     container: {
         flex: 1,
+    },
+    annotationContainer: {
+        width: 30,
+        height: 30,
+        alignItems: 'center',
+        justifyContent: 'center',
+        backgroundColor: 'white',
+        borderRadius: 15,
+    },
+    annotationFill: {
+        width: 30,
+        height: 30,
+        borderRadius: 15,
+        backgroundColor: 'orange',
+        transform: [{ scale: 0.6 }],
     }
 });
 
@@ -40,6 +54,34 @@ export default class MapView extends React.Component {
         headerRight:(<View></View>)
     });
 
+    constructor(props) {
+        super(props);
+        this.state = {longitude:-122.2416, latitude:37.7652};
+    }
+
+
+
+    renderAnnotations () {
+        return (
+            <Mapbox.PointAnnotation
+                key='pointAnnotation'
+                id='pointAnnotation'
+                coordinate={[this.state.longitude, this.state.latitude]}>
+
+                <View style={styles.annotationContainer}>
+                    <View style={styles.annotationFill} />
+                </View>
+                <Mapbox.Callout title='Look! An annotation!' />
+            </Mapbox.PointAnnotation>
+        )
+    }
+
+    componentDidMount() {
+        TriprStore.getCityCoord(this.props.navigation.state.params.cityName, function(coordinates){
+            this.setState({latitude:coordinates[0], longitude:coordinates[1]});
+        }.bind(this));
+    }
+
     render() {
         return (
             <View style={{flex:1}}>
@@ -47,8 +89,11 @@ export default class MapView extends React.Component {
                     styleURL= {MapboxGL.StyleURL.Street}
                     zoomLevel={10}
                     ref= "map"
-                    centerCoordinate={[0.1278, 51.5074]}
-                    style={styles.container}>
+                    centerCoordinate={[this.state.longitude, this.state.latitude]}
+                    style={styles.container}
+                    showUserLocation={true}>
+                    {this.renderAnnotations()}
+
                 </MapboxGL.MapView>
             </View>
 
