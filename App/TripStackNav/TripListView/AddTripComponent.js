@@ -1,7 +1,8 @@
 import React, {Component} from "react";
 import { View, AsyncStorage } from "react-native";
-import { Button, FormLabel, FormInput } from 'react-native-elements'
+import {Button, FormLabel, FormInput, Text} from 'react-native-elements'
 import {triprTripController} from "../TripStackNavConfig";
+import Metrics from "../../../assets/styles/Themes/Metrics";
 
 
 export default class AddTripComponent extends React.Component {
@@ -20,12 +21,22 @@ export default class AddTripComponent extends React.Component {
     render() {
 
         return (
-            <View>
+            <View style={{backgroundColor:'transparent', flex:1}}>
                 <FormLabel>Name Your Trip</FormLabel>
                 <FormInput onChangeText={(text) => this.setState({tripName:text})}/>
-                <Button buttonStyle={{backgroundColor:"#f58d4e"}} title="Add Trip" onPress={()=>{this.submit()}}/>
-                <Button buttonStyle={{backgroundColor:"#d7833e", marginTop:20}}
+                <View style={{
+                    flexDirection: 'row',
+                    flex: 1,
+                    flexWrap: 'wrap'
+                }}>
+                    <Button
+                        containerViewStyle={{width: (Metrics.screenWidth/2)-15, marginLeft:10, marginRight:0 }}
+                        buttonStyle={{backgroundColor:"#f58d4e",marginLeft:0}} title="Add Trip" onPress={()=>{this.submit()}}/>
+                    <Button
+                        containerViewStyle={{width: (Metrics.screenWidth/2)-15, marginLeft:10, marginRight:0}}
+                        buttonStyle={{backgroundColor:"#494949"}}
                         title="Cancel" onPress={()=>{this.props.setParentState({screen: "list"})}}/>
+                </View>
             </View>
         )
     }

@@ -1,6 +1,6 @@
 
 import React, {Component} from "react";
-import {Text, View, AsyncStorage, ScrollView} from 'react-native';
+import {Text, View, StyleSheet, AsyncStorage, ScrollView} from 'react-native';
 
 import { Button } from 'react-native-elements';
 
@@ -9,10 +9,29 @@ import AddCityComponent from "./AddCityComponent";
 import CityListComponent from "./CityListComponent";
 import {GTC, triprTripController} from "../TripStackNavConfig";
 
+
+const details = StyleSheet.create({
+    container: {
+        height:300,
+        backgroundColor: '#00ff00'
+    }
+});
+
 export default class TripDetailView extends React.Component {
 
     static navigationOptions = ({ navigation, screenProps }) => ({
-        title: navigation.state.params.name
+        title: navigation.state.params.name,
+        headerTitle: 'TRIP DETAILS',
+        headerStyle: {
+        },
+        headerTitleStyle: {
+            color:'#494949',
+            alignSelf:'center',
+            fontFamily: 'LeagueSpartan',
+            fontSize:20,
+            fontWeight:'200'
+        },
+        headerRight:(<View></View>)
     });
 
     constructor(props) {
@@ -89,9 +108,16 @@ export default class TripDetailView extends React.Component {
 
     render() {
         return (
-            <View style={styles.mainContainer}>
-                {this.screenOptions()}
+            <View style={{flex:1}}>
+                <View style={details.container}>
+
+                </View>
+                <View style={styles.mainContainer}>
+
+                    {this.screenOptions()}
+                </View>
             </View>
+
         )
     }
 }

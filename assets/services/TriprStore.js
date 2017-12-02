@@ -92,43 +92,31 @@ export default class TriprStore {
         });
     }
 
-    static getCoord(city, mapState) {
-        this.database.ref("POI_S_Table").child(city).orderByChild('id').once('value', function (snap) {
-            let arr = [];
+    static getCityCoord(city, callback) {
+        let database = firebase.database();
 
-            snap.forEach(function (childSnap) {
-                let item = childSnap.val();
-                item.key = childSnap.key;
-
-                arr.push(item);
-            });
-
-            mapState[0] = {
-                latitude: arr[0].coordinates_lat,
-                longitude: arr[0].coordinates_lon
-            }
+        database.ref("POI_S_Table").child(city).orderByKey().equalTo("Longitude").once('value', function (snap1) {
+            database.ref("POI_S_Table").child(city).orderByKey().equalTo("Latitude").once('value', function (snap2) {
+                let lat = snap2.val().Latitude;
+                let lon = snap1.val().Longitude;
+                let coord = [lon, lat];
+                console.log(lat);
+                callback(coord);
+            })
         })
     }
 
-    static getPOICoord(city, POI_id, mapState) {
-        this.database.ref("POI_S_Table").child(city).orderByChild('id').once('value', function (snap) {
-            let arr = [];
-
-            snap.forEach(function (childSnap) {
-                let item = childSnap.val();
-                item.key = childSnap.key;
-
-                arr.push(item);
-            });
-
-            for (let i = 0; i < arr.length; i++) {
-                mapState[i].coordinates_lat = {
-                    latitude: arr[i].coordinates_lat,
-                    longitude: arr[i].coordinates_lon
-                };
+    static getPOICoord(POIlist, POIid) {
+        let POI = null;
+        for (let i = 0; i < POIlist.length; i++) {
+            if (POIlist[i].id === POIid) {
+                POI = POIlist[i];
+                break;
             }
-        })
+        }
+        return [POI.coordinates_lon, POI.coordinates_lat];
     }
+
 
     /*
         Once you have list, use these to sort and filter

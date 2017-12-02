@@ -5,6 +5,7 @@ import * as Progress from 'react-native-progress';
 import Bubble from "./Bubble";
 import CreateOfflineRegion from "../../App/TripStackNav/FourTabNav/MapStackNav/MapView/CreateOfflineRegion.js";
 import MapboxGL from '@mapbox/react-native-mapbox-gl';
+import TriprStore from "../../assets/services/TriprStore";
 import Metrics from "../styles/Themes/Metrics";
 
 const styles = StyleSheet.create({
@@ -21,7 +22,7 @@ const styles = StyleSheet.create({
         //backgroundColor:"#0000ff"
     },
     downloadButtons: {
-        paddingTop:10,
+        paddingTop:Metrics.screenHeight/45,
         width:Metrics.screenWidth,
         flex: 1,
         flexDirection: 'row',
@@ -32,12 +33,12 @@ const styles = StyleSheet.create({
         backgroundColor:'#6d6d6d',
         position: 'absolute',
         right:"2%",
-        top:2
+        bottom:5
     },
     loadingCircle: {
         position: 'absolute',
-        right: -15,
-        top:-10
+        right:-20,
+        top:5
     }
 });
 
@@ -50,6 +51,9 @@ class CityPackageDownloadBar extends React.PureComponent {
 
     componentDidMount() {
         this.fixAsync();
+        TriprStore.getCityCoord(this.props.navigation.state.params.cityName, function(coordinates){
+            this.setState({latitude:coordinates[0], longitude:coordinates[1]});
+        }.bind(this));
     }
 
     fixAsync() {
@@ -75,7 +79,7 @@ class CityPackageDownloadBar extends React.PureComponent {
                         <TouchableOpacity
                             onPress={() =>
                                         {
-                                            this.refs.create.createPack(this.props.cityName, -122.2416, 37.7652);
+                                            this.refs.create.createPack(this.props.cityName, this.state.longitude, this.state.latitude);
                                         }
                                     }
                         >
@@ -110,7 +114,9 @@ class CityPackageDownloadBar extends React.PureComponent {
                             color='#fff'
                             onPress={() =>
                             {
-                                Alert.alert( 'Delete Pack', `Are you sure you want to delete this pack? You will have to re-download if you do.`, [{text: 'Cancel', style: 'cancel'}, {text: 'OK', onPress: () => this.confirmDelete()}, ], { cancelable: false } )
+                                Alert.alert( 'Delete Pack',
+                                    `Are you sure you want to delete this pack? You will have to re-download if you do.`,
+                                    [{text: 'Cancel', style: 'cancel'}, {text: 'OK', onPress: () => this.confirmDelete()}, ], { cancelable: false } )
                             }
                             }
                         />
@@ -129,7 +135,6 @@ class CityPackageDownloadBar extends React.PureComponent {
                             <Text style={styles.percentageText}>
                                 Downloading {this.props.cityName} Package
                             </Text>
-
                         </View>
                         <Icon
                             containerStyle = {styles.cancelIcon}
@@ -174,7 +179,7 @@ class CityPackageDownloadBar extends React.PureComponent {
                     ref = "create"
                     cityName = {this.props.cityName}
                     setParentState = {this.setTheState.bind(this)}
-                    />
+                />
                 <View style = {{flex: 1}}>
                     {this.renderOptions()}
                 </View>

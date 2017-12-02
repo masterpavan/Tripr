@@ -10,7 +10,7 @@ export default class CreateOfflineRegion extends React.Component {
     constructor (props) {
         super(props);
 
-        this.state = {name:null, percentage: 0, offlineRegion:null};
+        this.state = {name:null, percentage: 0, offlineRegion:null, mounted:true};
         this.onDownloadProgress = this.onDownloadProgress.bind(this);
         MapboxGL.offlineManager.subscribe(this.props.cityName, this.onDownloadProgress);
 
@@ -18,12 +18,14 @@ export default class CreateOfflineRegion extends React.Component {
     }
 
     componentWillUnmount () {
+        this.setState({mounted:false});
         MapboxGL.offlineManager.unsubscribe(this.props.cityName, this.onDownloadProgress);
+
     }
 
     deletePack () {
-        MapboxGL.offlineManager.deletePack(this.props.cityName).then((placeholder) => {
-            this.props.setParentState({percentage: 0, pack:null, isLoading:false})});
+        MapboxGL.offlineManager.deletePack(this.props.cityName).then((placeholder) =>
+        {this.props.setParentState({isLoading: false, percentage: 0, pack: null})});
         MapboxGL.offlineManager.unsubscribe(this.props.cityName, this.onDownloadProgress);
     }
 
@@ -31,14 +33,14 @@ export default class CreateOfflineRegion extends React.Component {
     async createPack (packName, long, lat) {
         this.setState({name:packName, percentage:0, offlineRegion:null});
         const COORDINATES = [long, lat];
-        const bounds = geoViewport.bounds(COORDINATES, 1, [0.5, 0.5], MAPBOX_VECTOR_TILE_SIZE);
+        const bounds = geoViewport.bounds(COORDINATES, 1, [1, 1], MAPBOX_VECTOR_TILE_SIZE);
 
         const options = {
             name: packName,
             styleURL: MapboxGL.StyleURL.Street,
             bounds: [[bounds[0], bounds[1]], [bounds[2], bounds[3]]],
-            minZoom: 12,
-            maxZoom: 24
+            minZoom: 0,
+            maxZoom: 22
         };
 
         // start download
