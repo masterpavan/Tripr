@@ -3,8 +3,9 @@ import { Metrics } from './Themes/index'
 
 export default StyleSheet.create({
   container: {
-    width: Metrics.screenWidth - 20,
-    aspectRatio: 2.8,
+    width: Metrics.screenWidth - 8,
+    aspectRatio: 2,
+      //height: Metrics.screenWidth/2,
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#f58d4e',
@@ -17,9 +18,12 @@ export default StyleSheet.create({
     margin: Metrics.baseMargin
   },
   label: {
-    fontFamily: 'Hallo Sans',
-    fontSize: 30,
+    fontFamily: 'leaguegothic',
+    fontSize: 60,
     color: '#eeeeee',
-    fontWeight: 'bold'
+      textShadowColor:'#222222',
+      textShadowRadius: 35,
+      textShadowOffset:{width:2,height:2}
+    //fontWeight: 'bold'
   }
 })

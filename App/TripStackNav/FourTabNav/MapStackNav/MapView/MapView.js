@@ -36,10 +36,11 @@ export default class MapView extends React.Component {
         title: `Map`,
         tabBarIcon: <Image source={require('../../../../../assets/images/map_icon.png')}
             style={{
-                height: 20,
-                width: 20,
+                height: 30,
+                width: 30,
                 resizeMode: 'contain'
-            }} />
+            }} />,
+        tabBarLabel: "Map"
     });
 
     constructor(props) {
