@@ -4,30 +4,7 @@ import {Button, FormLabel, FormInput, Text} from 'react-native-elements'
 import {triprTripController} from "../TripStackNavConfig";
 import Metrics from "../../../assets/styles/Themes/Metrics";
 import DatePicker from 'react-native-datepicker'
-
-let styles = StyleSheet.create({
-    labelStyle:{fontFamily:'LeagueSpartan', fontWeight:'200',color:'#494949'},
-    labelContainerStyle:{marginBottom:5, alignSelf:'center'},
-    inputContainerStyle:{
-        width:Metrics.screenWidth-60,
-        alignItems:"flex-start",
-        marginLeft:30,
-        marginRight:30,
-        borderRadius:4,
-        backgroundColor:'#fff'},
-    inputStyle:{
-        color:'#494949',
-    },
-    dateContainer: {
-        width: (Metrics.screenWidth / 2) - 45,
-        height: 40,
-    },
-    dateInput:{
-        borderRadius:4,
-        borderColor:'#fff',
-        backgroundColor:'#fff'
-    }
-});
+import formStyles from "../../../assets/styles/FormStyles";
 
 export default class AddTripComponent extends React.Component {
 
@@ -48,13 +25,13 @@ export default class AddTripComponent extends React.Component {
         console.log("addTrip state is:", this.state);
         return (
             <View style={{backgroundColor:'transparent', flex:1}}>
-                <FormLabel containerStyle={styles.labelContainerStyle}
-                           labelStyle={styles.labelStyle}>NAME YOUR TRIP</FormLabel>
-                <FormInput containerStyle={styles.inputContainerStyle}
-                           inputStyle={styles.inputStyle}
+                <FormLabel containerStyle={formStyles.labelContainerStyle}
+                           labelStyle={formStyles.labelStyle}>NAME YOUR TRIP</FormLabel>
+                <FormInput containerStyle={formStyles.inputContainerStyle}
+                           inputStyle={formStyles.inputStyle}
                            onChangeText={(text) => this.setState({tripName:text})}/>
-                <FormLabel containerStyle={styles.labelContainerStyle}
-                           labelStyle={styles.labelStyle}>SELECT YOUR TRIP DATES</FormLabel>
+                <FormLabel containerStyle={formStyles.labelContainerStyle}
+                           labelStyle={formStyles.labelStyle}>SELECT YOUR TRIP DATES</FormLabel>
 
                 <View style={{
                     flexDirection: 'row',
@@ -63,7 +40,7 @@ export default class AddTripComponent extends React.Component {
                     flexWrap: 'wrap',
                 }}>
                     <DatePicker
-                    style={[styles.dateContainer,{marginLeft: 30,marginRight: 15}]}
+                    style={[formStyles.dateContainer,{marginLeft: 30,marginRight: 15}]}
                     date={this.state.startDate}
                     mode="date"
                     showIcon={false}
@@ -73,11 +50,11 @@ export default class AddTripComponent extends React.Component {
                     maxDate="2019-01-01"
                     confirmBtnText="Confirm"
                     cancelBtnText="Cancel"
-                    customStyles={{dateInput: styles.dateInput}}
+                    customStyles={{dateInput: formStyles.dateInput}}
                     onDateChange={(date) => {this.setState({startDate: date})}}
                 />
                     <DatePicker
-                        style={[styles.dateContainer,{marginLeft: 15,marginRight: 30}]}
+                        style={[formStyles.dateContainer,{marginLeft: 15,marginRight: 30}]}
                         date={this.state.endDate}
                         mode="date"
                         showIcon={false}
@@ -87,7 +64,7 @@ export default class AddTripComponent extends React.Component {
                         maxDate="2019-01-01"
                         confirmBtnText="Confirm"
                         cancelBtnText="Cancel"
-                        customStyles={{dateInput: styles.dateInput}}
+                        customStyles={{dateInput: formStyles.dateInput}}
                         onDateChange={(date) => {this.setState({endDate: date})}}
                     />
                 </View>

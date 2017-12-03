@@ -15,7 +15,7 @@ import EditTripComponent from "./EditTripComponent";
 const details = StyleSheet.create({
     container: {
         height:300,
-        backgroundColor: '#00ff00'
+        backgroundColor: '#eee'
     },
     buttonSelected:{
     }

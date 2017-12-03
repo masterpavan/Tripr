@@ -22,8 +22,10 @@ export default StyleSheet.create({
   label: {
       fontFamily: 'leaguegothic',
       fontSize: 40,
-      color: '#eeeeee',
-      //fontWeight: 'bold',
+      color: '#fff',
+      textShadowColor:'#222222',
+      textShadowRadius: 5,
+      textShadowOffset:{width:1,height:1},
       textAlign: 'center',
       position:'absolute'
 

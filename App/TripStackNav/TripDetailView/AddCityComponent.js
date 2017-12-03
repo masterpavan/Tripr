@@ -3,8 +3,9 @@ import {View,StyleSheet, AsyncStorage, Picker} from "react-native";
 import { Button, FormLabel, FormInput } from 'react-native-elements'
 import {triprTripController} from "../TripStackNavConfig";
 import Metrics from "../../../assets/styles/Themes/Metrics";
+import formStyles from "../../../assets/styles/FormStyles";
 
-let styles = StyleSheet.create({
+/*let formStyles = StyleSheet.create({
     labelStyle:{fontFamily:'LeagueSpartan', fontWeight:'200',color:'#494949'},
     labelContainerStyle:{marginBottom:5, alignSelf:'center'},
     inputContainerStyle:{
@@ -26,7 +27,7 @@ let styles = StyleSheet.create({
         borderColor:'#fff',
         backgroundColor:'#fff'
     }
-});
+});*/
 
 export default class AddCityComponent extends React.Component {
 
@@ -46,10 +47,10 @@ export default class AddCityComponent extends React.Component {
 
         return (
             <View>
-                <FormLabel containerStyle={styles.labelContainerStyle}
-                           labelStyle={styles.labelStyle}>SELECT A CITY TO ADD TO YOUR TRIP</FormLabel>
+                <FormLabel containerStyle={formStyles.labelContainerStyle}
+                           labelStyle={formStyles.labelStyle}>SELECT A CITY TO ADD TO YOUR TRIP</FormLabel>
                 <Picker
-                    style={[styles.inputContainerStyle,{borderRadius:5}]}
+                    style={[formStyles.inputContainerStyle,{borderRadius:5}]}
                     selectedValue={this.state.cityName}
                     onValueChange={(itemValue, itemIndex) => {
                         console.log(itemValue,itemIndex);
