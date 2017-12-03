@@ -3,13 +3,31 @@ import {Button, Text, View, AsyncStorage } from "react-native";
 import styles from "../../../assets/styles/ChooseCityPlannerStyles";
 import ButtonRectangle from "../../../assets/elements/ButtonRectangle";
 import ButtonSquare from "../../../assets/elements/ButtonSquare";
-
+import {FormLabel} from "react-native-elements";
+import formStyles from "../../../assets/styles/FormStyles";
 
 export default class CityListComponent extends React.Component {
 
     constructor(props) {
         super(props);
         console.log("CityList props are",props);
+    }
+
+    image(index) {
+        let images = [
+            require('../../../assets/images/squares/square1.png'),
+            require('../../../assets/images/squares/square2.png'),
+            require('../../../assets/images/squares/square3.png'),
+            require('../../../assets/images/squares/square4.png'),
+            require('../../../assets/images/squares/square5.png'),
+            require('../../../assets/images/squares/square6.png'),
+            require('../../../assets/images/squares/square7.png'),
+            require('../../../assets/images/squares/square8.png'),
+            require('../../../assets/images/squares/square9.png'),
+        ]
+
+        return images[index%9];
+
     }
 
     navToFourTabView(cityID) {
@@ -20,7 +38,7 @@ export default class CityListComponent extends React.Component {
         AsyncStorage.setItem("screenState", JSON.stringify(screenState));
 
         //then actually navigate
-        this.props.navigate('FourTabNav', {currentTripID: this.props.currentTripID ,cityName: this.props.list[cityID]})
+        this.props.navigate('FourTabNav', {currentTripID: this.props.currentTripID, cityName: this.props.list[cityID]})
 
 
         //download stuff here
@@ -30,15 +48,12 @@ export default class CityListComponent extends React.Component {
         if(Object.keys(this.props.list).length !== 0) {
             return Object.keys(this.props.list).map((element,index) => {
                 return (
-                    <View style={{backgroundColor:'#00ff00'}} key={index}>
-                        <ButtonSquare
-                            onPress={() => this.navToFourTabView(element)}
-                            style={styles.componentButton}
-                            image={require('../../../assets/images/rectangles/rectangle11.png')}
-                            /*text={this.state.currentTrips[element].name}*/
-                            text = {this.props.list[element].toUpperCase()}
-                        />
-                    </View>
+                    <ButtonSquare
+                        onPress={() => this.navToFourTabView(element)}
+                        style={styles.componentButton}
+                        image={this.image(index)}
+                        text = {this.props.list[element].toUpperCase()}
+                    />
                 )
             })
         } else {
@@ -57,8 +72,14 @@ export default class CityListComponent extends React.Component {
     render() {
 
         return (
-            <View style={[styles.buttonsContainer,{backgroundColor:'#f00000'}]}>
+            <View>
+            <View>
+                <FormLabel containerStyle={formStyles.labelContainerStyle}
+                           labelStyle={formStyles.labelStyle}>CITIES IN YOUR TRIP</FormLabel>
+            </View>
+            <View style={[styles.buttonsContainer,{backgroundColor:'#eee'}]}>
                 {this.generateButtons()}
+            </View>
             </View>
         )
     }

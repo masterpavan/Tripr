@@ -1,12 +1,13 @@
 
 import React, {Component} from "react";
 import {ScrollView, Text, View, AsyncStorage} from 'react-native';
-import { Button } from 'react-native-elements';
+import { Button, Icon } from 'react-native-elements';
 
 import styles from '../../../assets/styles/ChooseCityPlannerStyles'
 import TripListComponent from "./TripListComponent";
 import AddTripComponent from "./AddTripComponent";
 import {triprTripController} from "../TripStackNavConfig";
+import Metrics from "../../../assets/styles/Themes/Metrics";
 
 
 
@@ -49,23 +50,18 @@ export default class TripListView extends React.Component {
 
             return (
                 <View>
-                    <View style={{alignItems:'center', backgroundColor:'transparent'}}>
-                        <Button
-                            buttonStyle={{
-                                width:50,
-                                height:50,
-                                backgroundColor:'transparent',
-                            }}
-                            textStyle={{
-                                fontSize:40,
-                                color:'#15bdd9'
-                            }}
-                            title='+'
+                    <View style={{alignItems:'center',marginVertical:10, backgroundColor:'transparent'}}>
+                        <Icon
+                            containerStyle = {styles.cancelIcon}
+                            size={Metrics.screenWidth/10}
+                            name= 'md-add'
+                            type='ionicon'
+                            color='#494949'
                             onPress={() => {
                                 this.setState({screen: "addTrip"})
-                                //this.props.navigation.navigate('AddTripView');
                             }}
                         />
+
                     </View>
                     <ScrollView showsVerticalScrollIndicator={false} bounces={true} style={styles.container}>
                         <TripListComponent

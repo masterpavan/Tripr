@@ -85,7 +85,7 @@ export default class TripController {
     createNewTripObject(name, startDate, endDate, cityIDs) {
         return {
             id: this.generateID(),
-            name: "Trip to "+name,
+            name: name,
             dateRange: [startDate,endDate],
             cityIDs: cityIDs
         }
