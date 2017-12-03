@@ -10,10 +10,22 @@ export default class DiscoverTileView extends React.Component {
         title: `Discover ${navigation.state.params.cityName}`,
         tabBarIcon: <Image source={require('../../../../../assets/images/discover_icon.png')}
                            style={{
-                               height: 20,
-                               width: 20,
-                               resizeMode: 'center'
-                           }} />
+                               height: 30,
+                               width: 30,
+                               resizeMode: 'contain'
+                           }} />,
+        tabBarLabel: "Experience",
+        headerTitle: `Experience ${navigation.state.params.cityName}`.toUpperCase(),
+        headerStyle: {
+        },
+        headerTitleStyle: {
+            color:'#494949',
+            alignSelf:'center',
+            fontFamily: 'LeagueSpartan',
+            fontSize:20,
+            fontWeight:'200'
+        },
+        headerRight:(<View></View>)
     });
 
     constructor(props) {
@@ -27,34 +39,34 @@ export default class DiscoverTileView extends React.Component {
                 <SearchBar
                     lightTheme
                     inputStyle={{
-                        backgroundColor:"#cdcdcd"}}
+                        backgroundColor:"#ffffff"}}
                     containerStyle={{backgroundColor:'transparent',borderTopColor:'transparent',borderBottomColor:'transparent',marginHorizontal:10,marginVertical:10}}
                     placeholder='Type Here...' />
                 <View>
                     <View style={styles.buttonsContainer}>
                         <ButtonSquare
                             style={styles.componentButton}
-                            onPress={() => this.props.navigation.navigate('POIListView')}
-                            image = {require('../../../../../assets/images/restaurants_icon.png')}
-                            text = {'Restaurants'}
+                            onPress={() => this.props.navigation.navigate('POIListView', {cityName: this.props.navigation.state.params.cityName})}
+                            image = {require('../../../../../assets/images/eatSquare.png')}
+                            //text = {'Eat'}
                         />
                         <ButtonSquare
                             style={styles.componentButton}
-                            onPress={() => this.props.navigation.navigate('POIListView')}
-                            image = {require('../../../../../assets/images/bar_icon.png')}
-                            text = {'Bars'}
+                            onPress={() => this.props.navigation.navigate('POIListView', {cityName: this.props.navigation.state.params.cityName})}
+                            image = {require('../../../../../assets/images/drinkSquare.png')}
+                            //text = {'Drink'}
                         />
                         <ButtonSquare
                             style={styles.componentButton}
-                            onPress={() => this.props.navigation.navigate('POIListView')}
-                            image = {require('../../../../../assets/images/discover_icon.png')}
-                            text = {'Sightseeing'}
+                            onPress={() => this.props.navigation.navigate('POIListView', {cityName: this.props.navigation.state.params.cityName})}
+                            image = {require('../../../../../assets/images/seeSquare.png')}
+                            //text = {'See'}
                         />
                         <ButtonSquare
                             style={styles.componentButton}
-                            onPress={() => this.props.navigation.navigate('POIListView')}
-                            image = {require('../../../../../assets/images/discover_icon.png')}
-                            text = {'Landmarks'}
+                            onPress={() => this.props.navigation.navigate('POIListView', {cityName: this.props.navigation.state.params.cityName})}
+                            image = {require('../../../../../assets/images/shopSquare.png')}
+                            //text = {'Shop'}
                         />
                     </View>
                 </View>

@@ -4,16 +4,30 @@ import {StyleSheet, Image, View} from 'react-native';
 
 import Mapbox from '@mapbox/react-native-mapbox-gl';
 import MapboxGL from '@mapbox/react-native-mapbox-gl';
-import CreateOfflineRegion from "./CreateOfflineRegion";
-import {Button} from "react-native-elements";
-//import geoViewport from '@mapbox/geo-viewport';
+import TriprStore from "../../../../../assets/services/TriprStore";
 
 Mapbox.setAccessToken('pk.eyJ1Ijoia3JlYmluIiwiYSI6ImNqOXRyN2NpNjAxbDUyeG9lcnVxNXV3aHYifQ.Co5xDA25ehe16YgaFk0t2w');
+
 
 
 const styles = StyleSheet.create({
     container: {
         flex: 1,
+    },
+    annotationContainer: {
+        width: 30,
+        height: 30,
+        alignItems: 'center',
+        justifyContent: 'center',
+        backgroundColor: 'white',
+        borderRadius: 15,
+    },
+    annotationFill: {
+        width: 30,
+        height: 30,
+        borderRadius: 15,
+        backgroundColor: 'orange',
+        transform: [{ scale: 0.6 }],
     }
 });
 
@@ -22,33 +36,65 @@ export default class MapView extends React.Component {
         title: `Map`,
         tabBarIcon: <Image source={require('../../../../../assets/images/map_icon.png')}
             style={{
-                height: 20,
-                width: 20,
+                height: 30,
+                width: 30,
                 resizeMode: 'contain'
-            }} />
+            }} />,
+        tabBarLabel: "Map",
+        headerTitle: `MAP`,
+        headerStyle: {
+        },
+        headerTitleStyle: {
+            color:'#494949',
+            alignSelf:'center',
+            fontFamily: 'LeagueSpartan',
+            fontSize:20,
+            fontWeight:'200'
+        },
+        headerRight:(<View></View>)
     });
+
+    constructor(props) {
+        super(props);
+        this.state = {longitude:-122.2416, latitude:37.7652};
+    }
+
+
+
+    renderAnnotations () {
+        return (
+            <Mapbox.PointAnnotation
+                key='pointAnnotation'
+                id='pointAnnotation'
+                coordinate={[this.state.longitude, this.state.latitude]}>
+
+                <View style={styles.annotationContainer}>
+                    <View style={styles.annotationFill} />
+                </View>
+                <Mapbox.Callout title='Look! An annotation!' />
+            </Mapbox.PointAnnotation>
+        )
+    }
+
+    componentDidMount() {
+        TriprStore.getCityCoord(this.props.navigation.state.params.cityName, function(coordinates){
+            this.setState({latitude:coordinates[0], longitude:coordinates[1]});
+        }.bind(this));
+    }
 
     render() {
         return (
             <View style={{flex:1}}>
-                <Button
-                    title = "Download Florence"
-                    onPress={() =>
-                    {
-                        this.refs.create.createPack("Florence Test2", 11.2558, 43.7696);
-                    }
-                    }
-                />
                 <MapboxGL.MapView
                     styleURL= {MapboxGL.StyleURL.Street}
                     zoomLevel={10}
                     ref= "map"
-                    centerCoordinate={[0.1278, 51.5074]}
-                    style={styles.container}>
+                    centerCoordinate={[this.state.longitude, this.state.latitude]}
+                    style={styles.container}
+                    showUserLocation={true}>
+                    {this.renderAnnotations()}
+
                 </MapboxGL.MapView>
-                <View>
-                    <CreateOfflineRegion ref = "create"/>
-                </View>
             </View>
 
         )

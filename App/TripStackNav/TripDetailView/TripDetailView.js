@@ -1,27 +1,45 @@
 
 import React, {Component} from "react";
-import {Text, View, AsyncStorage, ScrollView} from 'react-native';
+import {Text, View, StyleSheet, AsyncStorage, ScrollView} from 'react-native';
 
 import { Button } from 'react-native-elements';
 
 import styles from '../../../assets/styles/ChooseCityPlannerStyles'
 import AddCityComponent from "./AddCityComponent";
 import CityListComponent from "./CityListComponent";
+import {GTC, triprTripController} from "../TripStackNavConfig";
+
+
+const details = StyleSheet.create({
+    container: {
+        height:300,
+        backgroundColor: '#00ff00'
+    }
+});
 
 export default class TripDetailView extends React.Component {
 
     static navigationOptions = ({ navigation, screenProps }) => ({
-        title: navigation.state.params.name
+        title: navigation.state.params.name,
+        headerTitle: 'TRIP DETAILS',
+        headerStyle: {
+        },
+        headerTitleStyle: {
+            color:'#494949',
+            alignSelf:'center',
+            fontFamily: 'LeagueSpartan',
+            fontSize:20,
+            fontWeight:'200'
+        },
+        headerRight:(<View></View>)
     });
 
     constructor(props) {
         super(props);
-        this.state = {
-            screen: "list",
-            tripName: null,
-            currentTripID: this.props.navigation.state.params.currentTripID,
-            cityIDs: {}
-        }
+        this.currentTripID = this.props.navigation.state.params.currentTripID;
+
+        this.state = { screen: "list" }
+
         const { navigate } = this.props.navigation;
         this.navigate = navigate;
         this.navigationOptions = {
@@ -29,14 +47,14 @@ export default class TripDetailView extends React.Component {
         };
     }
 
-    componentDidMount() {
+    /*componentDidMount() {
         //also update the city IDs according to the trip we are on
         AsyncStorage.getItem("currentTrips").then((value) => {
-            let thisTrip =JSON.parse(value)[this.state.currentTripID];
+            let thisTrip = JSON.parse(value)[this.state.currentTripID];
             this.setState({cityIDs: thisTrip.cityIDs, tripName: thisTrip.name})
 
         })
-    }
+    }*/
 
     setTheState(object) {
         this.setState(object);
@@ -65,7 +83,12 @@ export default class TripDetailView extends React.Component {
                         />
                     </View>
                     <ScrollView showsVerticalScrollIndicator={false} bounces={true} style={styles.container}>
-                        <CityListComponent currentTripID={this.state.currentTripID} setParentState={this.setTheState.bind(this)} navigate={this.navigate} list={this.state.cityIDs}/>
+                        <CityListComponent
+                            currentTripID={this.currentTripID}
+                            setParentState={this.setTheState.bind(this)}
+                            navigate={this.navigate}
+                            list={triprTripController.getTripObject(this.currentTripID).cityIDs}
+                        />
                     </ScrollView>
                 </View>
             )
@@ -73,7 +96,11 @@ export default class TripDetailView extends React.Component {
         } else if(this.state.screen === "addCity") {
 
             return (
-                <AddCityComponent currentTripID={this.state.currentTripID} setParentState={this.setTheState.bind(this)} navigate={this.navigate}/>
+                <AddCityComponent
+                    currentTripID={this.currentTripID}
+                    setParentState={this.setTheState.bind(this)}
+                    navigate={this.navigate}
+                />
             )
 
         }
@@ -81,9 +108,16 @@ export default class TripDetailView extends React.Component {
 
     render() {
         return (
-            <View style={styles.mainContainer}>
-                {this.screenOptions()}
+            <View style={{flex:1}}>
+                <View style={details.container}>
+
+                </View>
+                <View style={styles.mainContainer}>
+
+                    {this.screenOptions()}
+                </View>
             </View>
+
         )
     }
 }

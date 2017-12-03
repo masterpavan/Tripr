@@ -9,6 +9,17 @@ export default StyleSheet.create({
         paddingTop: 0,
         paddingBottom: 0
     },
+    infoTextContainer:{
+        marginTop:20,
+        marginHorizontal: 20,
+        alignItems: 'center'
+    },
+    infoText:{
+        textAlign: 'center',
+        fontSize: 16,
+        fontStyle: 'italic'
+
+    },
     logo: {
         height: Metrics.images.logo,
         width: Metrics.images.logo,
@@ -20,15 +31,14 @@ export default StyleSheet.create({
         flex: 1,
         flexWrap: 'wrap'
     },
+
     centered: {
         alignItems: 'center'
     },
     componentButton: {
-        borderColor: 'transparent',
-        borderTopWidth: 1,
-        borderRightWidth: 1,
-        borderBottomWidth: 1,
-        borderRadius: 10
+        marginRight: 0,
+        marginLeft: 4,
+        marginBottom: 4
     },
     apiButton: {
         borderColor: Colors.border,

@@ -1,4 +1,6 @@
 import firebase from 'react-native-firebase';
+import React from "react";
+import { NetInfo, AsyncStorage } from 'react-native';
 
 
 
@@ -17,42 +19,70 @@ export default class TriprStore {
         persistence: true,
     };
 
-
-
-
     static readCity(city, callback) {
 
-        let database = firebase.database();
+        NetInfo.isConnected.fetch().then(isConnected => {
+            if (isConnected) {
 
-        database.ref("POI_S_Table").child(city).orderByChild('id').once('value', function (snap) {
+                let database = firebase.database();
 
-            console.log('inside readCity promise');
-            let arr = [];
+                database.ref("POI_S_Table").child(city).orderByChild('id').once('value', function (snap) {
 
-            snap.forEach(function (childSnap) {
-                var item = childSnap.val();
-                item.key = childSnap.key;
-                //console.log("inside TriprStore. item is",item);
-                arr.push(item);
-            });
+                    console.log('inside readCity promise');
+                    let arr = [];
 
-            console.log(arr);
-            let oldState = [];
-            for (var i = 0; i < arr.length; i++) {
-                oldState[i] = {name: arr[i].name}
+                    snap.forEach(function (childSnap) {
+                        let item = childSnap.val();
+                        item.key = childSnap.key;
+                        //console.log("inside TriprStore. item is",item);
+                        arr.push(item);
+                    });
+
+                    //let hash = ds.hashTable();
+                    let hash = {};
+                    let unique = [];
+
+                    for (let i = 0; i < arr.length; i++) {
+                        if (hash[arr[i].id] == null) {
+                            unique.push(arr[i]);
+                            hash[arr[i].id] = i;
+                        }
+                    }
+
+                    arr = unique;
+
+                    //console.log(unique);
+                    let oldState = [];
+                    for (let i = 0; i < arr.length; i++) {
+                        oldState[i] = {
+                            name: arr[i].name,
+                            id: arr[i].id,
+                            rating: arr[i].rating,
+                            review_count: arr[i].review_count,
+                            appCat: arr[i].appCat,
+                            address: arr[i].address,
+                            city: arr[i].city,
+                            coordinates_lat: arr[i].coordinates_lat,
+                            coordinates_lon: arr[i].coordinates_lon,
+                            image_url: arr[i].image_url,
+                            phone: arr[i].phone
+                        }
+                    }
+
+                    callback(oldState);
+
+                });
             }
-
-            callback(oldState);
-
         });
+
     }
 
     static readPOI(city, POI_id, oldState) {
         this.database.ref("POI_S_Table").child(city).orderByChild('id').equalTo(POI_id).once('value', function (snap) {
-            var arr = [];
+            let arr = [];
 
             snap.forEach(function (childSnap) {
-                var item = childSnap.val();
+                let item = childSnap.val();
                 item.key = childSnap.key;
 
                 arr.push(item);
@@ -62,41 +92,131 @@ export default class TriprStore {
         });
     }
 
-    static getCoord(city, mapState) {
-        this.database.ref("POI_S_Table").child(city).orderByChild('id').once('value', function (snap) {
-            var arr = [];
+    static getCityCoord(city, callback) {
+        let database = firebase.database();
 
-            snap.forEach(function (childSnap) {
-                var item = childSnap.val();
-                item.key = childSnap.key;
-
-                arr.push(item);
-            });
-
-            mapState[0] = {
-                latitude: arr[0].coordinates_lat,
-                longitude: arr[0].coordinates_lon
-            }
+        database.ref("POI_S_Table").child(city).orderByKey().equalTo("Longitude").once('value', function (snap1) {
+            database.ref("POI_S_Table").child(city).orderByKey().equalTo("Latitude").once('value', function (snap2) {
+                let lat = snap2.val().Latitude;
+                let lon = snap1.val().Longitude;
+                let coord = [lon, lat];
+                console.log(lat);
+                callback(coord);
+            })
         })
     }
 
-    static getPOICoord(city, POI_id, mapState) {
-        this.database.ref("POI_S_Table").child(city).orderByChild('id').once('value', function (snap) {
-            var arr = [];
-
-            snap.forEach(function (childSnap) {
-                var item = childSnap.val();
-                item.key = childSnap.key;
-
-                arr.push(item);
-            });
-
-            for (let i = 0; i < arr.length; i++) {
-                mapState[i].coordinates_lat = {
-                    latitude: arr[i].coordinates_lat,
-                    longitude: arr[i].coordinates_lon
-                };
+    static getPOICoord(POIlist, POIid) {
+        let POI = null;
+        for (let i = 0; i < POIlist.length; i++) {
+            if (POIlist[i].id === POIid) {
+                POI = POIlist[i];
+                break;
             }
+        }
+        return [POI.coordinates_lon, POI.coordinates_lat];
+    }
+
+
+    /*
+        Once you have list, use these to sort and filter
+    */
+
+    static sortByPopularity(POIlist) {
+        let arr = POIlist;
+        arr.sort(function(a,b) {
+            return b.review_count - a.review_count;
         })
+        return arr;
+    }
+
+    static sortByRating(POIlist) {
+        let arr = POIlist;
+        arr.sort(function(a,b) {
+            return b.rating - a.rating;
+        })
+        return arr;
+    }
+
+    static filterByCategory(POIlist, category) {
+        let arr = POIlist;
+        let arrCat = [];
+
+        for (let i = 0; i < arr.length; i++) {
+            if (arr[i].appCat === category) {
+                arrCat.push(arr[i]);
+            }
+        }
+
+        return arrCat;
+    }
+
+    static filterByRating(POIlist, minRating) {
+        let arr = POIlist;
+        let arrRat = [];
+
+        for (let i = 0; i < arr.length; i++) {
+            if (arr[i].rating >= minRating) {
+                arrRat.push(arr[i]);
+            }
+        }
+
+        return arrRat;
+    }
+
+    /*static convertToNamesArray(POIlist) {
+        let names = [];
+        for (let i = 0; i < POIlist.length; i++) {
+            names.push(POIlist[i].name);
+        }
+        return names;
+    }*/
+
+    static startingWith(POIlist, startStr) {
+        let names = [];
+        for (let i = 0; i < POIlist.length; i++) {
+            if (POIlist[i].name.substring(0, startStr.length) === startStr) {
+                names.push(POIlist[i])
+            }
+        }
+        return names;
+    }
+    /*End of list functions*/
+
+
+    /*TripFunctions*/
+    static initializeTrips() {
+        AsyncStorage.setItem("currentTrips", JSON.stringify({})).done();
+    }
+
+
+    static addTripToLocalStorage(tripObject) {
+        let currentTrips = {};
+        currentTrips[tripObject.id] = tripObject
+        AsyncStorage.mergeItem("currentTrips", JSON.stringify(currentTrips)).done();
+    }
+
+    static getAllTripsFromLocalStorage(callback) {
+        AsyncStorage.getItem("currentTrips").then((currentTrips) => {
+            callback(currentTrips);
+        })
+    }
+
+    static deleteTripFromLocalStorage(tripID, callback) {
+        AsyncStorage.getItem("currentTrips").then((currentTrips) => {
+            delete JSON.parse(currentTrips)[tripID];
+            AsyncStorage.setItem("currentTrips", JSON.stringify(currentTrips)).done();
+            if(callback) callback();
+        })
+
+    }
+
+    static updateTripInLocalStorage(tripID, tripObject, callback) {
+        AsyncStorage.getItem("currentTrips").then((currentTrips) => {
+            currentTrips = JSON.parse(currentTrips);
+            currentTrips[tripID] = tripObject;
+            AsyncStorage.setItem("currentTrips", JSON.stringify(currentTrips)).done();
+            callback(currentTrips);
+        });
     }
 }

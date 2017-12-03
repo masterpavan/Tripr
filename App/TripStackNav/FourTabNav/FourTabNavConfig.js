@@ -5,6 +5,8 @@ import {DiscoverStackNav} from "./DiscoverStackNav/DiscoverStackNavConfig";
 import {PlannerStackNav} from "./PlannerStackNav/PlannerStackNavConfig";
 import MapView from "./MapStackNav/MapView/MapView";
 import ToolTileView from "./ToolStackNav/ToolTileView/ToolTileView";
+import Metrics from "../../../assets/styles/Themes/Metrics";
+
 
 const routeConfig = {
     DiscoverStackNav: { screen: DiscoverStackNav},
@@ -22,16 +24,28 @@ const tabNavConfig = {
     animationEnabled:true,
     tabBarPosition: 'bottom',
     tabBarOptions: {
-        showLabel: false,
+        showLabel: true,
         showIcon: true,
-        activeBackgroundColor: '#2a5596',
+        activeBackgroundColor: '#ffffff',
         labelStyle: {
-            fontSize: 16,
-            color: '#eeeeee'
+            fontSize: 10,
+            color: '#000000',
+            marginTop: 5,
+            width: Metrics.screenWidth/4
+
+        },
+        tabStyle: {
+            marginBottom: -10,
+            width: Metrics.screenWidth/4,
+            borderColor: '#6d6d6d'
         },
         style: {
-            backgroundColor:'#4378ca'
+            backgroundColor:'#ffffff'
         },
+        iconStyle: {
+            width: 30,
+            height: 30
+        }
     },
 }
 
