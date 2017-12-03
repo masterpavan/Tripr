@@ -19,7 +19,7 @@ export default class TripListView extends React.Component {
         this.state = {screen: "list"}
         const { navigate } = this.props.navigation;
         this.navigate = navigate;
-
+        console.log("screen width is ",Metrics.screenWidth)
     }
 
     componentDidMount() {
@@ -36,7 +36,7 @@ export default class TripListView extends React.Component {
             color:'#494949',
             alignSelf:'center',
             fontFamily: 'LeagueSpartan',
-            fontSize:25,
+            fontSize:Metrics.h1,
             fontWeight:'200'
         }
     };

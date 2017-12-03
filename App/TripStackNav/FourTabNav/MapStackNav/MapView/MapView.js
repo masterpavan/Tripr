@@ -77,9 +77,9 @@ export default class MapView extends React.Component {
     }
 
     componentDidMount() {
-        TriprStore.getCityCoord(this.props.navigation.state.params.cityName, function(coordinates){
+        TriprStore.getCityCoord(this.props.navigation.state.params.cityName).then((coordinates)=>{
             this.setState({latitude:coordinates[0], longitude:coordinates[1]});
-        }.bind(this));
+        });
     }
 
     render() {
@@ -89,7 +89,7 @@ export default class MapView extends React.Component {
                     styleURL= {MapboxGL.StyleURL.Street}
                     zoomLevel={10}
                     ref= "map"
-                    centerCoordinate={[this.state.longitude, this.state.latitude]}
+                    centerCoordinate={[this.state.latitude, this.state.longitude]}
                     style={styles.container}
                     showUserLocation={true}>
                     {this.renderAnnotations()}

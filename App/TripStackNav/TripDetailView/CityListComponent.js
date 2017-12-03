@@ -1,10 +1,11 @@
-import React, {Component} from "react";
-import {Button, Text, View, AsyncStorage } from "react-native";
+import React from "react";
+import {Text, View} from "react-native";
 import styles from "../../../assets/styles/ChooseCityPlannerStyles";
-import ButtonRectangle from "../../../assets/elements/ButtonRectangle";
 import ButtonSquare from "../../../assets/elements/ButtonSquare";
 import {FormLabel} from "react-native-elements";
 import formStyles from "../../../assets/styles/FormStyles";
+import {cityImages} from "../../../assets/services/cityImager"
+import TriprStore from "../../../assets/services/TriprStore";
 
 export default class CityListComponent extends React.Component {
 
@@ -13,46 +14,31 @@ export default class CityListComponent extends React.Component {
         console.log("CityList props are",props);
     }
 
-    image(index) {
-        let images = [
-            require('../../../assets/images/squares/square1.png'),
-            require('../../../assets/images/squares/square2.png'),
-            require('../../../assets/images/squares/square3.png'),
-            require('../../../assets/images/squares/square4.png'),
-            require('../../../assets/images/squares/square5.png'),
-            require('../../../assets/images/squares/square6.png'),
-            require('../../../assets/images/squares/square7.png'),
-            require('../../../assets/images/squares/square8.png'),
-            require('../../../assets/images/squares/square9.png'),
-        ]
+    async navToFourTabView(cityID) {
+        //display the loading icon
+        this.props.setParentState({isLoading:true});
 
-        return images[index%9];
+        //initialize the 4 tab screeen
+        let loadingState = await TriprStore.initializeCurrentCityPackage(this.props.list[cityID]);
 
-    }
-
-    navToFourTabView(cityID) {
-        //on navigate, update the current trip ID for use later in the app.
-        let screenState = {
-            currentTripID: this.props.currentTripID,
-            currentCityID: cityID, currentPOICategory: null, currentPOIID: null};
-        AsyncStorage.setItem("screenState", JSON.stringify(screenState));
+        //remove the loading icon
+        this.props.setParentState(loadingState);
 
         //then actually navigate
         this.props.navigate('FourTabNav', {currentTripID: this.props.currentTripID, cityName: this.props.list[cityID]})
 
-
-        //download stuff here
     }
 
     generateButtons() {
         if(Object.keys(this.props.list).length !== 0) {
             return Object.keys(this.props.list).map((element,index) => {
+                console.log(`List element is: ${element}, List index is: ${index}, list is:`,this.props.list);
                 return (
                     <ButtonSquare
                         onPress={() => this.navToFourTabView(element)}
                         style={styles.componentButton}
-                        image={this.image(index)}
-                        text = {this.props.list[element].toUpperCase()}
+                        image={cityImages[this.props.list[element]]}
+                        text = {this.props.list[element].replace(/_/g,' ').toUpperCase()}
                     />
                 )
             })
@@ -73,13 +59,13 @@ export default class CityListComponent extends React.Component {
 
         return (
             <View>
-            <View>
-                <FormLabel containerStyle={formStyles.labelContainerStyle}
-                           labelStyle={formStyles.labelStyle}>CITIES IN YOUR TRIP</FormLabel>
-            </View>
-            <View style={[styles.buttonsContainer,{backgroundColor:'#eee'}]}>
-                {this.generateButtons()}
-            </View>
+                <View>
+                    <FormLabel containerStyle={formStyles.labelContainerStyle}
+                               labelStyle={formStyles.labelStyle}>CITIES IN YOUR TRIP</FormLabel>
+                </View>
+                <View style={[styles.buttonsContainer,{backgroundColor:'#eee'}]}>
+                    {this.generateButtons()}
+                </View>
             </View>
         )
     }

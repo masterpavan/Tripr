@@ -10,6 +10,7 @@ import CityListComponent from "./CityListComponent";
 import {GTC, triprTripController} from "../TripStackNavConfig";
 import Metrics from "../../../assets/styles/Themes/Metrics";
 import EditTripComponent from "./EditTripComponent";
+import * as Progress from 'react-native-progress';
 
 
 const details = StyleSheet.create({
@@ -17,8 +18,6 @@ const details = StyleSheet.create({
         height:300,
         backgroundColor: '#eee'
     },
-    buttonSelected:{
-    }
 });
 
 export default class TripDetailView extends React.Component {
@@ -32,7 +31,7 @@ export default class TripDetailView extends React.Component {
             color:'#494949',
             alignSelf:'center',
             fontFamily: 'LeagueSpartan',
-            fontSize:20,
+            fontSize:Metrics.h2,
             fontWeight:'200'
         },
         headerRight:(<View></View>)
@@ -42,7 +41,7 @@ export default class TripDetailView extends React.Component {
         super(props);
         this.currentTripID = this.props.navigation.state.params.currentTripID;
 
-        this.state = { screen: "list" }
+        this.state = { screen: "list", isLoading:false }
 
         const { navigate } = this.props.navigation;
         this.navigate = navigate;
@@ -56,6 +55,17 @@ export default class TripDetailView extends React.Component {
     }
 
     screenOptions() {
+        if(this.state.isLoading) {
+            return (<View>
+                <Progress.CircleSnail
+                    style={{alignSelf:'center'}}
+                    color={[
+                        '#F44336',
+                        '#2196F3',
+                        '#009688',
+                    ]}/>
+            </View>)
+        }
         if(this.state.screen === "list") {
 
             return (
@@ -103,7 +113,6 @@ export default class TripDetailView extends React.Component {
                 </View>
                 <View style={{paddingHorizontal:50,paddingVertical:10,flexDirection: 'row', justifyContent: 'space-between', backgroundColor:'#fff'}}>
                     <Icon
-                        containerStyle = {details.buttonSelected}
                         size={Metrics.screenWidth/10}
                         name= 'ios-create-outline'
                         type='ionicon'
@@ -113,7 +122,6 @@ export default class TripDetailView extends React.Component {
                         }}
                     />
                     <Icon
-                        containerStyle = {styles.cancelIcon}
                         size={Metrics.screenWidth/10}
                         name= 'md-add'
                         type='ionicon'
@@ -123,7 +131,6 @@ export default class TripDetailView extends React.Component {
                         }}
                     />
                     <Icon
-                        containerStyle = {styles.cancelIcon}
                         size={Metrics.screenWidth/10}
                         name= 'ios-trash-outline'
                         type='ionicon'

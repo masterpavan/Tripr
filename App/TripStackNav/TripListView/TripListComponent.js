@@ -1,7 +1,8 @@
 import React, {Component} from "react";
-import {Button, Text, View, AsyncStorage } from "react-native";
+import {Button, Text, View, AsyncStorage, Image} from "react-native";
 import styles from "../../../assets/styles/ChooseCityPlannerStyles";
 import ButtonRectangle from "../../../assets/elements/ButtonRectangle";
+import Metrics from "../../../assets/styles/Themes/Metrics";
 
 
 export default class TripListComponent extends React.Component {
@@ -53,8 +54,9 @@ export default class TripListComponent extends React.Component {
         } else {
             return (
                 <View style={styles.infoTextContainer}>
-                    <Text style={styles.infoText}>You currently don't have any trips!</Text>
-                    <Text style={styles.infoText}>Click on the plus button above to create a new Trip.</Text>
+                    <View><Text style={[styles.infoText,{fontSize:Metrics.h2}]}>You currently don't have any trips!</Text></View>
+                    <View><Text style={[styles.infoText,{fontSize:Metrics.h2}]}>Click on the + button above to create a new Trip.</Text></View>
+                    <Image style={{width: Metrics.screenWidth, resizeMode:'center'}} source={require('../../../assets/images/racoon.png')}/>
                 </View>
 
             )

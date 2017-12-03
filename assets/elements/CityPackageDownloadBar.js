@@ -51,9 +51,9 @@ class CityPackageDownloadBar extends React.PureComponent {
 
     componentDidMount() {
         this.fixAsync();
-        TriprStore.getCityCoord(this.props.navigation.state.params.cityName, function(coordinates){
+        TriprStore.getCityCoord(this.props.navigation.state.params.cityName).then((coordinates) => {
             this.setState({latitude:coordinates[0], longitude:coordinates[1]});
-        }.bind(this));
+        });
     }
 
     fixAsync() {
@@ -84,8 +84,8 @@ class CityPackageDownloadBar extends React.PureComponent {
                                     }
                         >
                             <View>
-                                <Text style={styles.infoText}>You do not have the {this.props.cityName} Package. Tap
-                                    to download</Text>
+                                <Text style={styles.infoText}>You do not have the {this.props.cityName.replace(/_/g,' ')} Package. Tap
+                                    to download.</Text>
                             </View>
                         </TouchableOpacity>
                     </View>
