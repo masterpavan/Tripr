@@ -1,11 +1,22 @@
 import React from "react";
-import {View, TextInput, Picker, AsyncStorage} from 'react-native';
+import {View, TextInput, Picker, AsyncStorage, Image} from 'react-native';
 import money from 'money';
 import convert from 'convert-units';
 import styles from '../../../../../assets/styles/ConversionListStyles';
 import currOpts from './currencies.json';
 
 export default class ConversionListView extends React.Component {
+
+    static navigationOptions = {
+        title: 'Conversion',
+        tabBarIcon: <Image source={require('../../../../../assets/images/tools_icon.png')}
+                           style={{
+                               height: 30,
+                               width: 30,
+                               resizeMode: 'contain'
+                           }} />,
+        tabBarLabel: "Tools"
+    };
 
     constructor(props) {
         super(props)

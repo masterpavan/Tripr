@@ -1,13 +1,20 @@
 
 import React, {Component} from "react";
-import {Picker, ScrollView, Text, View} from 'react-native';
+import {Image, Picker, ScrollView, Text, View} from 'react-native';
 import ButtonRectangleShort from "../ToolTileView/ButtonRectangleShort";
 import styles from "../../../../../assets/styles/ChooseCityPlannerStyles";
 import {FormLabel} from "react-native-elements";
 
 export default class PhraseListView extends React.Component {
     static navigationOptions = {
-        title: 'Phrasebook'
+        title: 'Phrasebook',
+        tabBarIcon: <Image source={require('../../../../../assets/images/tools_icon.png')}
+                           style={{
+                               height: 30,
+                               width: 30,
+                               resizeMode: 'contain'
+                           }} />,
+        tabBarLabel: "Tools"
     };
     constructor(props) {
         super(props);
