@@ -5,9 +5,9 @@ import {triprTripController} from "../TripStackNavConfig";
 import Metrics from "../../../assets/styles/Themes/Metrics";
 import DatePicker from 'react-native-datepicker'
 import formStyles from "../../../assets/styles/FormStyles";
+import ValidationComponent from 'react-native-form-validator';
 
-
-export default class EditTripComponent extends React.Component {
+export default class EditTripComponent extends ValidationComponent {
 
 
     constructor(props) {
@@ -91,14 +91,47 @@ export default class EditTripComponent extends React.Component {
 
     submit() {
 
-        let updatedTrip = triprTripController.createUpdatedTripObject(
-            this.props.currentTripID,
-            this.state.tripName,
-            this.state.startDate,
-            this.state.endDate,
-            this.state.cityIDs);
-        console.log("updated trip: ", updatedTrip);
-        triprTripController.updateTrip(this.props.currentTripID, updatedTrip, ()=>{this.props.setParentState({screen: "list"})});
+        var start = this.state.startDate.split("-");
+        var end = this.state.endDate.split("-");
+        var alertStr = "";
+        var dateValid = true;
+
+        // Call ValidationComponent validate method
+        let test = this.validate({
+            tripName: {minlength:2, maxlength:10, required: true},
+            startDate: {date: 'MM-DD-YYYY'},
+            endDate: {date: 'MM-DD-YYYY'}
+        });
+        if (!test) {
+            alertStr = alertStr.concat("\nTrip name must be between 3-10 characters.\n")
+        }
+        if (start[2] >= end[2]) {
+            if (start[0] > end[0]) {
+                alertStr = alertStr.concat("\nEnd date must be later than Start date.")
+                dateValid = false;
+            }
+            else if (start[0] == end[0]) {
+                if (start[1] > end[1]) {
+                    alertStr = alertStr.concat("\nEnd date must be later than Start date.")
+                    dateValid = false;
+                }
+            }
+        }
+        if( test && dateValid ) {
+            let updatedTrip = triprTripController.createUpdatedTripObject(
+                this.props.currentTripID,
+                this.state.tripName,
+                this.state.startDate,
+                this.state.endDate,
+                this.state.cityIDs);
+            console.log("updated trip: ", updatedTrip);
+            triprTripController.updateTrip(this.props.currentTripID, updatedTrip, () => {
+                this.props.setParentState({screen: "list"})
+            });
+        } else {
+            alert(alertStr)
+        }
+
 
     }
 
