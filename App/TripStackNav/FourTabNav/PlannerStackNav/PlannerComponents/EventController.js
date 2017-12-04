@@ -9,7 +9,6 @@ export default class EventController {
      */
     constructor() {
         this.data = 'initial';
-        console.log("INITIALIZED THE EVENT CONTROLLER");
         AsyncStorage.setItem("events", JSON.stringify({})).done();
     }
 
@@ -17,26 +16,34 @@ export default class EventController {
         AsyncStorage.setItem("events", JSON.stringify({})).done();
     }
 
-    generateID() {
-        return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
-            let r = Math.random() * 16 | 0, v = c === 'x' ? r : (r & 0x3 | 0x8);
-            return v.toString(16);
-        });
-    }
-
     async addEvent(tripName, cityName, date, name, start, end, address) {
-        let id = this.generateID();
+        console.log(start);
+        console.log(end);
+        if(this.timeIsLessThanOrEqual(end, start)) {
+            return false;
+        }
         let value = await AsyncStorage.getItem("events");
         let events = JSON.parse(value);
-        events[tripName][cityName][date][id] = {name: name, start: start, end: end, address: address, id: id};
-        console.log(JSON.stringify(events));
+        let dayItems = events[tripName][cityName][date];//{name: name, start: start, end: end, address: address, id: id};
+        let exit = false;
+        dayItems.map((item) => {
+            if ((this.timeIsLessThanOrEqual(item.start,start) && this.timeIsLessThan(start,item.end)) ||
+                    (this.timeIsLessThan(item.start, end) && this.timeIsLessThanOrEqual(end,item.end))) exit = true;
+        });
+        if (exit) return false;
+        let newItem = {name: name, start: start, end: end, address: address, id: 0};
+        dayItems.map((item) => {
+            if (this.timeIsLessThanOrEqual(item.end, start)) {
+                newItem.id = item.id + 1;
+            }
+        });
+        events[tripName][cityName][date].splice(newItem.id,0,newItem);
+        for(let i = 0; i < events[tripName][cityName][date].length; i++) {
+            if(events[tripName][cityName][date][i].id != i)
+                events[tripName][cityName][date][i].id = i;
+        }
         await AsyncStorage.setItem("events", JSON.stringify(events));
-        /*
-        await AsyncStorage.getItem("events").then((value) => {
-            let events = JSON.parse(value);
-            events[tripName][cityName][date][id] = {name: name, start: start, end: end, address: address, id: id};
-            AsyncStorage.mergeItem("events", JSON.stringify(events)).done();
-        })*/
+        return true;
     }
 
     async getEvents(tripName, cityName, date) {
@@ -44,39 +51,28 @@ export default class EventController {
         let value = await AsyncStorage.getItem("events");
         console.log(value);
         return JSON.parse(value)[tripName][cityName][date];
-
-        /*await this.initializeEvent(tripName, cityName, date).then(() => {
-            AsyncStorage.getItem("events").then((value) => {
-                console.log("hi");
-                console.log(value);
-                let parsed = JSON.parse(value)[tripName][cityName][date];
-                return parsed;
-            });
-        });*/
-        /*let tripEvents = JSON.parse(events[tripName]);
-        let cityEvents = JSON.parse(tripEvents[cityName]);
-        return JSON.parse(cityEvents[date]);*/
-        //return events[tripName][cityName][date];
     }
 
-    editEvent(tripName, cityName, date, name, start, end, address, id) {
-        let events = AsyncStorage.getItem("events");
-        let tripEvents = JSON.parse(events[tripName]);
-        let cityEvents = JSON.parse(tripEvents[cityName]);
-        let dayEvents = JSON.parse(cityEvents[date]);
-        dayEvents[id] = {name: name, start: start, end: end, address: address, id: id};
-        cityEvents[date] = dayEvents;
-        tripEvents[cityName] = cityEvents;
-        AsyncStorage.mergeItem("events", JSON.stringify({tripName: tripEvents}));
+    async editEvent(tripName, cityName, date, name, start, end, address, id, refresh) {
+        let value = await AsyncStorage.getItem("events");
+        console.log(value);
+        console.log(id);
+        let events = await JSON.parse(value);
+        let oldEvent = events[tripName][cityName][date][id];
+        console.log(JSON.stringify(oldEvent));
+        await this.deleteEvent(tripName, cityName, date, id);
+        if(!(await this.addEvent(tripName, cityName, date, name, start, end, address)))
+            await this.addEvent(tripName, cityName, date, oldEvent.name, oldEvent.start, oldEvent.end, oldEvent.address);
     }
 
     async deleteEvent(tripName, cityName, date, id) {
         let value = await AsyncStorage.getItem("events");
         let events = JSON.parse(value);
-        console.log("HIIIII" + JSON.stringify(events[tripName][cityName][date][id]));
-        console.log(id);
-        delete events[tripName][cityName][date][id];
-        console.log("HELLOOOO" + JSON.stringify(events));
+        events[tripName][cityName][date].splice(id,1);
+        for(let i = 0; i < events[tripName][cityName][date].length; i++) {
+            if(events[tripName][cityName][date][i].id != i)
+                events[tripName][cityName][date][i].id = i;
+        }
         await AsyncStorage.setItem("events", JSON.stringify(events));
     }
 
@@ -88,26 +84,44 @@ export default class EventController {
         if (!events[tripName].hasOwnProperty(cityName))
             events[tripName][cityName] = {};
         if (!events[tripName][cityName].hasOwnProperty(date))
-            events[tripName][cityName][date] = {};
+            events[tripName][cityName][date] = [];
         await AsyncStorage.setItem("events", JSON.stringify(events));
-
-        /*console.log("hello");
-        AsyncStorage.getItem("events").then((value) => {
-            console.log(value + "hi");
-            let events = JSON.parse(value);
-            if (!events.hasOwnProperty(tripName))
-                events[tripName] = {};
-            if (!events[tripName].hasOwnProperty(cityName))
-                events[tripName][cityName] = {};
-            if (!events[tripName][cityName].hasOwnProperty(date))
-                events[tripName][cityName][date] = {};
-            console.log(JSON.stringify(events));
-            return JSON.stringify(events);
-        }).then((event) => {
-            AsyncStorage.setItem("events", JSON.stringify(event)).done();
-        }).done();*/
     }
 
+    timeIsLessThan(time1, time2) {
+        console.log(time1);
+        console.log(time2);
+        let time1hour = time1.split(':')[0];
+        let time1minutes = time1.split(':')[1];
+        let time2hour = time2.split(':')[0];
+        let time2minutes = time2.split(':')[1];
 
+        let date1 = new Date();
+        date1.setHours(time1hour,time1minutes);
+        let date2 = new Date();
+        date2.setHours(time2hour, time2minutes);
+
+        if(date1 < date2)
+            return true;
+        return false;
+    }
+
+    timeIsLessThanOrEqual(time1, time2) {
+        console.log(time1);
+        console.log(time2);
+        let time1hour = time1.split(':')[0];
+        let time1minutes = time1.split(':')[1];
+        let time2hour = time2.split(':')[0];
+        let time2minutes = time2.split(':')[1];
+
+        let date1 = new Date();
+        date1.setHours(time1hour,time1minutes);
+        let date2 = new Date();
+        date2.setHours(time2hour, time2minutes);
+
+        if(date1 <= date2)
+            return true;
+        return false;
+    }
 
 }
