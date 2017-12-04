@@ -99,7 +99,7 @@ export default class AddTripComponent extends ValidationComponent {
             endDate: {date: 'MM-DD-YYYY'}
         });
         if (!test) {
-            alertStr = alertStr.concat("\nTrip name must be between 3-10 characters.\n")
+            alertStr = alertStr.concat("\nTrip name must be between 2-10 characters.\n")
         }
         if (start[2] >= end[2]) {
             if (start[0] > end[0]) {
