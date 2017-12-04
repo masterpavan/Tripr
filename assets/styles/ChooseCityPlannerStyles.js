@@ -10,7 +10,7 @@ export default StyleSheet.create({
         paddingBottom: 0
     },
     infoTextContainer:{
-        backgroundColor:'#eee',
+        backgroundColor:'transparent',
         //marginTop:20,
         flex: 0,
         flexDirection: 'column',
@@ -44,6 +44,7 @@ export default StyleSheet.create({
         marginLeft: 4,
         marginBottom: 4
     },
+
     apiButton: {
         borderColor: Colors.border,
         borderRightWidth: 1,

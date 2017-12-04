@@ -60,7 +60,7 @@ export default class TripListComponent extends React.Component {
                 <View style={styles.infoTextContainer}>
                     <View><Text style={[styles.infoText,{fontSize:Metrics.h2}]}>You currently don't have any trips!</Text></View>
                     <View><Text style={[styles.infoText,{fontSize:Metrics.h2}]}>Click on the + button above to create a new Trip.</Text></View>
-                    <Image style={{width: Metrics.screenWidth, resizeMode:'center'}} source={require('../../../assets/images/racoon.png')}/>
+
                 </View>
 
             )

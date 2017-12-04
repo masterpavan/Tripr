@@ -1,6 +1,6 @@
 
 import React, {Component} from "react";
-import {ScrollView, Text, View, AsyncStorage} from 'react-native';
+import {ScrollView, Text, View, AsyncStorage, Image} from 'react-native';
 import { Button, Icon } from 'react-native-elements';
 
 import styles from '../../../assets/styles/ChooseCityPlannerStyles'
@@ -85,7 +85,8 @@ export default class TripListView extends React.Component {
 
     render() {
         return (
-            <View style={styles.mainContainer}>
+            <View style={{backgroundColor:'#eee', flex:1}}>
+                <Image style={{width: Metrics.screenWidth/2, resizeMode:'contain', position:'absolute', height:Metrics.screenHeight, alignSelf:'center'}} source={require('../../../assets/images/title.png')}/>
                 {this.screenOptions()}
             </View>
         )
