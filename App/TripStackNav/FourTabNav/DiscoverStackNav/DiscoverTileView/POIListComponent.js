@@ -37,6 +37,7 @@ export default class POIListComponent extends React.Component {
             <View>
                 <FlatList
                     data={mappedList}
+                    contentContainerStyle={{paddingBottom:Metrics.screenHeight/3}}
                     removeClippedSubviews={true}
                     legacyImplementation={true}
                     renderItem={({item}) => {

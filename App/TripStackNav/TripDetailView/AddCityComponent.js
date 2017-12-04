@@ -63,7 +63,7 @@ export default class AddCityComponent extends React.Component {
                 }}>
                     <Button
                         containerViewStyle={{width: (Metrics.screenWidth/2)-15, marginLeft:10, marginRight:0 }}
-                        buttonStyle={{backgroundColor:"#f58d4e",marginLeft:0}} title="Add City" onPress={()=>{this.submit()}}/>
+                        buttonStyle={{backgroundColor:"#f58d4e",marginLeft:0}} title="Add City" onPress={()=>{this.submit().done()}}/>
                     <Button
                         containerViewStyle={{width: (Metrics.screenWidth/2)-15, marginLeft:10, marginRight:0}}
                         buttonStyle={{backgroundColor:"#494949"}}
@@ -74,11 +74,11 @@ export default class AddCityComponent extends React.Component {
         )
     }
 
-    submit() {
+    async submit() {
 
-        triprTripController.addCityToTrip(this.props.currentTripID, this.state.cityID, this.state.cityName, ()=>{
-            this.props.setParentState({screen: "list"})
-        })
+        await triprTripController.addCityToTrip(this.props.currentTripID, this.state.cityID, this.state.cityName)
+        this.props.setParentState({screen: "list"})
+
        /* AsyncStorage.getItem("currentTrips").then((value) => {
             //get the current trip
             let currentTrip = JSON.parse(value);

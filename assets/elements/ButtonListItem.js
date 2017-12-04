@@ -24,9 +24,7 @@ export default class ButtonListItem extends React.PureComponent {
             require('../../assets/images/rectangles/rectangle10.png'),
             require('../../assets/images/rectangles/rectangle11.png'),
         ]
-
         return images[Math.floor(Math.random()*10)];
-
     }
 
   render () {

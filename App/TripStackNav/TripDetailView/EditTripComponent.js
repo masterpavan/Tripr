@@ -89,8 +89,7 @@ export default class EditTripComponent extends ValidationComponent {
         )
     }
 
-    submit() {
-
+    async submit() {
         var start = this.state.startDate.split("-");
         var end = this.state.endDate.split("-");
         var alertStr = "";
@@ -123,15 +122,15 @@ export default class EditTripComponent extends ValidationComponent {
         }
         if( test && dateValid ) {
             let updatedTrip = triprTripController.createUpdatedTripObject(
-                this.props.currentTripID,
-                this.state.tripName,
-                this.state.startDate,
-                this.state.endDate,
-                this.state.cityIDs);
-            console.log("updated trip: ", updatedTrip);
-            triprTripController.updateTrip(this.props.currentTripID, updatedTrip, () => {
-                this.props.setParentState({screen: "list"})
-            });
+            this.props.currentTripID,
+            this.state.tripName,
+            this.state.startDate,
+            this.state.endDate,
+            this.state.cityIDs);
+        console.log("updated trip: ", updatedTrip);
+        await triprTripController.updateTrip(this.props.currentTripID, updatedTrip);
+        this.props.setParentState({screen: "list"});
+        this.props.refreshTripList();
         } else {
             alert(alertStr)
         }

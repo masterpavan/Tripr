@@ -46,7 +46,7 @@ export default class CityListComponent extends React.Component {
             return (
                 <View style={styles.infoTextContainer}>
                     <Text style={styles.infoText}>Your trip doesn't currently have any cities!</Text>
-                    <Text style={styles.infoText}>Click on the plus button above to add a city to your Trip.</Text>
+                    <Text style={styles.infoText}>Click on the + button above to add a city to your Trip.</Text>
                 </View>
 
             )

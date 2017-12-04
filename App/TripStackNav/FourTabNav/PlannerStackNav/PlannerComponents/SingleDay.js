@@ -24,9 +24,9 @@ export default class SingleDayView extends React.Component {
         this.state = {
             items: {}
         };
-        addEvent: this.addEvent.bind(this);
-        refresh: this.refresh.bind(this);
-        deleteEvent: this.deleteEvent.bind(this);
+        this.addEvent.bind(this);
+        this.refresh.bind(this);
+        this.deleteEvent.bind(this);
     }
 
     render() {
@@ -81,7 +81,8 @@ export default class SingleDayView extends React.Component {
     }
 
     refresh() {
-        this.loadItems(this.props.navigation.state.params.day)
+        this.loadItems(this.props.navigation.state.params.day);
+        this.props.navigation.state.params.refresh();
     }
 
     addEvent(startTime, endTime, name, height) {
@@ -100,22 +101,20 @@ export default class SingleDayView extends React.Component {
         console.log(this.props.navigation.state.params.cityName);
         const strTime = this.timeToString(this.props.navigation.state.params.day);
         this.state.items[strTime] = [];
+        this.setState(this.state);
         let events = await eventController.getEvents(this.props.navigation.state.params.currentTripID,this.props.navigation.state.params.cityName,strTime);
         console.log(events);
-        //events.map((event) => {
-        Object.keys(events).forEach((key) => {
-            console.log(key);
+        events.map((event) => {
+            console.log(event["end"]);
             this.state.items[strTime].push({
-                name: events[key]["name"],
-                start: events[key]["start"],
-                end: events[key]["end"],
-                address: events[key]["address"],
-                id: events[key]["id"]
+                name: event["name"],
+                start: event["start"],
+                end: event["end"],
+                address: event["address"],
+                id: event["id"]
             });
         });
         this.setState(this.state);
-        //    });
-        // });
     }
 
     renderItem(item) {
@@ -126,8 +125,32 @@ export default class SingleDayView extends React.Component {
                         <Text>{item.start} - {item.end}</Text>
                         <Text>{item.name}</Text>
                     </View>
-                    <Button buttonStyle={styles.buttonStyle} textStyle = {styles.textStyle} title="Edit">hi</Button>
-                    <Button buttonStyle={styles.buttonStyle} textStyle = {styles.textStyle} title="X" onPress={() =>{this.deleteEvent(item.id);}}>hi</Button>
+                    <Button buttonStyle={styles.buttonStyle}
+                            textStyle = {styles.textStyle}
+                            title="Edit"
+                            onPress={() => {
+                                this.props.navigation.navigate('EditEventView', {
+                                    refresh: this.refresh.bind(this),
+                                    day: this.timeToString(this.props.navigation.state.params.day),
+                                    cityName: this.props.navigation.state.params.cityName,
+                                    currentTripID: this.props.navigation.state.params.currentTripID,
+                                    name: item.name,
+                                    start: item.start,
+                                    end: item.end,
+                                    address: item.address,
+                                    id: item.id
+                                })
+                            }}
+                    >
+                        hi
+                    </Button>
+                    <Button buttonStyle={styles.buttonStyle}
+                            textStyle = {styles.textStyle}
+                            title="X"
+                            onPress={() =>{this.deleteEvent(item.id);}}
+                    >
+                        hi
+                    </Button>
                 </View>
             </View>
         );

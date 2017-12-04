@@ -109,8 +109,8 @@ export default class TriprStore {
 
         let names = [];
         for (let i = 0; i < POIlist.length; i++) {
-            if (POIlist[i].name && POIlist[i].name.substring(0, startStr.length) === startStr) {
-                names.push(POIlist[i])
+            if (POIlist[i].name && POIlist[i].name.toLowerCase().substring(0, startStr.length) === startStr.toLowerCase()) {
+                names.push(POIlist[i]);
             }
         }
         return names;
@@ -123,34 +123,30 @@ export default class TriprStore {
         AsyncStorage.setItem("currentTrips", JSON.stringify({})).done();
     }
 
-    static addTripToLocalStorage(tripObject) {
+    static async addTripToLocalStorage(tripObject) {
         let currentTrips = {};
-        currentTrips[tripObject.id] = tripObject
-        AsyncStorage.mergeItem("currentTrips", JSON.stringify(currentTrips)).done();
+        currentTrips[tripObject.id] = tripObject;
+        AsyncStorage.mergeItem("currentTrips", JSON.stringify(currentTrips));
+        console.log('(INFO) [TriprStore.addTripToLocalStorage] merged tripObject with async storage');
     }
 
-    static getAllTripsFromLocalStorage(callback) {
-        AsyncStorage.getItem("currentTrips").then((currentTrips) => {
-            callback(currentTrips);
-        })
+    static async getAllTripsFromLocalStorage() {
+        let currentTrips = await AsyncStorage.getItem("currentTrips");
+        return JSON.parse(currentTrips);
     }
 
-    static deleteTripFromLocalStorage(tripID, callback) {
-        AsyncStorage.getItem("currentTrips").then((currentTrips) => {
-            delete JSON.parse(currentTrips)[tripID];
-            AsyncStorage.setItem("currentTrips", JSON.stringify(currentTrips)).done();
-            if(callback) callback();
-        })
-
+    static async deleteTripFromLocalStorage(tripID) {
+        let currentTrips = await AsyncStorage.getItem("currentTrips");
+        let trips = JSON.parse(currentTrips);
+        delete trips[tripID];
+        await AsyncStorage.setItem("currentTrips", JSON.stringify(trips));
     }
 
-    static updateTripInLocalStorage(tripID, tripObject, callback) {
-        AsyncStorage.getItem("currentTrips").then((currentTrips) => {
-            currentTrips = JSON.parse(currentTrips);
-            currentTrips[tripID] = tripObject;
-            AsyncStorage.setItem("currentTrips", JSON.stringify(currentTrips)).done();
-            callback(currentTrips);
-        });
+    static async updateTripInLocalStorage(tripID, tripObject) {
+        let currentTrips = await AsyncStorage.getItem("currentTrips");
+        let trips = JSON.parse(currentTrips);
+        trips[tripID] = tripObject;
+        AsyncStorage.setItem("currentTrips", JSON.stringify(trips))
     }
 
     /*POI LIST METHODS*/

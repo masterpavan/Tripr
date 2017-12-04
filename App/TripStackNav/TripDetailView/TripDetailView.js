@@ -1,6 +1,6 @@
 
 import React, {Component} from "react";
-import {Alert, View, StyleSheet, AsyncStorage, ScrollView} from 'react-native';
+import {Alert, View, StyleSheet, AsyncStorage, ScrollView, Text, Image} from 'react-native';
 
 import { Button, Icon } from 'react-native-elements';
 
@@ -16,10 +16,27 @@ import TriprStore from "../../../assets/services/TriprStore";
 
 const details = StyleSheet.create({
     container: {
-        height:300,
-        backgroundColor: '#eee'
+        height:Metrics.screenWidth/2,
+        backgroundColor: 'transparent',
+        justifyContent:'center',
+        alignItems:'center'
     },
 });
+function randomImage() {
+    let images = [
+        require('../../../assets/images/rectangles/rectangle1.png'),
+        require('../../../assets/images/rectangles/rectangle2.png'),
+        require('../../../assets/images/rectangles/rectangle3.png'),
+        require('../../../assets/images/rectangles/rectangle4.png'),
+        require('../../../assets/images/rectangles/rectangle5.png'),
+        require('../../../assets/images/rectangles/rectangle6.png'),
+        require('../../../assets/images/rectangles/rectangle7.png'),
+        require('../../../assets/images/rectangles/rectangle8.png'),
+        require('../../../assets/images/rectangles/rectangle10.png'),
+        require('../../../assets/images/rectangles/rectangle11.png'),
+    ]
+    return images[Math.floor(Math.random()*10)];
+}
 
 export default class TripDetailView extends React.Component {
 
@@ -42,7 +59,12 @@ export default class TripDetailView extends React.Component {
         super(props);
         this.currentTripID = this.props.navigation.state.params.currentTripID;
 
-        this.state = { screen: "list", isLoading:false }
+        this.state = {
+            screen: "list",
+            isLoading:false,
+            currentTrip:triprTripController.getTripObject(this.currentTripID)
+        }
+
 
         const { navigate } = this.props.navigation;
         this.navigate = navigate;
@@ -96,24 +118,53 @@ export default class TripDetailView extends React.Component {
             return (
                 <EditTripComponent
                     currentTripID={this.currentTripID}
+                    refreshTripList={this.props.navigation.state.params.refreshTripList}
                     setParentState={this.setTheState.bind(this)}
                     navigate={this.navigate}/>
             )
         }
     }
 
-    deleteTrip() {
-        triprTripController.deleteTrip(this.currentTripID,() => {
-            this.props.navigate("TripListView")
-        })
-        //this.setState({screen: "editTrip"})
+    async deleteTrip() {
+        await triprTripController.deleteTrip(this.currentTripID)
+        this.props.navigation.state.params.refreshTripList();
+        this.props.navigation.goBack();
     }
 
     render() {
         return (
             <View style={{flex:1}}>
+                <View style={{position: 'absolute',height:Metrics.screenWidth/2, width:Metrics.screenWidth,backgroundColor:'#414821'}}>
+                    <Image
+                        style={{resizeMode:'cover',
+                            position: 'absolute',
+                            width: '100%',
+                            height: '100%',
+                            justifyContent: 'center',}}
+                        source={randomImage()}
+                    />
+                </View>
                 <View style={details.container}>
-
+                    <Text style={{
+                        color:'#fff',
+                        alignSelf:'center',
+                        fontFamily: 'LeagueSpartan',
+                        fontSize:Metrics.h2*1.7,
+                        fontWeight:'200',
+                        textShadowColor:'#222222',
+                        textShadowRadius: 5,
+                        textShadowOffset:{width:2,height:2}
+                    }}>{`Trip to ${this.state.currentTrip.name}`.toUpperCase()}</Text>
+                    <Text style={{
+                        color:'#fff',
+                        alignSelf:'center',
+                        fontFamily: 'LeagueSpartan',
+                        fontSize:Metrics.h2*0.9,
+                        fontWeight:'200',
+                        textShadowColor:'#222222',
+                        textShadowRadius: 5,
+                        textShadowOffset:{width:1,height:1}
+                    }}>{`${this.state.currentTrip.dateRange[0]} - ${this.state.currentTrip.dateRange[1]}`.toUpperCase()}</Text>
                 </View>
                 <View style={{paddingHorizontal:50,paddingVertical:10,flexDirection: 'row', justifyContent: 'space-between', backgroundColor:'#fff'}}>
                     <Icon
