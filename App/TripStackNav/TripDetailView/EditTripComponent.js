@@ -105,7 +105,11 @@ export default class EditTripComponent extends ValidationComponent {
         if (!test) {
             alertStr = alertStr.concat("\nTrip name must be between 2-10 characters.\n")
         }
-        if (start[2] >= end[2]) {
+        if (start.length == 1 || end.length==1) {
+            alertStr = alertStr.concat("\nYou must enter a Start and End date.\n")
+            dateValid = false;
+        }
+        else if (start[2] >= end[2]) {
             if (start[0] > end[0]) {
                 alertStr = alertStr.concat("\nEnd date must be later than Start date.")
                 dateValid = false;

@@ -11,6 +11,7 @@ import {GTC, triprTripController} from "../TripStackNavConfig";
 import Metrics from "../../../assets/styles/Themes/Metrics";
 import EditTripComponent from "./EditTripComponent";
 import * as Progress from 'react-native-progress';
+import TriprStore from "../../../assets/services/TriprStore";
 
 
 const details = StyleSheet.create({
@@ -102,7 +103,10 @@ export default class TripDetailView extends React.Component {
     }
 
     deleteTrip() {
-        this.setState({screen: "editTrip"})
+        triprTripController.deleteTrip(this.currentTripID,() => {
+            this.props.navigate("TripListView")
+        })
+        //this.setState({screen: "editTrip"})
     }
 
     render() {
