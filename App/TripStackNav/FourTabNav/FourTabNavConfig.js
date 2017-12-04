@@ -4,7 +4,7 @@ import {TabNavigator} from "react-navigation";
 import {DiscoverStackNav} from "./DiscoverStackNav/DiscoverStackNavConfig";
 import {PlannerStackNav} from "./PlannerStackNav/PlannerStackNavConfig";
 import MapView from "./MapStackNav/MapView/MapView";
-import ToolTileView from "./ToolStackNav/ToolTileView/ToolTileView";
+import {ToolStackNav} from "./ToolStackNav/ToolStackNavConfig";
 import Metrics from "../../../assets/styles/Themes/Metrics";
 import MapController from "./MapStackNav/MapController";
 
@@ -16,7 +16,7 @@ const routeConfig = {
     //TODO: CHANGE MapView TO MapStackView
     MapView: { screen: MapView},
     //TODO: CHANGE ToolTileView TO ToolStackNav
-    ToolTileView: { screen: ToolTileView}
+    ToolStackNav: { screen: ToolStackNav}
 };
 
 const tabNavConfig = {
