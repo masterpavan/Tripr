@@ -98,7 +98,7 @@ export default class EditTripComponent extends ValidationComponent {
 
         // Call ValidationComponent validate method
         let test = this.validate({
-            tripName: {minlength:2, maxlength:10, required: true},
+            tripName: {minlength:1, maxlength:10, required: true},
             startDate: {date: 'MM-DD-YYYY'},
             endDate: {date: 'MM-DD-YYYY'}
         });
