@@ -5,6 +5,7 @@ import {StyleSheet, Image, View} from 'react-native';
 import Mapbox from '@mapbox/react-native-mapbox-gl';
 import MapboxGL from '@mapbox/react-native-mapbox-gl';
 import TriprStore from "../../../../../assets/services/TriprStore";
+import {triprMapController} from "../../FourTabNavConfig";
 
 Mapbox.setAccessToken('pk.eyJ1Ijoia3JlYmluIiwiYSI6ImNqOXRyN2NpNjAxbDUyeG9lcnVxNXV3aHYifQ.Co5xDA25ehe16YgaFk0t2w');
 
@@ -56,12 +57,16 @@ export default class MapView extends React.Component {
 
     constructor(props) {
         super(props);
-        this.state = {longitude:-122.2416, latitude:37.7652};
+
+        this.state = {longitude:41, latitude:2, zoomLevel:10};
+        //triprMapController.setCurrentCity(this.props.navigation.state.params.cityName);
+        //triprMapController.initSetMapStateFunc(this.setState.bind(this))
+        //triprMapController.getCityCoords();
+
     }
 
-
-
     renderAnnotations () {
+
         return (
             <Mapbox.PointAnnotation
                 key='pointAnnotation'
@@ -77,24 +82,25 @@ export default class MapView extends React.Component {
     }
 
     componentDidMount() {
-        TriprStore.getCityCoord(this.props.navigation.state.params.cityName).then((coordinates)=>{
-            this.setState({latitude:coordinates[0], longitude:coordinates[1]});
-        });
+
     }
 
     render() {
+        console.log('(INFO) [MapView.render] centerCoordinate is: ', [this.state.longitude, this.state.latitude]);
+
         return (
             <View style={{flex:1}}>
-                <MapboxGL.MapView
-                    styleURL= {MapboxGL.StyleURL.Street}
-                    zoomLevel={10}
+                <Mapbox.MapView
+                    styleURL= {Mapbox.StyleURL.Street}
+                    zoomLevel={3}
                     ref= "map"
-                    centerCoordinate={[this.state.latitude, this.state.longitude]}
+                    /*centerCoordinate={[this.state.longitude, this.state.latitude]}*/
+                    centerCoordinate={[-0.1278, 51.5]}
+
                     style={styles.container}
                     showUserLocation={true}>
-                    {this.renderAnnotations()}
-
-                </MapboxGL.MapView>
+                        {this.renderAnnotations()}
+                </Mapbox.MapView>
             </View>
 
         )

@@ -27,25 +27,25 @@ export default class POITilesComponent extends React.Component {
             <View style={styles.buttonsContainer}>
                 <ButtonSquare
                     style={styles.componentButton}
-                    onPress={() => this.props.setParentState({screen: 'list', currentCategory:'restaurants'})}
+                    onPress={() => this.props.generateListFromTiles('restaurants')}
                     image={require('../../../../../assets/images/eatSquare.png')}
                     //text = {'Eat'}
                 />
                 <ButtonSquare
                     style={styles.componentButton}
-                    onPress={() => this.props.setParentState({screen: 'list', currentCategory:'bars'})}
+                    onPress={() => this.props.generateListFromTiles('bars')}
                     image={require('../../../../../assets/images/drinkSquare.png')}
                     //text = {'Drink'}
                 />
                 <ButtonSquare
                     style={styles.componentButton}
-                    onPress={() => this.props.setParentState({screen: 'list', currentCategory:'landmarks'})}
+                    onPress={() => this.props.generateListFromTiles('landmarks')}
                     image={require('../../../../../assets/images/seeSquare.png')}
                     //text = {'See'}
                 />
                 <ButtonSquare
                     style={styles.componentButton}
-                    onPress={() => this.props.setParentState({screen: 'list', currentCategory:'shopping'})}
+                    onPress={() => this.props.generateListFromTiles('shopping')}
                     image={require('../../../../../assets/images/shopSquare.png')}
                     //text = {'Shop'}
                 />

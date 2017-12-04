@@ -133,7 +133,7 @@ class CityPackageDownloadBar extends React.PureComponent {
                                 progress={this.state.percentage / 100}
                             />
                             <Text style={styles.percentageText}>
-                                Downloading {this.props.cityName} Package
+                                Downloading {this.props.cityName.replace(/_/g,' ')} Package
                             </Text>
                         </View>
                         <Icon

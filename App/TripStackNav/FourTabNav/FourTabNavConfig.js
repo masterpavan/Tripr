@@ -6,6 +6,7 @@ import {PlannerStackNav} from "./PlannerStackNav/PlannerStackNavConfig";
 import MapView from "./MapStackNav/MapView/MapView";
 import ToolTileView from "./ToolStackNav/ToolTileView/ToolTileView";
 import Metrics from "../../../assets/styles/Themes/Metrics";
+import MapController from "./MapStackNav/MapController";
 
 
 const routeConfig = {
@@ -50,3 +51,6 @@ const tabNavConfig = {
 }
 
 export const FourTabNav = TabNavigator(routeConfig, tabNavConfig);
+
+let triprMapController = new MapController();
+export {triprMapController};

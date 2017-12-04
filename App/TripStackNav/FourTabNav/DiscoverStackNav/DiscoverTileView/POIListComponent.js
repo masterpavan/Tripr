@@ -1,7 +1,8 @@
 import React from "react";
-import {FlatList,BackHandler} from "react-native";
+import {FlatList,BackHandler,View} from "react-native";
 import ButtonListItem from "../../../../../assets/elements/ButtonListItem";
 import styles from "../../../../../assets/styles/ChooseCityPlannerStyles";
+import Metrics from "../../../../../assets/styles/Themes/Metrics";
 
 export default class POIListComponent extends React.Component {
 
@@ -28,28 +29,33 @@ export default class POIListComponent extends React.Component {
 
     render() {
 
-        let mappedList = this.props.list.map( function(item) {
-            return {key: item.name, POI: item};
+        let mappedList = this.props.list.map( function(POI) {
+            return {key: POI.name, POI: POI};
         });
         console.log("(INFO) [POIListComponent.render] we are about to render this list: ", mappedList);
         return (
-            <FlatList
-            data={mappedList}
-            removeClippedSubviews={true}
-            legacyImplementation={true}
-            renderItem={({item}) => {
-                if(item.key) {
-                    //console.log("(INFO) [POIListComponent.render] rendering list item: ", item.key);
-                    return (<ButtonListItem
-                        onPress={() => this.props.navigate('POIDetailView')}
-                        style={styles.componentButton}
-                        /*image={require('./../../../../../assets/images/rectangles/rectangle11.png')}*/
-                        /*text={this.state.currentTrips[element].name}*/
-                        text={item.key}
-                    />)
-                } else return null
-            }}
-        />)
+            <View>
+                <FlatList
+                    data={mappedList}
+                    removeClippedSubviews={true}
+                    legacyImplementation={true}
+                    renderItem={({item}) => {
+                        if(item.key) {
+                            //console.log("(INFO) [POIListComponent.render] rendering list item: ", item.key);
+                            return (<ButtonListItem
+                                onPress={() => this.props.navigate('POIDetailView', {currentPOI:item.POI})}
+                                style={styles.componentButton}
+                                /*image={require('./../../../../../assets/images/rectangles/rectangle11.png')}*/
+                                /*text={this.state.currentTrips[element].name}*/
+                                text={item.key}
+                            />)
+                        } else return null
+                    }}
+                />
+                <View style={{height:Metrics.screenHeight/15}}/>
+            </View>
+
+        )
     }
 
 }

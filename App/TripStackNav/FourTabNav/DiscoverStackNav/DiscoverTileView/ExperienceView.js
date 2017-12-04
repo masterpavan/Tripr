@@ -95,11 +95,12 @@ export default class ExperienceView extends React.Component {
 
     }
 
-    setTheState(object) {
+    generateListFromTiles(category) {
+        console.log("(INFO) [ExperienceView.generateListFromTiles] generating list by category: ", category);
+        this.state.currentCategory = category;
         this.updateList().then(()=>{
-            console.log("(INFO) [ExperienceView.setTheState] setting the state to: ", object);
 
-            this.setState(object);
+            this.setState({screen:'list'});
         });
     }
 
@@ -112,10 +113,12 @@ export default class ExperienceView extends React.Component {
         })
     }
 
-    handleSearch(query) {
-        console.log("(INFO) [ExperienceView.handleSearch] handling search for query: ", query);
+    generateListFromSearch(query) {
+        console.log("(INFO) [ExperienceView.generateListFromSearch] generating list by search query: ", query);
         this.state.currentSearchQuery = query;
-        this.setTheState({screen: 'list'})
+        this.updateList().then(()=>{
+            this.setState({screen:'list'});
+        });
     }
 
     screenOptions(){
@@ -123,8 +126,7 @@ export default class ExperienceView extends React.Component {
             //render the tiles screen component
             return (
                 <POITilesComponent
-
-                    setParentState={this.setTheState.bind(this)}
+                    generateListFromTiles={this.generateListFromTiles.bind(this)}
                 />
             )
         } else if(this.state.screen === 'list') {
@@ -132,8 +134,6 @@ export default class ExperienceView extends React.Component {
             return (
                 <POIListComponent
                     list={this.state.currentList}
-                    resetToTiles={this.resetToTiles.bind(this)}
-                    setParentState={this.setTheState.bind(this)}
                     navigate={this.navigate}
                 />
             )
@@ -148,7 +148,7 @@ export default class ExperienceView extends React.Component {
                         backgroundColor:"#ffffff"}}
                     containerStyle={{backgroundColor:'transparent',borderTopColor:'transparent',borderBottomColor:'transparent',marginHorizontal:10,marginVertical:10}}
                     placeholder='Type Here...'
-                    onChangeText={(query)=>this.handleSearch(query)}
+                    onChangeText={(query)=>this.generateListFromSearch(query)}
                 />
                 <View>
                     {this.screenOptions()}
