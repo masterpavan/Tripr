@@ -52,36 +52,16 @@ export default class MapView extends React.Component {
             fontSize:20,
             fontWeight:'200'
         },
-        headerRight:(<View></View>)
+        headerRight:(<View/>)
     });
 
     constructor(props) {
         super(props);
 
         this.state = {longitude:41, latitude:2, zoomLevel:10};
-        //triprMapController.setCurrentCity(this.props.navigation.state.params.cityName);
-        //triprMapController.initSetMapStateFunc(this.setState.bind(this))
-        //triprMapController.getCityCoords();
-
-    }
-
-    renderAnnotations () {
-
-        return (
-            <Mapbox.PointAnnotation
-                key='pointAnnotation'
-                id='pointAnnotation'
-                coordinate={[this.state.longitude, this.state.latitude]}>
-
-                <View style={styles.annotationContainer}>
-                    <View style={styles.annotationFill} />
-                </View>
-                <Mapbox.Callout title='Look! An annotation!' />
-            </Mapbox.PointAnnotation>
-        )
-    }
-
-    componentDidMount() {
+        triprMapController.setCurrentCity(this.props.navigation.state.params.cityName);
+        triprMapController.initSetMapStateFunc(this.setState.bind(this))
+        triprMapController.getCityCoords();
 
     }
 
@@ -92,14 +72,22 @@ export default class MapView extends React.Component {
             <View style={{flex:1}}>
                 <Mapbox.MapView
                     styleURL= {Mapbox.StyleURL.Street}
-                    zoomLevel={3}
+                    zoomLevel={this.state.zoomLevel}
                     ref= "map"
                     /*centerCoordinate={[this.state.longitude, this.state.latitude]}*/
-                    centerCoordinate={[-0.1278, 51.5]}
+                    centerCoordinate={[this.state.longitude, this.state.latitude]}
 
-                    style={styles.container}
-                    showUserLocation={true}>
-                        {this.renderAnnotations()}
+                    style={styles.container}>
+                    <Mapbox.PointAnnotation
+                        key='pointAnnotation'
+                        id='pointAnnotation'
+                        coordinate={[this.state.longitude, this.state.latitude]}>
+
+                        <View style={styles.annotationContainer}>
+                            <View style={styles.annotationFill} />
+                        </View>
+                        <Mapbox.Callout title='Look! An annotation!' />
+                    </Mapbox.PointAnnotation>
                 </Mapbox.MapView>
             </View>
 

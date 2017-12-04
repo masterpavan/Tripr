@@ -1,4 +1,4 @@
-import { SearchBar } from 'react-native-elements'
+import {Icon, SearchBar} from 'react-native-elements'
 import React, {Component} from "react";
 import {Image, Text, TouchableOpacity, View} from 'react-native';
 import ButtonSquare from "../../../../../assets/elements/ButtonSquare";
@@ -56,7 +56,10 @@ export default class ExperienceView extends React.Component {
             currentCategory: null,
             currentSearchQuery: ''
         }
-        TriprStore.getPOIList().then(list=>this.state.fullList=list);
+        TriprStore.getPOIList().then(list=>{
+            this.state.fullList=list;
+            this.state.currentList=list;
+        });
         //TriprStore.getPOIList().then((list) => this.state.currentList = list)
     }
 
@@ -142,11 +145,53 @@ export default class ExperienceView extends React.Component {
     render() {
         return (
             <View>
+
+                <View style={{marginTop:8,flexDirection: 'row', justifyContent: 'space-between',}}>
+                    <TouchableOpacity
+                        style={{
+                            justifyContent: 'center',
+                            alignItems: 'center',
+                            width:Metrics.screenWidth/2-8,
+                            marginLeft:8,
+                            backgroundColor:this.state.screen === "tiles" ? '#fff':'transparent',
+                        }}
+                        onPress={() => {
+                            this.setState({screen: "tiles"})
+                        }}>
+
+                        <Icon
+                            size={Metrics.screenWidth/10}
+                            name= 'view-grid'
+                            type='material-community'
+                            color={this.state.screen === "tiles" ? '#494949':'#828282'}
+
+                        />
+                    </TouchableOpacity>
+                    <TouchableOpacity
+                        style={{
+                            justifyContent: 'center',
+                            alignItems: 'center',
+                            width:Metrics.screenWidth/2-8,
+                            marginRight:8,
+                            backgroundColor:this.state.screen === "list" ? '#fff':'transparent'
+                        }}
+                        onPress={() => {
+                            this.setState({screen: "list"})
+                        }}>
+                        <Icon
+                            size={Metrics.screenWidth/10}
+                            name= 'view-sequential'
+                            type='material-community'
+                            color={this.state.screen === "list" ? '#494949':'#828282'}
+
+                        /></TouchableOpacity>
+
+                </View>
                 <SearchBar
                     lightTheme
                     inputStyle={{
                         backgroundColor:"#ffffff"}}
-                    containerStyle={{backgroundColor:'transparent',borderTopColor:'transparent',borderBottomColor:'transparent',marginHorizontal:10,marginVertical:10}}
+                    containerStyle={{backgroundColor:'transparent',borderTopColor:'transparent',borderBottomColor:'transparent'}}
                     placeholder='Type Here...'
                     onChangeText={(query)=>this.generateListFromSearch(query)}
                 />

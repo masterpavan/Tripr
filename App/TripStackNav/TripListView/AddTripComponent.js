@@ -75,7 +75,7 @@ export default class AddTripComponent extends React.Component {
                 }}>
                     <Button
                         containerViewStyle={{width: (Metrics.screenWidth/2)-15, marginLeft:10, marginRight:0 }}
-                        buttonStyle={{backgroundColor:"#f58d4e",marginLeft:0}} title="Add Trip" onPress={()=>{this.submit()}}/>
+                        buttonStyle={{backgroundColor:"#f58d4e",marginLeft:0}} title="Add Trip" onPress={()=>{this.submit().done()}}/>
                     <Button
                         containerViewStyle={{width: (Metrics.screenWidth/2)-15, marginLeft:10, marginRight:0}}
                         buttonStyle={{backgroundColor:"#494949"}}
@@ -85,11 +85,13 @@ export default class AddTripComponent extends React.Component {
         )
     }
 
-    submit() {
+    async submit() {
 
         let thisTrip = triprTripController.createNewTripObject(this.state.tripName, this.state.startDate, this.state.endDate, {});
-        console.log("created trip: ", thisTrip);
-        triprTripController.addTrip(thisTrip, ()=>{this.props.setParentState({screen: "list"})});
+        console.log('(INFO) [AddTripComponent.submit] created a trip: ', thisTrip);
+        await triprTripController.addTrip(thisTrip);
+        console.log('(INFO) [AddTripComponent.submit] setting parent state');
+        this.props.setParentState({screen: "list"});
 
     }
 

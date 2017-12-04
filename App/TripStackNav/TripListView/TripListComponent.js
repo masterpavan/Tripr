@@ -13,7 +13,11 @@ export default class TripListComponent extends React.Component {
     }
 
     navToTripDetailView(tripID) {
-        this.props.navigate('TripDetailView', {currentTripID: tripID, name: this.props.list[tripID].name})
+        this.props.navigate('TripDetailView', {currentTripID: tripID, name: this.props.list[tripID].name, refreshTripList:this.refreshTripList.bind(this)})
+    }
+
+    refreshTripList() {
+        this.props.setParentState({screen:'list'});
     }
 
     randomImage() {

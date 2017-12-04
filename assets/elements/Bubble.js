@@ -4,7 +4,6 @@ import Metrics from "../styles/Themes/Metrics";
 
 const styles = StyleSheet.create({
     container: {
-        borderRadius: 5,
         minHeight: Metrics.screenHeight/15,
         padding: 0,
         alignItems: 'center',

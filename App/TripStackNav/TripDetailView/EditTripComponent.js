@@ -89,7 +89,7 @@ export default class EditTripComponent extends React.Component {
         )
     }
 
-    submit() {
+    async submit() {
 
         let updatedTrip = triprTripController.createUpdatedTripObject(
             this.props.currentTripID,
@@ -98,7 +98,9 @@ export default class EditTripComponent extends React.Component {
             this.state.endDate,
             this.state.cityIDs);
         console.log("updated trip: ", updatedTrip);
-        triprTripController.updateTrip(this.props.currentTripID, updatedTrip, ()=>{this.props.setParentState({screen: "list"})});
+        await triprTripController.updateTrip(this.props.currentTripID, updatedTrip);
+        this.props.setParentState({screen: "list"});
+        this.props.refreshTripList();
 
     }
 
