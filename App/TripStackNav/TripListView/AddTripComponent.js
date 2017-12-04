@@ -5,8 +5,9 @@ import {triprTripController} from "../TripStackNavConfig";
 import Metrics from "../../../assets/styles/Themes/Metrics";
 import DatePicker from 'react-native-datepicker'
 import formStyles from "../../../assets/styles/FormStyles";
+import ValidationComponent from 'react-native-form-validator';
 
-export default class AddTripComponent extends React.Component {
+export default class AddTripComponent extends ValidationComponent {
 
 
     constructor(props) {
@@ -40,19 +41,19 @@ export default class AddTripComponent extends React.Component {
                     flexWrap: 'wrap',
                 }}>
                     <DatePicker
-                    style={[formStyles.dateContainer,{marginLeft: 30,marginRight: 15}]}
-                    date={this.state.startDate}
-                    mode="date"
-                    showIcon={false}
-                    placeholder="Start Date"
-                    format="MM-DD-YYYY"
-                    minDate="2017-01-01"
-                    maxDate="2019-01-01"
-                    confirmBtnText="Confirm"
-                    cancelBtnText="Cancel"
-                    customStyles={{dateInput: formStyles.dateInput}}
-                    onDateChange={(date) => {this.setState({startDate: date})}}
-                />
+                        style={[formStyles.dateContainer,{marginLeft: 30,marginRight: 15}]}
+                        date={this.state.startDate}
+                        mode="date"
+                        showIcon={false}
+                        placeholder="Start Date"
+                        format="MM-DD-YYYY"
+                        minDate="2017-01-01"
+                        maxDate="2019-01-01"
+                        confirmBtnText="Confirm"
+                        cancelBtnText="Cancel"
+                        customStyles={{dateInput: formStyles.dateInput}}
+                        onDateChange={(date) => {this.setState({startDate: date})}}
+                    />
                     <DatePicker
                         style={[formStyles.dateContainer,{marginLeft: 15,marginRight: 30}]}
                         date={this.state.endDate}
@@ -85,14 +86,48 @@ export default class AddTripComponent extends React.Component {
         )
     }
 
-    async submit() {
+     async submit() {
+        var start = this.state.startDate.split("-");
+        //alert(start)
+        //alert("Start length is " + start.length)
+        var end = this.state.endDate.split("-");
+        var alertStr = "";
+        var dateValid = true;
 
-        let thisTrip = triprTripController.createNewTripObject(this.state.tripName, this.state.startDate, this.state.endDate, {});
+        // Call ValidationComponent validate method
+        let test = this.validate({
+            tripName: {minlength:1, maxlength:10, required: true},
+            //startDate: {date: 'MM-DD-YYYY'},
+            //endDate: {date: 'MM-DD-YYYY'}
+        });
+        if (!test) {
+            alertStr = alertStr.concat("\nTrip name must be between 2-10 characters.\n")
+        }
+        if (start.length == 1 || end.length==1) {
+            alertStr = alertStr.concat("\nYou must enter a Start and End date.\n")
+            dateValid = false;
+        }
+        else if (start[2] >= end[2]) {
+            if (start[0] > end[0]) {
+                alertStr = alertStr.concat("\nEnd date must be later than Start date.")
+                dateValid = false;
+            }
+            else if (start[0] == end[0]) {
+                if (start[1] > end[1]) {
+                    alertStr = alertStr.concat("\nEnd date must be later than Start date.")
+                    dateValid = false;
+                }
+            }
+        }
+        if( test && dateValid ) {
+             let thisTrip = triprTripController.createNewTripObject(this.state.tripName, this.state.startDate, this.state.endDate, {});
         console.log('(INFO) [AddTripComponent.submit] created a trip: ', thisTrip);
         await triprTripController.addTrip(thisTrip);
         console.log('(INFO) [AddTripComponent.submit] setting parent state');
         this.props.setParentState({screen: "list"});
-
+        } else {
+            alert(alertStr)
+        }
     }
 
 }
