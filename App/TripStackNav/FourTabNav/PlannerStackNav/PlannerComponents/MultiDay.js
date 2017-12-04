@@ -43,7 +43,6 @@ export default class MultiDayView extends React.Component {
     render() {
         return (
         <View style={{ flex: 1 }}>
-          <ScrollView style={styles.container}>
             <Calendar
                  current={this.startDate}
                 minDate={this.startDate}
@@ -53,7 +52,6 @@ export default class MultiDayView extends React.Component {
               hideExtraDays
               markedDates={this.markedDates}
             />
-          </ScrollView>
         </View>
       );
     }
