@@ -2,6 +2,7 @@ import React, {Componenent} from 'react';
 import {Image, Text, TouchableOpacity, View, TextInput, StyleSheet, Dimensions} from 'react-native';
 import { Button, FormLabel, FormInput } from 'react-native-elements'
 import {eventController} from "../PlannerStackNavConfig";
+import DatePicker from 'react-native-datepicker';
 
 
 export default class AddEvent extends React.Component {
@@ -23,13 +24,31 @@ export default class AddEvent extends React.Component {
                 <FormInput onChangeText={(text) => this.setState({name:text})}/>
                 <View style={{flexDirection: 'row'}}>
                 	<View>
-	                	<FormLabel containerStyle= {styles.dateLabel}>Start Time:</FormLabel>
-	                	<FormInput containerStyle= {styles.dateInput} onChangeText={(text) => this.setState({start:text})}/>
+                        <DatePicker
+                            style={[{marginLeft: 30,marginRight: 15}]}
+                            date="12:00"
+                            mode="time"
+                            showIcon={false}
+                            placeholder="Start Time"
+                            is24Hour={true}
+                            confirmBtnText="Confirm"
+                            cancelBtnText="Cancel"
+                            onDateChange={(date) => {this.setState({start: date})}}
+                        />
 	                </View>
 	                <View>
-                		<FormLabel containerStyle= {styles.dateLabel}>End Time:</FormLabel>
-                		<FormInput containerStyle= {styles.dateInput} onChangeText={(text) => this.setState({end:text})} />
-                	</View>
+                        <DatePicker
+                            style={[{marginLeft: 30,marginRight: 15}]}
+                            date="12:00"
+                            mode="time"
+                            showIcon={false}
+                            placeholder="End Time"
+                            is24Hour={true}
+                            confirmBtnText="Confirm"
+                            cancelBtnText="Cancel"
+                            onDateChange={(date) => {this.setState({end: date})}}
+                        />
+                    </View>
                 </View>    
                 <FormLabel>Address:</FormLabel>
                 <FormInput onChangeText={(text) => this.setState({address: text})} /> 
@@ -39,6 +58,8 @@ export default class AddEvent extends React.Component {
 	}
 
 	async submit() {
+	    console.log(this.state.start);
+	    console.log(this.state.end);
         await eventController.addEvent(this.props.navigation.state.params.currentTripID,
             this.props.navigation.state.params.cityName,
             this.props.navigation.state.params.day,
