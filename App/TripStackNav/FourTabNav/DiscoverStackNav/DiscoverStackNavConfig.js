@@ -5,9 +5,10 @@ import DiscoverTileView from "./DiscoverTileView/DiscoverTileView";
 import POIListView from "./POIListView/POIListView";
 import POIDetailView from "./POIDetailView/POIDetailView";
 import {Image} from "react-native";
+import ExperienceView from "./DiscoverTileView/ExperienceView";
 
 const routeConfig = {
-    DiscoverTileView: {screen: DiscoverTileView},
+    DiscoverTileView: {screen: ExperienceView},
     POIListView: {screen: POIListView},
     POIDetailView: {screen: POIDetailView}
 };

@@ -14,11 +14,7 @@ export default StyleSheet.create({
   },
     image: {
         width: '100%',
-        //aspectRatio: 1.0,
         resizeMode: 'contain'
-        //height: Metrics.screenWidth / 2,
-        //margin: Metrics.baseMargin,
-
     },
     overlayText:{
         position:'absolute',

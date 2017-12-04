@@ -10,9 +10,13 @@ export default StyleSheet.create({
         paddingBottom: 0
     },
     infoTextContainer:{
+        backgroundColor:'#eee',
         //marginTop:20,
+        flex: 0,
+        flexDirection: 'column',
+        justifyContent: 'center',
+        alignItems: 'center',
         marginHorizontal: 20,
-        alignItems: 'center'
     },
     infoText:{
         textAlign: 'center',

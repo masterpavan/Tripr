@@ -24,16 +24,20 @@ export default class TripController {
         console.log("currentTrips is now: ",this.currentTrips);
     }
 
-    addTrip(tripObject, callback) {
-        TriprStore.addTripToLocalStorage(tripObject);
+    async addTrip(tripObject) {
+        console.log('(INFO) [TripController.addTrip] about to add tripObject to async storage');
+
+        await TriprStore.addTripToLocalStorage(tripObject);
+        console.log('(INFO) [TripController.addTrip] done adding to async storage. now getting currentTrips.');
+
         /*let currentTrips = {};
         currentTrips[tripObject.id] = tripObject
         AsyncStorage.mergeItem("currentTrips", JSON.stringify(currentTrips)).done();*/
 
-        TriprStore.getAllTripsFromLocalStorage((currentTrips)=>{
-            this.currentTrips = JSON.parse(currentTrips);
-            if(callback) callback();
-        });
+        this.currentTrips = await TriprStore.getAllTripsFromLocalStorage();
+        console.log('(INFO) [TripController.addTrip] set current trips to: ',this.currentTrips);
+
+
         /*AsyncStorage.getItem("currentTrips").then((currentTrips) => {
             this.currentTrips = JSON.parse(currentTrips);
             this.print();
@@ -42,8 +46,10 @@ export default class TripController {
         })*/
     }
 
-    deleteTrip(tripID, callback) {
-        TriprStore.deleteTripFromLocalStorage(tripID, callback)
+    async deleteTrip(tripID) {
+        await TriprStore.deleteTripFromLocalStorage(tripID);
+        this.currentTrips = await TriprStore.getAllTripsFromLocalStorage();
+
         /*AsyncStorage.getItem("currentTrips").then((currentTrips) => {
             delete JSON.parse(currentTrips)[tripID];
             AsyncStorage.setItem("currentTrips", JSON.stringify(currentTrips)).done();
@@ -51,11 +57,11 @@ export default class TripController {
         })*/
     }
 
-    updateTrip(tripID, tripObject, callback) {
-        TriprStore.updateTripInLocalStorage(tripID, tripObject, (updatedCurrentTrips)=> {
-            this.currentTrips = updatedCurrentTrips;
-            if(callback) callback();
-        })/*
+    async updateTrip(tripID, tripObject) {
+        await TriprStore.updateTripInLocalStorage(tripID, tripObject);
+        this.currentTrips = await TriprStore.getAllTripsFromLocalStorage();
+
+        /*
         AsyncStorage.getItem("currentTrips").then((currentTrips) => {
             currentTrips = JSON.parse(currentTrips);
             currentTrips[tripID] = tripObject;

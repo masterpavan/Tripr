@@ -6,6 +6,8 @@ import TriprStore from "../../../../../assets/services/TriprStore";
 import ButtonListItem from "../../../../../assets/elements/ButtonListItem";
 import styles from "../../../../../assets/styles/ChooseCityPlannerStyles";
 import * as Progress from 'react-native-progress';
+import NetIcon from "../../../../../assets/elements/NetIcon";
+import Metrics from "../../../../../assets/styles/Themes/Metrics";
 
 export default class POIListView extends React.PureComponent {
     static navigationOptions = ({ navigation, screenProps }) => ({
@@ -17,17 +19,17 @@ export default class POIListView extends React.PureComponent {
                                resizeMode: 'center'
                            }} />,
         tabBarLabel: "Experience",
-        headerTitle: `Experience ${navigation.state.params.cityName}`.toUpperCase(),
+        headerTitle: `Experience`.toUpperCase(),
         headerStyle: {
         },
         headerTitleStyle: {
             color:'#494949',
             alignSelf:'center',
             fontFamily: 'LeagueSpartan',
-            fontSize:20,
+            fontSize:Metrics.h2,
             fontWeight:'200'
         },
-        headerRight:(<View></View>)
+        headerRight:(<NetIcon/>)
     });
 
     constructor(props) {

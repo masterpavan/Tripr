@@ -19,109 +19,48 @@ export default class TriprStore {
         persistence: true,
     };
 
-    static readCity(city, callback) {
+    static async readCityPackageFromFirebase(city) {
 
-        NetInfo.isConnected.fetch().then(isConnected => {
-            if (isConnected) {
+        const isConnected = NetInfo.isConnected.fetch();
 
-                let database = firebase.database();
+        if (isConnected) {
 
-                database.ref("POI_S_Table").child(city).orderByChild('id').once('value', function (snap) {
+            let database = firebase.database();
+            let coordinateArray = [];
+            let POIArray = [];
 
-                    console.log('inside readCity promise');
-                    let arr = [];
+            let cityTable = await database.ref("POI_S_Table").child(city).orderByChild('id').once('value');
 
-                    snap.forEach(function (childSnap) {
-                        let item = childSnap.val();
-                        item.key = childSnap.key;
-                        //console.log("inside TriprStore. item is",item);
-                        arr.push(item);
-                    });
-
-                    //let hash = ds.hashTable();
-                    let hash = {};
-                    let unique = [];
-
-                    for (let i = 0; i < arr.length; i++) {
-                        if (hash[arr[i].id] == null) {
-                            unique.push(arr[i]);
-                            hash[arr[i].id] = i;
-                        }
-                    }
-
-                    arr = unique;
-
-                    //console.log(unique);
-                    let oldState = [];
-                    for (let i = 0; i < arr.length; i++) {
-                        oldState[i] = {
-                            name: arr[i].name,
-                            id: arr[i].id,
-                            rating: arr[i].rating,
-                            review_count: arr[i].review_count,
-                            appCat: arr[i].appCat,
-                            address: arr[i].address,
-                            city: arr[i].city,
-                            coordinates_lat: arr[i].coordinates_lat,
-                            coordinates_lon: arr[i].coordinates_lon,
-                            image_url: arr[i].image_url,
-                            phone: arr[i].phone
-                        }
-                    }
-
-                    callback(oldState);
-
-                });
-            }
-        });
-
-    }
-
-    static readPOI(city, POI_id, oldState) {
-        this.database.ref("POI_S_Table").child(city).orderByChild('id').equalTo(POI_id).once('value', function (snap) {
-            let arr = [];
-
-            snap.forEach(function (childSnap) {
-                let item = childSnap.val();
-                item.key = childSnap.key;
-
-                arr.push(item);
+            cityTable.forEach(function (row) {
+                let rowVal = row.val();
+                if(rowVal.name) {
+                    POIArray.push(rowVal);
+                } else {
+                    coordinateArray.push(rowVal)
+                }
             });
 
-            oldState[Math.random()] = {name: arr[0].name}
-        });
-    }
+            /*delete any duplicates*/
+            let hash = {};
+            let unique = [];
 
-    static getCityCoord(city, callback) {
-        let database = firebase.database();
-
-        database.ref("POI_S_Table").child(city).orderByKey().equalTo("Longitude").once('value', function (snap1) {
-            database.ref("POI_S_Table").child(city).orderByKey().equalTo("Latitude").once('value', function (snap2) {
-                let lat = snap2.val().Latitude;
-                let lon = snap1.val().Longitude;
-                let coord = [lon, lat];
-                console.log(lat);
-                callback(coord);
-            })
-        })
-    }
-
-    static getPOICoord(POIlist, POIid) {
-        let POI = null;
-        for (let i = 0; i < POIlist.length; i++) {
-            if (POIlist[i].id === POIid) {
-                POI = POIlist[i];
-                break;
+            for (let i = 0; i < POIArray.length; i++) {
+                if (!hash[POIArray[i].id]) {
+                    unique.push(POIArray[i]);
+                    hash[POIArray[i].id] = i;
+                }
             }
-        }
-        return [POI.coordinates_lon, POI.coordinates_lat];
-    }
 
+            POIArray = unique;
+
+            return {POIList: POIArray, coordinates: coordinateArray.reverse()};
+        }
+        return {POIList: [], coordinates: [0,0]}
+    }
 
     /*
         Once you have list, use these to sort and filter
     */
-
     static sortByPopularity(POIlist) {
         let arr = POIlist;
         arr.sort(function(a,b) {
@@ -164,19 +103,14 @@ export default class TriprStore {
         return arrRat;
     }
 
-    /*static convertToNamesArray(POIlist) {
-        let names = [];
-        for (let i = 0; i < POIlist.length; i++) {
-            names.push(POIlist[i].name);
-        }
-        return names;
-    }*/
-
     static startingWith(POIlist, startStr) {
+        console.log('(INFO) [TriprStore.startingWith] list to change is: ', POIlist);
+        console.log('(INFO) [TriprStore.startingWith] string to use is: ', startStr);
+
         let names = [];
         for (let i = 0; i < POIlist.length; i++) {
-            if (POIlist[i].name.substring(0, startStr.length) === startStr) {
-                names.push(POIlist[i])
+            if (POIlist[i].name && POIlist[i].name.toLowerCase().substring(0, startStr.length) === startStr.toLowerCase()) {
+                names.push(POIlist[i]);
             }
         }
         return names;
@@ -189,34 +123,86 @@ export default class TriprStore {
         AsyncStorage.setItem("currentTrips", JSON.stringify({})).done();
     }
 
-
-    static addTripToLocalStorage(tripObject) {
+    static async addTripToLocalStorage(tripObject) {
         let currentTrips = {};
-        currentTrips[tripObject.id] = tripObject
-        AsyncStorage.mergeItem("currentTrips", JSON.stringify(currentTrips)).done();
+        currentTrips[tripObject.id] = tripObject;
+        AsyncStorage.mergeItem("currentTrips", JSON.stringify(currentTrips));
+        console.log('(INFO) [TriprStore.addTripToLocalStorage] merged tripObject with async storage');
     }
 
-    static getAllTripsFromLocalStorage(callback) {
-        AsyncStorage.getItem("currentTrips").then((currentTrips) => {
-            callback(currentTrips);
-        })
+    static async getAllTripsFromLocalStorage() {
+        let currentTrips = await AsyncStorage.getItem("currentTrips");
+        return JSON.parse(currentTrips);
     }
 
-    static deleteTripFromLocalStorage(tripID, callback) {
-        AsyncStorage.getItem("currentTrips").then((currentTrips) => {
-            delete JSON.parse(currentTrips)[tripID];
-            AsyncStorage.setItem("currentTrips", JSON.stringify(currentTrips)).done();
-            if(callback) callback();
-        })
-
+    static async deleteTripFromLocalStorage(tripID) {
+        let currentTrips = await AsyncStorage.getItem("currentTrips");
+        let trips = JSON.parse(currentTrips);
+        delete trips[tripID];
+        await AsyncStorage.setItem("currentTrips", JSON.stringify(trips));
     }
 
-    static updateTripInLocalStorage(tripID, tripObject, callback) {
-        AsyncStorage.getItem("currentTrips").then((currentTrips) => {
-            currentTrips = JSON.parse(currentTrips);
-            currentTrips[tripID] = tripObject;
-            AsyncStorage.setItem("currentTrips", JSON.stringify(currentTrips)).done();
-            callback(currentTrips);
-        });
+    static async updateTripInLocalStorage(tripID, tripObject) {
+        let currentTrips = await AsyncStorage.getItem("currentTrips");
+        let trips = JSON.parse(currentTrips);
+        trips[tripID] = tripObject;
+        AsyncStorage.setItem("currentTrips", JSON.stringify(trips))
+    }
+
+    /*POI LIST METHODS*/
+    static async initializeCurrentCityPackage(cityID) {
+        let cityPackage = await AsyncStorage.getItem(cityID);
+        console.log('(INFO) [TriprStore.initializeCurrentCityPackage] city package in the users local storage is: ', cityPackage);
+
+        if (!cityPackage) {
+            console.log('(INFO) [TriprStore.initializeCurrentCityPackage] local city package doesnt exist. fetching from the database.');
+            let cityPackage = await this.readCityPackageFromFirebase(cityID);
+            console.log('(INFO) [TriprStore.initializeCurrentCityPackage] we made a new cityPackage:', cityPackage);
+            console.log("(INFO) [TriprStore.initializeCurrentCityPackage] cityPackage being stored in Async @ currentCityPackage is: ", cityPackage);
+            AsyncStorage.setItem("currentCityPackage", JSON.stringify(cityPackage)).done();
+        } else {
+            console.log('(INFO) [TriprStore.initializeCurrentCityPackage] local city package exists.');
+            console.log("(INFO) [TriprStore.initializeCurrentCityPackage] cityPackage being stored in Async @ currentCityPackage is: ", cityPackage);
+            AsyncStorage.setItem("currentCityPackage", cityPackage).done();
+        }
+
+        return {isLoading:false}
+    } // AFTER THIS METHOD, async @ currentCityPackage exists and = the city the user is looking at
+
+    static async getPOIList() {
+        console.log("(INFO) [TriprStore.getPOIList] about to get POI list from Async");
+
+        let currentCityPackage = await AsyncStorage.getItem("currentCityPackage");
+        console.log("(INFO) [TriprStore.getPOIList] package recieved is: ", JSON.parse(currentCityPackage));
+        console.log("(INFO) [TriprStore.getPOIList] returning: ", JSON.parse(currentCityPackage).POIList);
+
+        return JSON.parse(currentCityPackage).POIList;
+    }
+
+    static async getCityCoord() {
+        console.log("(INFO) [TriprStore.getCityCoord] about to get city coordinates from Async");
+
+        let currentCityPackage = await AsyncStorage.getItem("currentCityPackage");
+        console.log("(INFO) [TriprStore.getCityCoord] package recieved is: ", JSON.parse(currentCityPackage));
+        console.log("(INFO) [TriprStore.getCityCoord] returning: ", JSON.parse(currentCityPackage).coordinates);
+
+        return JSON.parse(currentCityPackage).coordinates
+        // pull coordinates from async storage @ currentCityPackage.coordinates
+    }
+
+    static async getSinglePOI(POIID) {
+        let POIList = await AsyncStorage.getItem("currentCityPackage").POIList;
+        for (let i = 0; i < POIList.length; i++) {
+            if (POIList[i].id === POIID)
+                return POIList[i];
+        }
+        // pull from async entire POI list (use getPOIlist) and iterate through to find specified POI
+    }
+
+    static async saveCityPackage(cityID) {
+        let currentCityPackage = await AsyncStorage.getItem("currentCityPackage");
+        AsyncStorage.setItem(cityID, JSON.stringify(currentCityPackage)).done();
+        // pull entire city package from async @ currentCityPackage
+        // store back in async @ cityID
     }
 }
