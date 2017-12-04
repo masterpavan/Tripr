@@ -3,6 +3,8 @@ import {Image, Text, TouchableOpacity, View, TextInput, StyleSheet, Dimensions} 
 import { Button, FormLabel, FormInput } from 'react-native-elements'
 import {eventController} from "../PlannerStackNavConfig";
 import DatePicker from 'react-native-datepicker';
+import formStyles from "../../../../../assets/styles/FormStyles";
+import Metrics from "../../../../../assets/styles/Themes/Metrics";
 
 export default class EditEventView extends React.Component {
 	constructor(props) {
@@ -19,40 +21,68 @@ export default class EditEventView extends React.Component {
 
     render() {
         return (
-			<View>
-				<FormLabel>Event Name:</FormLabel>
-				<FormInput onChangeText={(text) => this.setState({name:text})} defaultValue = {this.state.name}/>
-				<View style={{flexDirection: 'row'}}>
-					<View>
-						<DatePicker
-							style={[{marginLeft: 30,marginRight: 15}]}
-							date={this.state.start}
-							mode="time"
-							showIcon={false}
-							placeholder="Start Time"
-							is24Hour={true}
-							confirmBtnText="Confirm"
-							cancelBtnText="Cancel"
-							onDateChange={(date) => {this.setState({start: date})}}
-						/>
-					</View>
-					<View>
-						<DatePicker
-							style={[{marginLeft: 30,marginRight: 15}]}
-							date={this.state.end}
-							mode="time"
-							showIcon={false}
-							placeholder="End Time"
-							is24Hour={true}
-							confirmBtnText="Confirm"
-							cancelBtnText="Cancel"
-							onDateChange={(date) => {this.setState({end: date})}}
-						/>
-					</View>
+			<View style={{backgroundColor:'transparent', flex:1}}>
+				<FormLabel containerStyle={formStyles.labelContainerStyle}
+						   labelStyle={formStyles.labelStyle}>
+					Event Name:
+				</FormLabel>
+				<FormInput containerStyle={formStyles.inputContainerStyle}
+						   inputStyle={formStyles.inputStyle}
+						   onChangeText={(text) => this.setState({name:text})}
+						   defaultValue={this.state.name}
+				/>
+				<FormLabel containerStyle={formStyles.labelContainerStyle}
+						   labelStyle={formStyles.labelStyle}>Address:</FormLabel>
+				<FormInput containerStyle={formStyles.inputContainerStyle}
+						   inputStyle={formStyles.inputStyle}
+						   onChangeText={(text) => this.setState({address: text})}
+						   defaultValue={this.state.address}
+				/>
+				<FormLabel containerStyle={formStyles.labelContainerStyle}
+						   labelStyle={formStyles.labelStyle}>Event Times:</FormLabel>
+				<View style={{
+                    flexDirection: 'row',
+                    flex: 0,
+                    height: 80,
+                    flexWrap: 'wrap'}}>
+					<DatePicker
+						style={[formStyles.dateContainer,{marginLeft: 30,marginRight: 15}]}
+						date={this.state.start}
+						mode="time"
+						showIcon={false}
+						placeholder="Start Time"
+						is24Hour={true}
+						confirmBtnText="Confirm"
+						cancelBtnText="Cancel"
+						customStyles={{dateInput: formStyles.dateInput}}
+						onDateChange={(date) => {this.setState({start: date})}}
+					/>
+					<DatePicker
+						style={[formStyles.dateContainer,{marginLeft: 30,marginRight: 15}]}
+						date={this.state.end}
+						mode="time"
+						showIcon={false}
+						placeholder="End Time"
+						is24Hour={true}
+						confirmBtnText="Confirm"
+						cancelBtnText="Cancel"
+						customStyles={{dateInput: formStyles.dateInput}}
+						onDateChange={(date) => {this.setState({end: date})}}
+					/>
 				</View>
-				<FormLabel>Address:</FormLabel>
-				<FormInput onChangeText={(text) => this.setState({address: text})} defaultValue = {this.state.address}/>
-				<Button buttonStyle={{backgroundColor:"#15bdd9"}} title="Edit Event" onPress={()=>{this.submit()}}/>
+				<View style={{
+                    flexDirection: 'row',
+                    flex: 1,
+                    flexWrap: 'wrap'
+                }}>
+					<Button
+						containerViewStyle={{width: (Metrics.screenWidth/2)-15, marginLeft:10, marginRight:0 }}
+						buttonStyle={{backgroundColor:"#f58d4e",marginLeft:0}} title="Edit Event" onPress={()=>{this.submit()}}/>
+					<Button
+						containerViewStyle={{width: (Metrics.screenWidth/2)-15, marginLeft:10, marginRight:0}}
+						buttonStyle={{backgroundColor:"#494949"}}
+						title="Cancel" onPress={()=>{this.props.navigation.goBack()}}/>
+				</View>
 			</View>
         );
     }
