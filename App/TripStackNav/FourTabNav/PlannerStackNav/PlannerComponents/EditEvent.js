@@ -1,10 +1,72 @@
-import React, {Componenent} from 'react';
-import {Image, Text, TouchableOpacity, View, TextInput, StyleSheet, Dimensions} from 'react-native';
+import React from 'react';
+import {View, StyleSheet, Dimensions} from 'react-native';
 import { Button, FormLabel, FormInput } from 'react-native-elements'
 import {eventController} from "../PlannerStackNavConfig";
 import DatePicker from 'react-native-datepicker';
 import formStyles from "../../../../../assets/styles/FormStyles";
 import Metrics from "../../../../../assets/styles/Themes/Metrics";
+
+
+const styles = StyleSheet.create({
+    dateLabel: {
+        width: Dimensions.get('window').width/2.5
+    },
+    dateInput: {
+        width: Dimensions.get('window').width/2.5,
+        borderWidth:2,
+        borderColor: 'lightgrey'
+
+    },
+    text: {
+        textAlign: 'center',
+        borderColor: '#bbb',
+        padding: 10,
+        backgroundColor: '#eee'
+    },
+    container: {
+        flex: 1,
+        backgroundColor: '#eee'
+    },
+
+    formBackgroundView: {
+        backgroundColor:'transparent',
+        flex:1
+    },
+
+    timeChooser: {
+        flexDirection: 'row',
+        flex: 0,
+        height: 80,
+        flexWrap: 'wrap'
+    },
+
+    dateContainer: {
+        width: (Metrics.screenWidth / 2) - 45,
+        height: 40,
+        marginLeft: 30,
+        marginRight: 15
+    },
+
+    editButtonContainer: {
+        width: (Metrics.screenWidth/2)-15,
+        marginLeft:10,
+        marginRight:0
+    },
+
+	cancelButtonStyle: {
+		backgroundColor:"#494949"
+	},
+
+    editOrCancelButtonView: {
+		flexDirection: 'row',
+		flex: 1,
+		flexWrap: 'wrap'
+	}
+
+});
+
+
+
 
 export default class EditEventView extends React.Component {
 	constructor(props) {
@@ -21,7 +83,7 @@ export default class EditEventView extends React.Component {
 
     render() {
         return (
-			<View style={{backgroundColor:'transparent', flex:1}}>
+			<View style={styles.formBackgroundView}>
 				<FormLabel containerStyle={formStyles.labelContainerStyle}
 						   labelStyle={formStyles.labelStyle}>
 					Event Name:
@@ -40,13 +102,9 @@ export default class EditEventView extends React.Component {
 				/>
 				<FormLabel containerStyle={formStyles.labelContainerStyle}
 						   labelStyle={formStyles.labelStyle}>Event Times:</FormLabel>
-				<View style={{
-                    flexDirection: 'row',
-                    flex: 0,
-                    height: 80,
-                    flexWrap: 'wrap'}}>
+				<View style={styles.timeChooser}>
 					<DatePicker
-						style={[formStyles.dateContainer,{marginLeft: 30,marginRight: 15}]}
+						style={styles.dateContainer}
 						date={this.state.start}
 						mode="time"
 						showIcon={false}
@@ -58,7 +116,7 @@ export default class EditEventView extends React.Component {
 						onDateChange={(date) => {this.setState({start: date})}}
 					/>
 					<DatePicker
-						style={[formStyles.dateContainer,{marginLeft: 30,marginRight: 15}]}
+						style={styles.dateContainer}
 						date={this.state.end}
 						mode="time"
 						showIcon={false}
@@ -70,17 +128,13 @@ export default class EditEventView extends React.Component {
 						onDateChange={(date) => {this.setState({end: date})}}
 					/>
 				</View>
-				<View style={{
-                    flexDirection: 'row',
-                    flex: 1,
-                    flexWrap: 'wrap'
-                }}>
+				<View style={styles.editOrCancelButtonView}>
 					<Button
-						containerViewStyle={{width: (Metrics.screenWidth/2)-15, marginLeft:10, marginRight:0 }}
+						containerViewStyle={styles.editButtonContainer}
 						buttonStyle={{backgroundColor:"#f58d4e",marginLeft:0}} title="Edit Event" onPress={()=>{this.submit()}}/>
 					<Button
-						containerViewStyle={{width: (Metrics.screenWidth/2)-15, marginLeft:10, marginRight:0}}
-						buttonStyle={{backgroundColor:"#494949"}}
+						containerViewStyle={styles.editButtonContainer}
+						buttonStyle={styles.cancelButtonStyle}
 						title="Cancel" onPress={()=>{this.props.navigation.goBack()}}/>
 				</View>
 			</View>

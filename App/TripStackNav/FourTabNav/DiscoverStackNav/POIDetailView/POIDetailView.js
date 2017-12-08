@@ -53,6 +53,20 @@ export default class POIDetailView extends React.Component {
         console.log("(INFO) [POIDetailView.constructor] state is: ", this.state);
     }
 
+    sleep(ms) {
+        return new Promise(resolve => setTimeout(resolve, ms));
+    }
+
+    async move(lat, long, zoom) {
+        console.log('DO FIRST MOVE');
+        triprMapController.setMapState({latitude:50, longitude:50, zoomLevel: zoom});
+        console.log('WAIT 1 MILLISECOND');
+        await this.sleep(1);
+        console.log('DO SECOND MOVE');
+        triprMapController.setMapState({latitude:lat, longitude:long, zoomLevel: zoom});
+        this.props.navigation.navigate('MapView');
+    }
+
     render() {
         return (
             <View>
@@ -96,8 +110,10 @@ export default class POIDetailView extends React.Component {
                                     style={[styles.componentButton,{width:Metrics.screenWidth/2-6,marginRight:4}]}
                                     text={'View on map'}
                                     onPress={()=>{
-                                        triprMapController.setMapState({latitude:this.state.lat, longitude:this.state.long, zoomLevel: 16});
-                                        this.props.navigation.navigate('MapView')}}
+                                        console.log("controller lat: " + this.state.lat);
+                                        console.log("controller long: " + this.state.long);
+                                        this.move(this.state.lat, this.state.long, 16);
+                                    }}
                                 />
                                 <ButtonListItem
                                     style={[styles.componentButton]}

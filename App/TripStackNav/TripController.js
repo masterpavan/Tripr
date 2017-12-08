@@ -1,6 +1,3 @@
-
-
-import {AsyncStorage} from "react-native";
 import TriprStore from "../../assets/services/TriprStore";
 
 export default class TripController {

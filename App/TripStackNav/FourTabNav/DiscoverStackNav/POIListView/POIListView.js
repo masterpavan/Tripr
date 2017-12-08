@@ -1,6 +1,6 @@
 
-import React, {Component} from "react";
-import {FlatList, Image, Text, TouchableOpacity, View} from 'react-native';
+import React from "react";
+import {FlatList, Image, View} from 'react-native';
 import { SearchBar } from 'react-native-elements'
 import TriprStore from "../../../../../assets/services/TriprStore";
 import ButtonListItem from "../../../../../assets/elements/ButtonListItem";

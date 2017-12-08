@@ -1,9 +1,37 @@
-import React, {Component} from "react";
-import {View,StyleSheet, AsyncStorage, Picker} from "react-native";
-import { Button, FormLabel, FormInput } from 'react-native-elements'
+import React from "react";
+import {View, Picker, StyleSheet} from "react-native";
+import { Button, FormLabel} from 'react-native-elements'
 import {triprTripController} from "../TripStackNavConfig";
 import Metrics from "../../../assets/styles/Themes/Metrics";
 import formStyles from "../../../assets/styles/FormStyles";
+
+const styles = StyleSheet.create({
+    addCancelButtonContainer: {
+        width: (Metrics.screenWidth/2)-15,
+        marginLeft:10,
+        marginRight:0
+    },
+
+    addButtonStyle: {
+        backgroundColor:"#f58d4e",
+        marginLeft:0
+    },
+
+    cancelButtonStyle: {
+        backgroundColor:"#494949"
+    },
+
+    addCancelButtonView: {
+        flexDirection: 'row',
+        flex: 0,
+        flexWrap: 'wrap',
+        marginTop:40
+    },
+
+
+
+
+});
 
 export default class AddCityComponent extends React.Component {
 
@@ -26,7 +54,7 @@ export default class AddCityComponent extends React.Component {
                 <FormLabel containerStyle={formStyles.labelContainerStyle}
                            labelStyle={formStyles.labelStyle}>SELECT A CITY TO ADD TO YOUR TRIP</FormLabel>
                 <Picker
-                    style={[formStyles.inputContainerStyle,{borderRadius:5}]}
+                    style={formStyles.inputContainerStyle}
                     selectedValue={this.state.cityName}
                     onValueChange={(itemValue, itemIndex) => {
                         console.log(itemValue,itemIndex);
@@ -55,18 +83,13 @@ export default class AddCityComponent extends React.Component {
                     <Picker.Item label="Sydney" value="Sydney" />
                     <Picker.Item label="Vancouver" value="Vancouver" />
                 </Picker>
-                <View style={{
-                    flexDirection: 'row',
-                    flex: 0,
-                    flexWrap: 'wrap',
-                    marginTop:40
-                }}>
+                <View style={styles.addCancelButtonView}>
                     <Button
-                        containerViewStyle={{width: (Metrics.screenWidth/2)-15, marginLeft:10, marginRight:0 }}
-                        buttonStyle={{backgroundColor:"#f58d4e",marginLeft:0}} title="Add City" onPress={()=>{this.submit().done()}}/>
+                        containerViewStyle={styles.addCancelButtonContainer}
+                        buttonStyle={styles.addButtonStyle} title="Add City" onPress={()=>{this.submit().done()}}/>
                     <Button
-                        containerViewStyle={{width: (Metrics.screenWidth/2)-15, marginLeft:10, marginRight:0}}
-                        buttonStyle={{backgroundColor:"#494949"}}
+                        containerViewStyle={styles.addCancelButtonContainer}
+                        buttonStyle={styles.cancelButtonStyle}
                         title="Cancel" onPress={()=>{this.props.setParentState({screen: "list"})}}/>
                 </View>
 
@@ -78,21 +101,6 @@ export default class AddCityComponent extends React.Component {
 
         await triprTripController.addCityToTrip(this.props.currentTripID, this.state.cityID, this.state.cityName)
         this.props.setParentState({screen: "list"})
-
-       /* AsyncStorage.getItem("currentTrips").then((value) => {
-            //get the current trip
-            let currentTrip = JSON.parse(value);
-            let thisTrip = currentTrip[this.props.currentTripID];
-            //add this city to the trip by ID
-            thisTrip.cityIDs[this.state.cityID] = this.state.cityName;
-
-            currentTrip[this.props.currentTripID] = thisTrip;
-            //push the current trip back into the database
-            AsyncStorage.setItem("currentTrips", JSON.stringify(currentTrip));
-            this.props.setParentState({cityIDs: thisTrip.cityIDs});
-
-        }).done();*/
-
 
     }
 

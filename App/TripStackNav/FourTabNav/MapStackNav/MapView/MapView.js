@@ -1,10 +1,8 @@
 
-import React, {Component} from "react";
+import React from "react";
 import {StyleSheet, Image, View} from 'react-native';
 
 import Mapbox from '@mapbox/react-native-mapbox-gl';
-import MapboxGL from '@mapbox/react-native-mapbox-gl';
-import TriprStore from "../../../../../assets/services/TriprStore";
 import {triprMapController} from "../../FourTabNavConfig";
 
 Mapbox.setAccessToken('pk.eyJ1Ijoia3JlYmluIiwiYSI6ImNqOXRyN2NpNjAxbDUyeG9lcnVxNXV3aHYifQ.Co5xDA25ehe16YgaFk0t2w');
@@ -69,7 +67,7 @@ export default class MapView extends React.Component {
         console.log('(INFO) [MapView.render] centerCoordinate is: ', [this.state.longitude, this.state.latitude]);
 
         return (
-            <View style={{flex:1}}>
+            <View style={styles.container}>
                 <Mapbox.MapView
                     styleURL= {Mapbox.StyleURL.Street}
                     zoomLevel={this.state.zoomLevel}

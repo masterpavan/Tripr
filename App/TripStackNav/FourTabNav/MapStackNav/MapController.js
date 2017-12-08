@@ -1,5 +1,4 @@
 
-
 import TriprStore from "../../../../assets/services/TriprStore";
 
 export default class MapController{

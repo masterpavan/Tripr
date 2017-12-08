@@ -1,11 +1,53 @@
-import React, {Component} from "react";
-import { View, StyleSheet, AsyncStorage } from "react-native";
-import {Button, FormLabel, FormInput, Text} from 'react-native-elements'
+import React from "react";
+import { View, StyleSheet} from "react-native";
+import {Button, FormLabel, FormInput} from 'react-native-elements'
 import {triprTripController} from "../TripStackNavConfig";
 import Metrics from "../../../assets/styles/Themes/Metrics";
 import DatePicker from 'react-native-datepicker'
 import formStyles from "../../../assets/styles/FormStyles";
 import ValidationComponent from 'react-native-form-validator';
+
+const styles = StyleSheet.create({
+    editTripView: {
+        backgroundColor:'transparent', flex:1
+    },
+
+    datePickerStyle: {
+        flexDirection: 'row',
+        flex:0,
+        height: 80,
+        flexWrap: 'wrap',
+    },
+
+    dateContainer: {
+        width: (Metrics.screenWidth / 2) - 45,
+        height: 40,
+        marginLeft: 30,
+        marginRight: 15
+    },
+
+    tripEditView: {
+        flexDirection: 'row',
+        flex: 1,
+        flexWrap: 'wrap'
+    },
+
+    saveCancelButtonContainer: {
+        width: (Metrics.screenWidth/2)-15,
+        marginLeft:10,
+        marginRight:0
+    },
+
+    saveButtonStyle: {
+        backgroundColor:"#f58d4e",
+        marginLeft:0
+    },
+
+    cancelButtonStyle: {
+        backgroundColor:"#494949"
+    }
+});
+
 
 export default class EditTripComponent extends ValidationComponent {
 
@@ -27,7 +69,7 @@ export default class EditTripComponent extends ValidationComponent {
     render() {
         console.log("addTrip state is:", this.state);
         return (
-            <View style={{backgroundColor:'transparent', flex:1}}>
+            <View style={styles.editTripView}>
                 <FormLabel containerStyle={formStyles.labelContainerStyle}
                            labelStyle={formStyles.labelStyle}>RENAME YOUR TRIP</FormLabel>
                 <FormInput containerStyle={formStyles.inputContainerStyle}
@@ -37,14 +79,9 @@ export default class EditTripComponent extends ValidationComponent {
                 <FormLabel containerStyle={formStyles.labelContainerStyle}
                            labelStyle={formStyles.labelStyle}>RESELECT YOUR TRIP DATES</FormLabel>
 
-                <View style={{
-                    flexDirection: 'row',
-                    flex:0,
-                    height: 80,
-                    flexWrap: 'wrap',
-                }}>
+                <View style={styles.datePickerStyle}>
                     <DatePicker
-                        style={[formStyles.dateContainer,{marginLeft: 30,marginRight: 15}]}
+                        style={styles.dateContainer}
                         date={this.state.startDate}
                         mode="date"
                         showIcon={false}
@@ -58,7 +95,7 @@ export default class EditTripComponent extends ValidationComponent {
                         onDateChange={(date) => {this.setState({startDate: date})}}
                     />
                     <DatePicker
-                        style={[formStyles.dateContainer,{marginLeft: 15,marginRight: 30}]}
+                        style={styles.dateContainer}
                         date={this.state.endDate}
                         mode="date"
                         showIcon={false}
@@ -72,17 +109,13 @@ export default class EditTripComponent extends ValidationComponent {
                         onDateChange={(date) => {this.setState({endDate: date})}}
                     />
                 </View>
-                <View style={{
-                    flexDirection: 'row',
-                    flex: 1,
-                    flexWrap: 'wrap'
-                }}>
+                <View style={styles.tripEditView}>
                     <Button
-                        containerViewStyle={{width: (Metrics.screenWidth/2)-15, marginLeft:10, marginRight:0 }}
-                        buttonStyle={{backgroundColor:"#f58d4e",marginLeft:0}} title="Save Trip Details" onPress={()=>{this.submit()}}/>
+                        containerViewStyle={styles.saveCancelButtonContainer}
+                        buttonStyle={styles.saveButtonStyle} title="Save Trip Details" onPress={()=>{this.submit()}}/>
                     <Button
-                        containerViewStyle={{width: (Metrics.screenWidth/2)-15, marginLeft:10, marginRight:0}}
-                        buttonStyle={{backgroundColor:"#494949"}}
+                        containerViewStyle={styles.saveCancelButtonContainer}
+                        buttonStyle={styles.cancelButtonStyle}
                         title="Cancel" onPress={()=>{this.props.setParentState({screen: "list"})}}/>
                 </View>
             </View>
