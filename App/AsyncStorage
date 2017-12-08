@@ -1,63 +1,62 @@
 currentTrips: {
 
-    tripID1: { name: %%%, dateRange: %%%, cityIDs: {cityID1:cityName1, cityID2:cityName2, cityID3:cityName3} ... },
-    tripID2: { name: %%%, dateRange: %%%, cityIDs: {cityID1:cityName1, cityID2:cityName2, cityID3:cityName3} ... },
-    tripID3: { name: %%%, dateRange: %%%, cityIDs: {cityID1:cityName1, cityID2:cityName2, cityID3:cityName3} ... },
-    tripID4: { name: %%%, dateRange: %%%, cityIDs: {cityID1:cityName1, cityID2:cityName2, cityID3:cityName3} ... },
-    tripID5: { name: %%%, dateRange: %%%, cityIDs: {cityID1:cityName1, cityID2:cityName2, cityID3:cityName3} ... },
+    tripID1: { name: %%%, dateRange: [%%%,%%%], cityIDs: {cityID1:cityName1, cityID2:cityName2, cityID3:cityName3} },
+    tripID2: { name: %%%, dateRange: [%%%,%%%], cityIDs: {cityID1:cityName1, cityID2:cityName2, cityID3:cityName3} },
+    tripID3: { name: %%%, dateRange: [%%%,%%%], cityIDs: {cityID1:cityName1, cityID2:cityName2, cityID3:cityName3} },
+    tripID4: { name: %%%, dateRange: [%%%,%%%], cityIDs: {cityID1:cityName1, cityID2:cityName2, cityID3:cityName3} },
+    tripID5: { name: %%%, dateRange: [%%%,%%%], cityIDs: {cityID1:cityName1, cityID2:cityName2, cityID3:cityName3} },
 
 },
 
-screenState: {
-
-    currentTripID: %%%,
-    currentCityID: %%%,
-    currentPOICategory: %%%,
-    currentPOIID: %%%
-
+currentCityPackage: {
+    POIList: [
+        {
+            address:""
+            appCat:""
+            category:""
+            city:""
+            coordinates_lat: %%%
+            coordinates_lon: %%%
+            id:""
+            image_url:""
+            name:""
+            phone:""
+            rating: %%%
+            review_count: %%%
+        },
+        {
+            address:""
+            appCat:""
+            category:""
+            city:""
+            coordinates_lat: %%%
+            coordinates_lon: %%%
+            id:""
+            image_url:""
+            name:""
+            phone:""
+            rating: %%%
+            review_count: %%%
+        },
+    ]
+    coordinates: [%%%, %%%]
 }
 
+cityID1: {
+    same as currentCityPackage
+}
+
+
+TODO: BEN NEEDS TO UPDATE THIS
 events: {
 
     eventID1: { tripID: %%%, poiID: %%%, dateRange: %%%, time: %%%, location: %%% },
-    eventID2: { tripID: %%%, poiID: %%%, dateRange: %%%, time: %%%, location: %%% }
-    eventID3: { tripID: %%%, poiID: %%%, dateRange: %%%, time: %%%, location: %%% }
-    eventID4: { tripID: %%%, poiID: %%%, dateRange: %%%, time: %%%, location: %%% }
+    eventID2: { tripID: %%%, poiID: %%%, dateRange: %%%, time: %%%, location: %%% },
+    eventID3: { tripID: %%%, poiID: %%%, dateRange: %%%, time: %%%, location: %%% },
+    eventID4: { tripID: %%%, poiID: %%%, dateRange: %%%, time: %%%, location: %%% },
     eventID5: { tripID: %%%, poiID: %%%, dateRange: %%%, time: %%%, location: %%% }
 
 }
 
-
-downloadedCityPackages: {
-
-    cityID1: { name: %%%, coords: %%%, timeZone: %%%, images: %%%, population: %%%, capital: %%%, description: %%%,
-        pois: {
-            POIID1: { Name Rating Coordinates Description Hours picture Contact_info Address Keywords Indexes },
-            POIID2: { Name Rating Coordinates Description Hours picture Contact_info Address Keywords Indexes },
-            POIID3: { Name Rating Coordinates Description Hours picture Contact_info Address Keywords Indexes },
-            POIID4: { Name Rating Coordinates Description Hours picture Contact_info Address Keywords Indexes },
-            POIID5: { Name Rating Coordinates Description Hours picture Contact_info Address Keywords Indexes },
-            ...
-        }
-    },
-    cityID2: { name: %%%, coords: %%%, timeZone: %%%, images: %%%, population: %%%, capital: %%%, description: %%%,
-        pois: {
-            POIID1: { Name Rating Coordinates Description Hours picture Contact_info Address Keywords Indexes },
-            POIID2: { Name Rating Coordinates Description Hours picture Contact_info Address Keywords Indexes },
-            POIID3: { Name Rating Coordinates Description Hours picture Contact_info Address Keywords Indexes },
-            POIID4: { Name Rating Coordinates Description Hours picture Contact_info Address Keywords Indexes },
-            POIID5: { Name Rating Coordinates Description Hours picture Contact_info Address Keywords Indexes },
-            ...
-        }
-    },
-    cityID3: { name: %%%, coords: %%%, timeZone: %%%, images: %%%, population: %%%, capital: %%%, description: %%%,
-        pois: {
-            POIID1: { Name Rating Coordinates Description Hours picture Contact_info Address Keywords Indexes },
-            POIID2: { Name Rating Coordinates Description Hours picture Contact_info Address Keywords Indexes },
-            POIID3: { Name Rating Coordinates Description Hours picture Contact_info Address Keywords Indexes },
-            POIID4: { Name Rating Coordinates Description Hours picture Contact_info Address Keywords Indexes },
-            POIID5: { Name Rating Coordinates Description Hours picture Contact_info Address Keywords Indexes },
-            ...
-        }
-    }
-}
+TODO: YOUNG NEEDS TO DO THIS
+currency...
