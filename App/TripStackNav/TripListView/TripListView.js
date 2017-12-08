@@ -10,6 +10,24 @@ import {triprTripController} from "../TripStackNavConfig";
 import Metrics from "../../../assets/styles/Themes/Metrics";
 
 
+let TripListViewStyles = StyleSheet.create({
+    titleImageContainer: {
+        backgroundColor:'#eee',
+        flex:1
+    },
+    titleImage: {
+        width: Metrics.screenWidth / 2,
+        resizeMode: 'contain',
+        position: 'absolute',
+        height: Metrics.screenHeight,
+        alignSelf: 'center'
+    },
+    plusButton: {
+        alignItems:'center',
+        marginVertical:10,
+        backgroundColor:'transparent'
+    },
+});
 
 export default class TripListView extends React.Component {
 
@@ -50,16 +68,12 @@ export default class TripListView extends React.Component {
 
             return (
                 <View>
-                    <View style={{alignItems:'center',marginVertical:10, backgroundColor:'transparent'}}>
+                    <View style={TripListViewStyles.plusButton}>
                         <Icon
                             containerStyle = {styles.cancelIcon}
                             size={Metrics.screenWidth/10}
-                            name= 'md-add'
-                            type='ionicon'
-                            color='#494949'
-                            onPress={() => {
-                                this.setState({screen: "addTrip"})
-                            }}
+                            type='ionicon' name= 'md-add' color='#494949'
+                            onPress={() => {this.setState({screen: "addTrip"})}}
                         />
 
                     </View>
@@ -85,8 +99,8 @@ export default class TripListView extends React.Component {
 
     render() {
         return (
-            <View style={{backgroundColor:'#eee', flex:1}}>
-                <Image style={{width: Metrics.screenWidth/2, resizeMode:'contain', position:'absolute', height:Metrics.screenHeight, alignSelf:'center'}} source={require('../../../assets/images/title.png')}/>
+            <View style={TripListViewStyles.titleImageContainer}>
+                <Image style={TripListViewStyles.titleImage} source={require('../../../assets/images/title.png')}/>
                 {this.screenOptions()}
             </View>
         )

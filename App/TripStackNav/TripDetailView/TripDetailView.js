@@ -1,6 +1,6 @@
 
 import React, {Component} from "react";
-import {Alert, View, StyleSheet, AsyncStorage, ScrollView, Text, Image} from 'react-native';
+import {Alert, View, StyleSheet, ScrollView, Text, Image} from 'react-native';
 
 import { Button, Icon } from 'react-native-elements';
 
