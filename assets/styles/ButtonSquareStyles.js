@@ -7,7 +7,7 @@ export default StyleSheet.create({
     aspectRatio: 1.0,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#4378ca',
+    backgroundColor: '#61aa75',
     marginLeft: 0,
     marginBottom: 0
   },
