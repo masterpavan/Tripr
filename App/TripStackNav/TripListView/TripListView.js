@@ -13,20 +13,6 @@ import Metrics from "../../../assets/styles/Themes/Metrics";
 
 export default class TripListView extends React.Component {
 
-
-    constructor(props) {
-        super(props);
-        this.state = {screen: "list"}
-        const { navigate } = this.props.navigation;
-        this.navigate = navigate;
-        console.log("screen width is ",Metrics.screenWidth)
-    }
-
-    componentDidMount() {
-        triprTripController.emptyTrips();
-        triprTripController.print();
-    }
-
     static navigationOptions = {
         title: 'Tripr',
         headerTitle: 'TRIPR',
@@ -41,9 +27,24 @@ export default class TripListView extends React.Component {
         }
     };
 
-    setTheState(object) {
-        this.setState(object);
+    constructor(props) {
+        super(props);
+        this.state = {screen: "list"}
+        const { navigate } = this.props.navigation;
+        this.navigate = navigate;
+        console.log("screen width is ",Metrics.screenWidth)
     }
+
+    componentDidMount() {
+        //uncomment this line to blast all trips on app startup
+        //triprTripController.emptyTrips();
+        triprTripController.initializeTrips(this.refresh.bind(this));
+        triprTripController.print();
+    }
+
+    refresh() { this.setState(this.state) }
+
+    setTheState(object) { this.setState(object) }
 
     screenOptions() {
         if(this.state.screen === "list") {
@@ -86,7 +87,12 @@ export default class TripListView extends React.Component {
     render() {
         return (
             <View style={{backgroundColor:'#eee', flex:1}}>
-                <Image style={{width: Metrics.screenWidth/2, resizeMode:'contain', position:'absolute', height:Metrics.screenHeight, alignSelf:'center'}} source={require('../../../assets/images/title.png')}/>
+                <Image style={{
+                    width: Metrics.screenWidth/2,
+                    resizeMode:'contain',
+                    position:'absolute',
+                    height:Metrics.screenHeight,
+                    alignSelf:'center'}} source={require('../../../assets/images/title.png')}/>
                 {this.screenOptions()}
             </View>
         )

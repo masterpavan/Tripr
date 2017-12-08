@@ -8,14 +8,21 @@ export default class TripController {
     constructor() {
         this.data = 'initial';
         this.currentTrips = {};
-        TriprStore.initializeTrips()
-        //AsyncStorage.setItem("currentTrips", JSON.stringify({})).done();
+
+
+        //TriprStore.clearTrips()
+    }
+
+    initializeTrips(setStateFunc){
+        TriprStore.getAllTripsFromLocalStorage().then((trips)=>{
+            this.currentTrips = trips;
+            setStateFunc();
+        });
     }
 
     emptyTrips() {
         this.currentTrips = {};
-        TriprStore.initializeTrips()
-        //AsyncStorage.setItem("currentTrips", JSON.stringify({})).done();
+        TriprStore.clearTrips();
         console.log('cleared the currentTrips')
 
     }

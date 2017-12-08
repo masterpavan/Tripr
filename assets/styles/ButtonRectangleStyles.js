@@ -8,7 +8,7 @@ export default StyleSheet.create({
         //height: Metrics.screenWidth/2,
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: '#f58d4e',
+        backgroundColor: '#61aa75',
         marginLeft: 10,
         marginBottom: 15
     },

@@ -9,7 +9,9 @@ export default class EventController {
      */
     constructor() {
         this.data = 'initial';
-        AsyncStorage.setItem("events", JSON.stringify({})).done();
+
+        //uncomment this line to blast all events on app start up
+        //AsyncStorage.setItem("events", JSON.stringify({})).done();
     }
 
     emptyEvents() {

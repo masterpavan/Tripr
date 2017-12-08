@@ -119,7 +119,7 @@ export default class TriprStore {
 
 
     /*TripFunctions*/
-    static initializeTrips() {
+    static clearTrips() {
         AsyncStorage.setItem("currentTrips", JSON.stringify({})).done();
     }
 
@@ -152,7 +152,7 @@ export default class TriprStore {
     /*POI LIST METHODS*/
     static async initializeCurrentCityPackage(cityID) {
         let cityPackage = await AsyncStorage.getItem(cityID);
-        console.log('(INFO) [TriprStore.initializeCurrentCityPackage] city package in the users local storage is: ', cityPackage);
+        console.log('(INFO) [TriprStore.initializeCurrentCityPackage] city package in the users local storage is: ', JSON.parse(cityPackage));
 
         if (!cityPackage) {
             console.log('(INFO) [TriprStore.initializeCurrentCityPackage] local city package doesnt exist. fetching from the database.');
@@ -162,7 +162,7 @@ export default class TriprStore {
             AsyncStorage.setItem("currentCityPackage", JSON.stringify(cityPackage)).done();
         } else {
             console.log('(INFO) [TriprStore.initializeCurrentCityPackage] local city package exists.');
-            console.log("(INFO) [TriprStore.initializeCurrentCityPackage] cityPackage being stored in Async @ currentCityPackage is: ", cityPackage);
+            console.log("(INFO) [TriprStore.initializeCurrentCityPackage] cityPackage being stored in Async @ currentCityPackage is: ", JSON.parse(cityPackage));
             AsyncStorage.setItem("currentCityPackage", cityPackage).done();
         }
 
@@ -200,8 +200,17 @@ export default class TriprStore {
     }
 
     static async saveCityPackage(cityID) {
+        console.log("(INFO) [TriprStore.saveCityPackage] saving city package");
+
         let currentCityPackage = await AsyncStorage.getItem("currentCityPackage");
-        AsyncStorage.setItem(cityID, JSON.stringify(currentCityPackage)).done();
+        AsyncStorage.setItem(cityID, currentCityPackage).done();
+        // pull entire city package from async @ currentCityPackage
+        // store back in async @ cityID
+    }
+    static async deleteCityPackage(cityID) {
+        console.log("(INFO) [TriprStore.deleteCityPackage] deleting city package");
+
+        await AsyncStorage.removeItem(cityID).done();
         // pull entire city package from async @ currentCityPackage
         // store back in async @ cityID
     }
