@@ -9,7 +9,6 @@ export default class TripController {
         this.data = 'initial';
         this.currentTrips = {};
 
-
         //TriprStore.clearTrips()
     }
 

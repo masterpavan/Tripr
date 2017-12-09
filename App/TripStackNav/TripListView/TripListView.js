@@ -1,7 +1,7 @@
 
 import React, {Component} from "react";
-import {ScrollView, Text, View, AsyncStorage, Image} from 'react-native';
-import { Button, Icon } from 'react-native-elements';
+import {ScrollView, View, StyleSheet, Image} from 'react-native';
+import { Icon } from 'react-native-elements';
 
 import styles from '../../../assets/styles/ChooseCityPlannerStyles'
 import TripListComponent from "./TripListComponent";
