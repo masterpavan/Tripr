@@ -24,9 +24,13 @@ export default class CityListComponent extends React.Component {
         //remove the loading icon
         this.props.setParentState(loadingState);
 
-        //then actually navigate
-        this.props.navigate('FourTabNav', {currentTripID: this.props.currentTripID, cityName: this.props.list[cityID]})
-
+        //then actually navigate iff not offline
+        if(!loadingState.offlineMessage) {
+            this.props.navigate('FourTabNav', {
+                currentTripID: this.props.currentTripID,
+                cityName: this.props.list[cityID]
+            })
+        }
     }
 
     generateButtons() {

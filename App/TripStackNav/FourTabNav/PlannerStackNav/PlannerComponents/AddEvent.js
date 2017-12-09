@@ -38,7 +38,7 @@ export default class AddEvent extends React.Component {
                            labelStyle={formStyles.labelStyle}>Event Times:</FormLabel>
                 <View style={styles.timeChooser}>
                         <DatePicker
-                            style={styles.dateContainer}
+                            style={styles.dateContainerLeft}
                             date={this.state.start}
                             mode="time"
                             showIcon={false}
@@ -50,7 +50,7 @@ export default class AddEvent extends React.Component {
                             onDateChange={(date) => {this.setState({start: date})}}
                         />
                         <DatePicker
-                            style={styles.dateContainer}
+                            style={styles.dateContainerRight}
                             date={this.state.end}
                             mode="time"
                             showIcon={false}

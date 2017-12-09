@@ -126,6 +126,16 @@ export default class TripDetailView extends React.Component {
     }
 
     screenOptions() {
+        if(this.state.offlineMessage) {
+            return (
+                <View style={{width:'100%', height:'50%', justifyContent:'center', alignItems:'center', padding:20}}>
+                    <Text style={{textAlign:'center', marginBottom:10}}>You can only access this City if you are online or have downloaded it for offline use</Text>
+                    <Button
+                        containerViewStyle={styles.saveCancelButtonContainer}
+                        buttonStyle={styles.saveButtonStyle} title="Go Back" onPress={()=>{this.setState({offlineMessage:false,screen:"list"})}}/>
+                </View>
+            )
+        }
         if(this.state.isLoading) {
             return (<View style={{height:'100%'}}>
                 <Progress.CircleSnail
@@ -196,7 +206,7 @@ export default class TripDetailView extends React.Component {
                         type='ionicon'
                         color={this.state.screen === "editTrip" ? '#f58d4e':'#494949'}
                         onPress={() => {
-                            this.setState({screen: "editTrip"})
+                            this.setState({screen: "editTrip",offlineMessage:false})
                         }}
                     />
                     <Icon
@@ -205,7 +215,7 @@ export default class TripDetailView extends React.Component {
                         type='ionicon'
                         color={this.state.screen === "addCity" ? '#f58d4e':'#494949'}
                         onPress={() => {
-                            this.setState({screen: "addCity"})
+                            this.setState({screen: "addCity",offlineMessage:false})
                         }}
                     />
                     <Icon

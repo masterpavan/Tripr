@@ -19,11 +19,18 @@ const styles = StyleSheet.create({
         flexWrap: 'wrap',
     },
 
-    dateContainer: {
+    dateContainerLeft: {
         width: (Metrics.screenWidth / 2) - 45,
         height: 40,
         marginLeft: 30,
         marginRight: 15
+    },
+
+    dateContainerRight: {
+        width: (Metrics.screenWidth / 2) - 45,
+        height: 40,
+        marginLeft: 15,
+        marginRight: 30
     },
 
     tripEditView: {
@@ -81,7 +88,7 @@ export default class EditTripComponent extends ValidationComponent {
 
                 <View style={styles.datePickerStyle}>
                     <DatePicker
-                        style={styles.dateContainer}
+                        style={styles.dateContainerLeft}
                         date={this.state.startDate}
                         mode="date"
                         showIcon={false}
@@ -95,7 +102,7 @@ export default class EditTripComponent extends ValidationComponent {
                         onDateChange={(date) => {this.setState({startDate: date})}}
                     />
                     <DatePicker
-                        style={styles.dateContainer}
+                        style={styles.dateContainerRight}
                         date={this.state.endDate}
                         mode="date"
                         showIcon={false}
