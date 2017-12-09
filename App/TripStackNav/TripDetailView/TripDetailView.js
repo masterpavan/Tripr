@@ -127,7 +127,7 @@ export default class TripDetailView extends React.Component {
 
     screenOptions() {
         if(this.state.isLoading) {
-            return (<View>
+            return (<View style={{height:'100%'}}>
                 <Progress.CircleSnail
                     style={details.centerComponent}
                     color={['#F44336', '#2196F3', '#009688',]}

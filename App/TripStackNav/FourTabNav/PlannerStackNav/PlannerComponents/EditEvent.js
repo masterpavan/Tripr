@@ -7,14 +7,14 @@ import formStyles from "../../../../../assets/styles/FormStyles";
 import styles from "../PlannerStyleSheet";
 
 export default class EditEventView extends React.Component {
-	constructor(props) {
+    constructor(props) {
         super(props);
         this.state = {
             name: this.props.navigation.state.params.name,
             start: this.props.navigation.state.params.start,
             end: this.props.navigation.state.params.end,
             address: this.props.navigation.state.params.address,
-			id: this.props.navigation.state.params.id
+            id: this.props.navigation.state.params.id
         };
     }
 
@@ -24,7 +24,7 @@ export default class EditEventView extends React.Component {
 			<View style={styles.formBackgroundView}>
 				<FormLabel containerStyle={formStyles.labelContainerStyle}
 						   labelStyle={formStyles.labelStyle}>
-					Event Name:
+					EVENT NAME
 				</FormLabel>
 				<FormInput containerStyle={formStyles.inputContainerStyle}
 						   inputStyle={formStyles.inputStyle}
@@ -32,14 +32,14 @@ export default class EditEventView extends React.Component {
 						   defaultValue={this.state.name}
 				/>
 				<FormLabel containerStyle={formStyles.labelContainerStyle}
-						   labelStyle={formStyles.labelStyle}>Address:</FormLabel>
+						   labelStyle={formStyles.labelStyle}>ADDRESS</FormLabel>
 				<FormInput containerStyle={formStyles.inputContainerStyle}
 						   inputStyle={formStyles.inputStyle}
 						   onChangeText={(text) => this.setState({address: text})}
 						   defaultValue={this.state.address}
 				/>
 				<FormLabel containerStyle={formStyles.labelContainerStyle}
-						   labelStyle={formStyles.labelStyle}>Event Times:</FormLabel>
+						   labelStyle={formStyles.labelStyle}>EVENT TIMES</FormLabel>
 				<View style={styles.timeChooser}>
 					<DatePicker
 						style={styles.dateContainer}
@@ -82,15 +82,16 @@ export default class EditEventView extends React.Component {
     async submit() {
         console.log(this.state.start);
         console.log(this.state.end);
-        await eventController.editEvent(this.props.navigation.state.params.currentTripID,
+        await eventController.editEvent(
+            this.props.navigation.state.params.currentTripID,
             this.props.navigation.state.params.cityName,
             this.props.navigation.state.params.day,
             this.state.name,
             this.state.start,
             this.state.end,
             this.state.address,
-			this.state.id,
-			this.props.navigation.state.params.refresh);
+            this.state.id,
+            this.props.navigation.state.params.refresh);
         this.props.navigation.state.params.refresh();
         this.props.navigation.goBack();
     }

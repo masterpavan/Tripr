@@ -1,14 +1,23 @@
-import React, {Component} from "react";
-import { View, StyleSheet, AsyncStorage } from "react-native";
-import {Button, FormLabel, FormInput, Text} from 'react-native-elements'
+import React from "react";
+import { View, StyleSheet } from "react-native";
+import {Button, FormLabel, FormInput} from 'react-native-elements'
 import {triprTripController} from "../TripStackNavConfig";
 import Metrics from "../../../assets/styles/Themes/Metrics";
 import DatePicker from 'react-native-datepicker'
 import formStyles from "../../../assets/styles/FormStyles";
 import ValidationComponent from 'react-native-form-validator';
 
-export default class AddTripComponent extends ValidationComponent {
+let AddTripStyles = StyleSheet.create({
+    formContainer: {backgroundColor:'transparent', flex:1},
+    dateFormsContainer: {
+        flexDirection: 'row',
+        flex: 0,
+        height: 80,
+        flexWrap: 'wrap',
+    }
+});
 
+export default class AddTripComponent extends ValidationComponent {
 
     constructor(props) {
         super(props);
@@ -25,21 +34,16 @@ export default class AddTripComponent extends ValidationComponent {
     render() {
         console.log("addTrip state is:", this.state);
         return (
-            <View style={{backgroundColor:'transparent', flex:1}}>
+            <View style={AddTripStyles.formContainer}>
                 <FormLabel containerStyle={formStyles.labelContainerStyle}
                            labelStyle={formStyles.labelStyle}>NAME YOUR TRIP</FormLabel>
                 <FormInput containerStyle={formStyles.inputContainerStyle}
                            inputStyle={formStyles.inputStyle}
-                           onChangeText={(text) => this.setState({tripName:text})}/>
+                           onChangeText={(text) => this.setState({tripName:text})} />
                 <FormLabel containerStyle={formStyles.labelContainerStyle}
                            labelStyle={formStyles.labelStyle}>SELECT YOUR TRIP DATES</FormLabel>
 
-                <View style={{
-                    flexDirection: 'row',
-                    flex:0,
-                    height: 80,
-                    flexWrap: 'wrap',
-                }}>
+                <View style={AddTripStyles.dateFormsContainer}>
                     <DatePicker
                         style={[formStyles.dateContainer,{marginLeft: 30,marginRight: 15}]}
                         date={this.state.startDate}

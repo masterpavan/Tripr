@@ -69,6 +69,7 @@ class CityPackageDownloadBar extends React.PureComponent {
     confirmDelete() {
         this.setState({isLoading:true});
         this.refs.create.deletePack(this.props.cityName);
+        TriprStore.deleteCityPackage(this.props.cityName).done();
     }
 
     renderOptions() {
@@ -79,7 +80,9 @@ class CityPackageDownloadBar extends React.PureComponent {
                         <TouchableOpacity
                             onPress={() =>
                                         {
+
                                             this.refs.create.createPack(this.props.cityName, this.state.longitude, this.state.latitude);
+                                            TriprStore.saveCityPackage(this.props.cityName).done();
                                         }
                                     }
                         >
