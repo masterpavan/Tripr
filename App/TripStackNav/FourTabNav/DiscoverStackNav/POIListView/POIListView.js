@@ -1,28 +1,14 @@
 
 import React from "react";
-import {FlatList, Image, View, StyleSheet} from 'react-native';
+import {FlatList, Image, View} from 'react-native';
 import { SearchBar } from 'react-native-elements'
 import TriprStore from "../../../../../assets/services/TriprStore";
 import ButtonListItem from "../../../../../assets/elements/ButtonListItem";
-import styles from "../../../../../assets/styles/ChooseCityPlannerStyles";
 import * as Progress from 'react-native-progress';
 import NetIcon from "../../../../../assets/elements/NetIcon";
 import Metrics from "../../../../../assets/styles/Themes/Metrics";
 
-const stylesHere = StyleSheet.create({
-    searchBarContainerStyle: {
-        backgroundColor:'transparent',
-        borderTopColor:'transparent',
-        borderBottomColor:'transparent',
-        marginHorizontal:10,
-        marginVertical:10
-    },
-
-    searchBarInputStyle: {
-        backgroundColor:"#fff"
-    }
-
-});
+import styles from "../DiscoverStyleSheet";
 
 export default class POIListView extends React.PureComponent {
     static navigationOptions = ({ navigation, screenProps }) => ({
@@ -105,8 +91,8 @@ export default class POIListView extends React.PureComponent {
             <View>
                 <SearchBar
                     lightTheme
-                    inputStyle={stylesHere.searchBarInputStyle}
-                    containerStyle={stylesHere.searchBarContainerStyle}
+                    inputStyle={styles.searchBarInputStyle}
+                    containerStyle={styles.searchBarContainerStyle}
                     placeholder='Type Here...' />
                 {this.renderOptions()}
             </View>

@@ -1,34 +1,12 @@
 
 import React from "react";
-import {StyleSheet, Image, View} from 'react-native';
+import {Image, View} from 'react-native';
 
 import Mapbox from '@mapbox/react-native-mapbox-gl';
 import {triprMapController} from "../../FourTabNavConfig";
+import styles from "../MapStyleSheet";
 
 Mapbox.setAccessToken('pk.eyJ1Ijoia3JlYmluIiwiYSI6ImNqOXRyN2NpNjAxbDUyeG9lcnVxNXV3aHYifQ.Co5xDA25ehe16YgaFk0t2w');
-
-
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-    },
-    annotationContainer: {
-        width: 30,
-        height: 30,
-        alignItems: 'center',
-        justifyContent: 'center',
-        backgroundColor: 'white',
-        borderRadius: 15,
-    },
-    annotationFill: {
-        width: 30,
-        height: 30,
-        borderRadius: 15,
-        backgroundColor: 'orange',
-        transform: [{ scale: 0.6 }],
-    }
-});
 
 export default class MapView extends React.Component {
     static navigationOptions = ({ navigation, screenProps }) => ({

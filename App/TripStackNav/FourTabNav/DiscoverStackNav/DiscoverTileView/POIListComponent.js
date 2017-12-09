@@ -1,20 +1,7 @@
 import React from "react";
-import {FlatList, View, StyleSheet} from "react-native";
+import {FlatList, View} from "react-native";
 import ButtonListItem from "../../../../../assets/elements/ButtonListItem";
-import styles from "../../../../../assets/styles/ChooseCityPlannerStyles";
-import Metrics from "../../../../../assets/styles/Themes/Metrics";
-
-const stylesHere = StyleSheet.create({
-    poiListViewSpacer: {
-        height:Metrics.screenHeight/200
-    },
-
-    poiListContainer: {
-        paddingBottom:Metrics.screenHeight/3
-    }
-
-
-});
+import styles from "../DiscoverStyleSheet";
 
 export default class POIListComponent extends React.Component {
 
@@ -49,7 +36,7 @@ export default class POIListComponent extends React.Component {
             <View>
                 <FlatList
                     data={mappedList}
-                    contentContainerStyle={stylesHere.poiListContainer}
+                    contentContainerStyle={styles.poiListContainer}
                     removeClippedSubviews={true}
                     legacyImplementation={true}
                     renderItem={({item}) => {
@@ -65,7 +52,7 @@ export default class POIListComponent extends React.Component {
                         } else return null
                     }}
                 />
-                <View style={stylesHere.poiListViewSpacer}/>
+                <View style={styles.poiListViewSpacer}/>
             </View>
 
         )

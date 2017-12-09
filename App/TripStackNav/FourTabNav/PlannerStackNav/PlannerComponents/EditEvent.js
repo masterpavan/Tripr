@@ -1,72 +1,10 @@
 import React from 'react';
-import {View, StyleSheet, Dimensions} from 'react-native';
+import {View} from 'react-native';
 import { Button, FormLabel, FormInput } from 'react-native-elements'
 import {eventController} from "../PlannerStackNavConfig";
 import DatePicker from 'react-native-datepicker';
 import formStyles from "../../../../../assets/styles/FormStyles";
-import Metrics from "../../../../../assets/styles/Themes/Metrics";
-
-
-const styles = StyleSheet.create({
-    dateLabel: {
-        width: Dimensions.get('window').width/2.5
-    },
-    dateInput: {
-        width: Dimensions.get('window').width/2.5,
-        borderWidth:2,
-        borderColor: 'lightgrey'
-
-    },
-    text: {
-        textAlign: 'center',
-        borderColor: '#bbb',
-        padding: 10,
-        backgroundColor: '#eee'
-    },
-    container: {
-        flex: 1,
-        backgroundColor: '#eee'
-    },
-
-    formBackgroundView: {
-        backgroundColor:'transparent',
-        flex:1
-    },
-
-    timeChooser: {
-        flexDirection: 'row',
-        flex: 0,
-        height: 80,
-        flexWrap: 'wrap'
-    },
-
-    dateContainer: {
-        width: (Metrics.screenWidth / 2) - 45,
-        height: 40,
-        marginLeft: 30,
-        marginRight: 15
-    },
-
-    editButtonContainer: {
-        width: (Metrics.screenWidth/2)-15,
-        marginLeft:10,
-        marginRight:0
-    },
-
-	cancelButtonStyle: {
-		backgroundColor:"#494949"
-	},
-
-    editOrCancelButtonView: {
-		flexDirection: 'row',
-		flex: 1,
-		flexWrap: 'wrap'
-	}
-
-});
-
-
-
+import styles from "../PlannerStyleSheet";
 
 export default class EditEventView extends React.Component {
 	constructor(props) {
@@ -130,10 +68,10 @@ export default class EditEventView extends React.Component {
 				</View>
 				<View style={styles.editOrCancelButtonView}>
 					<Button
-						containerViewStyle={styles.editButtonContainer}
-						buttonStyle={{backgroundColor:"#f58d4e",marginLeft:0}} title="Edit Event" onPress={()=>{this.submit()}}/>
+						containerViewStyle={styles.editOrCancelButtonContainer}
+						buttonStyle={styles.editButtonStyle} title="Edit Event" onPress={()=>{this.submit()}}/>
 					<Button
-						containerViewStyle={styles.editButtonContainer}
+						containerViewStyle={styles.editOrCancelButtonContainer}
 						buttonStyle={styles.cancelButtonStyle}
 						title="Cancel" onPress={()=>{this.props.navigation.goBack()}}/>
 				</View>

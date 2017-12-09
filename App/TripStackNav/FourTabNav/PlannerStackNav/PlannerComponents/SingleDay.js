@@ -1,52 +1,9 @@
 import React, {Componenent} from 'react';
-import {Image, Text, View, StyleSheet} from 'react-native';
+import {Image, Text, View} from 'react-native';
 import {Button} from 'react-native-elements';
 import {Agenda} from 'react-native-calendars';
 import {eventController} from "../PlannerStackNavConfig";
-
-const styles = StyleSheet.create({
-    item: {
-        backgroundColor: 'white',
-        flex: 1,
-        borderRadius: 5,
-        padding: 10,
-        marginRight: 10,
-        marginTop: 17
-    },
-    emptyDate: {
-        height: 15,
-        flex:1,
-        paddingTop: 30
-    },
-    buttonStyle: {
-        width:45,
-        height:20,
-        backgroundColor:'transparent',
-    },
-    textStyle:{
-        fontSize:10,
-        color:'#15bdd9'
-    },
-    singleDayView: {
-        flex: 1
-    },
-    addEventButtonStyle: {
-        width: 50,
-        height: 50,
-        backgroundColor: 'transparent',
-    },
-
-    addEventTextStyle: {
-        fontSize:40,
-        color:'#15bdd9'
-    },
-
-    addEventView: {
-        alignItems:"center"
-    }
-});
-
-
+import styles from "../PlannerStyleSheet";
 
 export default class SingleDayView extends React.Component {
 

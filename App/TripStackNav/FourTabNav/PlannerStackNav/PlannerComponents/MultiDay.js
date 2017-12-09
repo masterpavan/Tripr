@@ -1,40 +1,10 @@
 
 import React from "react";
-import {Image, StyleSheet, View, Dimensions} from 'react-native';
+import {Image, View} from 'react-native';
 import {Calendar} from 'react-native-calendars'
 import {triprTripController} from "../../../TripStackNavConfig";
 import {eventController} from "../PlannerStackNavConfig";
-
-const styles = StyleSheet.create({
-    calendar: {
-        flex: 1,
-        borderTopWidth: 1,
-        paddingTop: 5,
-        height: Dimensions.get('window').height,
-        //borderBottomWidth: 1,
-        borderColor: '#eee',
-    },
-    text: {
-        textAlign: 'center',
-        borderColor: '#bbb',
-        padding: 10,
-        backgroundColor: '#eee'
-    },
-    container: {
-        flex: 1,
-        backgroundColor: '#eee'
-    },
-
-    tabBarIconStyle: {
-        height: 30,
-        width: 30,
-        resizeMode: 'contain'
-    },
-
-    calenderView: {
-        flex:1
-    }
-});
+import styles from "../PlannerStyleSheet";
 
 export default class MultiDayView extends React.Component {
     static navigationOptions = ({ navigation, screenProps }) => ({

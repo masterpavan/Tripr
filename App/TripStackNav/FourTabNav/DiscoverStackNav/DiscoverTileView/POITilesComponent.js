@@ -1,7 +1,7 @@
 import React from "react";
 import {View} from 'react-native';
 import ButtonSquare from "../../../../../assets/elements/ButtonSquare";
-import styles from "../../../../../assets/styles/ChooseCityPlannerStyles";
+import styles from "../DiscoverStyleSheet";
 
 export default class POITilesComponent extends React.Component {
 
