@@ -1,13 +1,48 @@
 
-import React, {Component} from "react";
-import {Image, ScrollView, Text, TouchableOpacity, View} from 'react-native';
-import {Button, FormLabel} from "react-native-elements";
+import React from "react";
+import {Image, ScrollView, StyleSheet, TouchableOpacity, View} from 'react-native';
 import Metrics from "../../../../../assets/styles/Themes/Metrics";
 import {triprMapController} from "../../FourTabNavConfig";
 import styles from '../../../../../assets/styles/ChooseCityPlannerStyles'
 import ButtonListItem from "../../../../../assets/elements/ButtonListItem";
 import StarRating from 'react-native-star-rating';
-import formStyles from "../../../../../assets/styles/FormStyles";
+
+
+const stylesHere = StyleSheet.create({
+    poiImageStyle: {
+        resizeMode:'cover',
+        position: 'absolute',
+        width: '100%',
+        height: '100%',
+        justifyContent: 'center',
+    },
+
+    poiDetailBackgroundView: {
+        position: 'absolute',
+        height:Metrics.screenHeight/2-8,
+        width:Metrics.screenWidth-8,
+        backgroundColor:'#eee',
+        margin:4
+    },
+
+    spacerView: {
+        height:Metrics.screenHeight/2.2,
+        width:Metrics.screenWidth
+    },
+
+    starContainerStyle: {
+        justifyContent: 'center',
+
+        alignItems: 'center',
+        marginRight: 0,
+        marginLeft: 4,
+        marginBottom: 4,
+        width:Metrics.screenWidth/2-6,
+        backgroundColor:'#494949',
+        paddingHorizontal:4,
+    }
+
+});
 
 
 export default class POIDetailView extends React.Component {
@@ -70,13 +105,9 @@ export default class POIDetailView extends React.Component {
     render() {
         return (
             <View>
-                <View style={{position: 'absolute',height:Metrics.screenHeight/2-8, width:Metrics.screenWidth-8,backgroundColor:'#eee', margin:4}}>
+                <View style={stylesHere.poiDetailBackgroundView}>
                     <Image
-                        style={{resizeMode:'cover',
-                            position: 'absolute',
-                            width: '100%',
-                            height: '100%',
-                            justifyContent: 'center',}}
+                        style={stylesHere.poiImageStyle}
                         source={{uri: this.state.image_url}}
                     />
                 </View>
@@ -84,19 +115,10 @@ export default class POIDetailView extends React.Component {
                     <View>
                         <ScrollView showsVerticalScrollIndicator={false} bounces={true} style={{}}>
 
-                            <View style={{height:Metrics.screenHeight/2.2, width:Metrics.screenWidth}}/>
+                            <View style={stylesHere.spacerView}/>
 
                             <View style={[styles.buttonsContainer,{backgroundColor:'#eee',paddingTop:4,justifyContent:'space-between'}]}>
-                                <TouchableOpacity style={{
-                                    justifyContent: 'center',
-
-                                    alignItems: 'center',
-                                    marginRight: 0,
-                                    marginLeft: 4,
-                                    marginBottom: 4,
-                                    width:Metrics.screenWidth/2-6,
-                                    backgroundColor:'#494949',
-                                    paddingHorizontal:4,}}>
+                                <TouchableOpacity style={stylesHere.starContainerStyle}>
                                     <Image source={require('../../../../../assets/images/rectangles/rectangle6.png')} style={{position:'absolute',width:'100%',resizeMode: 'contain'}}/>
                                     <StarRating disabled={true} maxStars={5} rating={this.state.rating} starSize={35}
                                                   emptyStar={'ios-star-outline'}

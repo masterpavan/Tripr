@@ -1,13 +1,14 @@
 import {Icon, SearchBar} from 'react-native-elements'
-import React, {Component} from "react";
-import {Image, Text, TouchableOpacity, View} from 'react-native';
-import ButtonSquare from "../../../../../assets/elements/ButtonSquare";
-import styles from "../../../../../assets/styles/ChooseCityPlannerStyles";
+import React from "react";
+import {Image, StyleSheet, TouchableOpacity, View} from 'react-native';
 import NetIcon from "../../../../../assets/elements/NetIcon";
 import Metrics from "../../../../../assets/styles/Themes/Metrics";
 import TriprStore from "../../../../../assets/services/TriprStore";
 import POIListComponent from "./POIListComponent";
 import POITilesComponent from "./POITilesComponent";
+
+const styles = StyleSheet.create({
+});
 
 export default class ExperienceView extends React.Component {
 
