@@ -1,5 +1,5 @@
 
-import React, {Component} from "react";
+import React from "react";
 import {Alert, View, StyleSheet, ScrollView, Text, Image} from 'react-native';
 
 import { Button, Icon } from 'react-native-elements';
@@ -11,8 +11,6 @@ import {GTC, triprTripController} from "../TripStackNavConfig";
 import Metrics from "../../../assets/styles/Themes/Metrics";
 import EditTripComponent from "./EditTripComponent";
 import * as Progress from 'react-native-progress';
-import TriprStore from "../../../assets/services/TriprStore";
-
 
 const details = StyleSheet.create({
     container: {
@@ -21,7 +19,57 @@ const details = StyleSheet.create({
         justifyContent:'center',
         alignItems:'center'
     },
+
+    centerComponent: {
+        alignSelf:'center'
+    },
+
+    tripDetailView: {
+        position: 'absolute',
+        height:Metrics.screenWidth/2,
+        width:Metrics.screenWidth,
+        backgroundColor:'#414821'
+    },
+
+    tripTextStyle: {
+        color:'#fff',
+        alignSelf:'center',
+        fontFamily: 'LeagueSpartan',
+        fontSize:Metrics.h2*1.7,
+        fontWeight:'200',
+        textShadowColor:'#222222',
+        textShadowRadius: 5,
+        textShadowOffset:{width:2,height:2}
+    },
+
+    tripDateTextStyle: {
+        color:'#fff',
+        alignSelf:'center',
+        fontFamily: 'LeagueSpartan',
+        fontSize:Metrics.h2*0.9,
+        fontWeight:'200',
+        textShadowColor:'#222222',
+        textShadowRadius: 5,
+        textShadowOffset:{width:1,height:1}
+    },
+
+    tripImageStyle: {
+        resizeMode:'cover',
+        position: 'absolute',
+        width: '100%',
+        height: '100%',
+        justifyContent: 'center',
+    },
+
+    iconBarContainer: {
+        paddingHorizontal:50,
+        paddingVertical:10,
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        backgroundColor:'#fff'
+    }
 });
+
 function randomImage() {
     let images = [
         require('../../../assets/images/rectangles/rectangle1.png'),
@@ -81,12 +129,9 @@ export default class TripDetailView extends React.Component {
         if(this.state.isLoading) {
             return (<View style={{height:'100%'}}>
                 <Progress.CircleSnail
-                    style={{alignSelf:'center'}}
-                    color={[
-                        '#F44336',
-                        '#2196F3',
-                        '#009688',
-                    ]}/>
+                    style={details.centerComponent}
+                    color={['#F44336', '#2196F3', '#009688',]}
+                />
             </View>)
         }
         if(this.state.screen === "list") {
@@ -134,39 +179,17 @@ export default class TripDetailView extends React.Component {
     render() {
         return (
             <View style={{flex:1}}>
-                <View style={{position: 'absolute',height:Metrics.screenWidth/2, width:Metrics.screenWidth,backgroundColor:'#414821'}}>
+                <View style={details.tripDetailView}>
                     <Image
-                        style={{resizeMode:'cover',
-                            position: 'absolute',
-                            width: '100%',
-                            height: '100%',
-                            justifyContent: 'center',}}
+                        style={details.tripImageStyle}
                         source={randomImage()}
                     />
                 </View>
                 <View style={details.container}>
-                    <Text style={{
-                        color:'#fff',
-                        alignSelf:'center',
-                        fontFamily: 'LeagueSpartan',
-                        fontSize:Metrics.h2*1.7,
-                        fontWeight:'200',
-                        textShadowColor:'#222222',
-                        textShadowRadius: 5,
-                        textShadowOffset:{width:2,height:2}
-                    }}>{`Trip to ${this.state.currentTrip.name}`.toUpperCase()}</Text>
-                    <Text style={{
-                        color:'#fff',
-                        alignSelf:'center',
-                        fontFamily: 'LeagueSpartan',
-                        fontSize:Metrics.h2*0.9,
-                        fontWeight:'200',
-                        textShadowColor:'#222222',
-                        textShadowRadius: 5,
-                        textShadowOffset:{width:1,height:1}
-                    }}>{`${this.state.currentTrip.dateRange[0]} - ${this.state.currentTrip.dateRange[1]}`.toUpperCase()}</Text>
+                    <Text style={details.tripTextStyle}>{`Trip to ${this.state.currentTrip.name}`.toUpperCase()}</Text>
+                    <Text style={details.tripDateTextStyle}>{`${this.state.currentTrip.dateRange[0]} - ${this.state.currentTrip.dateRange[1]}`.toUpperCase()}</Text>
                 </View>
-                <View style={{paddingHorizontal:50,paddingVertical:10,flexDirection: 'row', justifyContent: 'space-between', backgroundColor:'#fff'}}>
+                <View style={details.iconBarContainer}>
                     <Icon
                         size={Metrics.screenWidth/10}
                         name= 'ios-create-outline'
@@ -200,7 +223,6 @@ export default class TripDetailView extends React.Component {
                     />
                 </View>
                 <View style={styles.mainContainer}>
-
                     {this.screenOptions()}
                 </View>
             </View>

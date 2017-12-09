@@ -1,8 +1,6 @@
 import {Icon, SearchBar} from 'react-native-elements'
-import React, {Component} from "react";
-import {Image, Text, TouchableOpacity, View} from 'react-native';
-import ButtonSquare from "../../../../../assets/elements/ButtonSquare";
-import styles from "../../../../../assets/styles/ChooseCityPlannerStyles";
+import React from "react";
+import {Image, TouchableOpacity, View} from 'react-native';
 import NetIcon from "../../../../../assets/elements/NetIcon";
 import Metrics from "../../../../../assets/styles/Themes/Metrics";
 import TriprStore from "../../../../../assets/services/TriprStore";

@@ -1,28 +1,17 @@
 
-import React, {Component} from "react";
-import {
-  Text,
-  Image,
-  StyleSheet,
-  ScrollView,
-  View, 
-  Button,
-  Dimensions
-} from 'react-native';
+import React from "react";
+import {Image, View} from 'react-native';
 import {Calendar} from 'react-native-calendars'
 import {triprTripController} from "../../../TripStackNavConfig";
 import {eventController} from "../PlannerStackNavConfig";
+import styles from "../PlannerStyleSheet";
 
 export default class MultiDayView extends React.Component {
     static navigationOptions = ({ navigation, screenProps }) => ({
         //title: `Planner for ${navigation.state.params.cityName}`,
 
         tabBarIcon: <Image source={require('../../../../../assets/images/calendar_icon.png')}
-                           style={{
-                               height: 30,
-                               width: 30,
-                               resizeMode: 'contain'
-                           }} />,
+                           style={styles.tabBarIconStyle} />,
         tabBarLabel: "Planner"
 
     });
@@ -42,7 +31,7 @@ export default class MultiDayView extends React.Component {
 
     render() {
         return (
-        <View style={{ flex: 1 }}>
+        <View style={styles.calenderView}>
             <Calendar
                  current={this.startDate}
                 minDate={this.startDate}
@@ -100,24 +89,3 @@ export default class MultiDayView extends React.Component {
       });
     };
 }
-
-const styles = StyleSheet.create({
-  calendar: {
-    flex: 1,
-    borderTopWidth: 1,
-    paddingTop: 5,
-    height: Dimensions.get('window').height,
-    //borderBottomWidth: 1,
-    borderColor: '#eee',
-  },
-  text: {
-    textAlign: 'center',
-    borderColor: '#bbb',
-    padding: 10,
-    backgroundColor: '#eee'
-  },
-  container: {
-    flex: 1,
-    backgroundColor: '#eee'
-  }
-});

@@ -4,7 +4,6 @@ import {StackNavigator} from 'react-navigation';
 import DiscoverTileView from "./DiscoverTileView/DiscoverTileView";
 import POIListView from "./POIListView/POIListView";
 import POIDetailView from "./POIDetailView/POIDetailView";
-import {Image} from "react-native";
 import ExperienceView from "./DiscoverTileView/ExperienceView";
 
 const routeConfig = {

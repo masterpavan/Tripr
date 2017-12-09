@@ -1,36 +1,12 @@
 
-import React, {Component} from "react";
-import {StyleSheet, Image, View} from 'react-native';
+import React from "react";
+import {Image, View} from 'react-native';
 
 import Mapbox from '@mapbox/react-native-mapbox-gl';
-import MapboxGL from '@mapbox/react-native-mapbox-gl';
-import TriprStore from "../../../../../assets/services/TriprStore";
 import {triprMapController} from "../../FourTabNavConfig";
+import styles from "../MapStyleSheet";
 
 Mapbox.setAccessToken('pk.eyJ1Ijoia3JlYmluIiwiYSI6ImNqOXRyN2NpNjAxbDUyeG9lcnVxNXV3aHYifQ.Co5xDA25ehe16YgaFk0t2w');
-
-
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-    },
-    annotationContainer: {
-        width: 30,
-        height: 30,
-        alignItems: 'center',
-        justifyContent: 'center',
-        backgroundColor: 'white',
-        borderRadius: 15,
-    },
-    annotationFill: {
-        width: 30,
-        height: 30,
-        borderRadius: 15,
-        backgroundColor: 'orange',
-        transform: [{ scale: 0.6 }],
-    }
-});
 
 export default class MapView extends React.Component {
     static navigationOptions = ({ navigation, screenProps }) => ({
@@ -69,7 +45,7 @@ export default class MapView extends React.Component {
         console.log('(INFO) [MapView.render] centerCoordinate is: ', [this.state.longitude, this.state.latitude]);
 
         return (
-            <View style={{flex:1}}>
+            <View style={styles.container}>
                 <Mapbox.MapView
                     styleURL= {Mapbox.StyleURL.Street}
                     zoomLevel={this.state.zoomLevel}

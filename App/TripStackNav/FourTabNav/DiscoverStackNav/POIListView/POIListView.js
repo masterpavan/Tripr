@@ -1,13 +1,14 @@
 
-import React, {Component} from "react";
-import {FlatList, Image, Text, TouchableOpacity, View} from 'react-native';
+import React from "react";
+import {FlatList, Image, View} from 'react-native';
 import { SearchBar } from 'react-native-elements'
 import TriprStore from "../../../../../assets/services/TriprStore";
 import ButtonListItem from "../../../../../assets/elements/ButtonListItem";
-import styles from "../../../../../assets/styles/ChooseCityPlannerStyles";
 import * as Progress from 'react-native-progress';
 import NetIcon from "../../../../../assets/elements/NetIcon";
 import Metrics from "../../../../../assets/styles/Themes/Metrics";
+
+import styles from "../DiscoverStyleSheet";
 
 export default class POIListView extends React.PureComponent {
     static navigationOptions = ({ navigation, screenProps }) => ({
@@ -62,11 +63,7 @@ export default class POIListView extends React.PureComponent {
             return (<View>
                 <Progress.CircleSnail
                     style={{alignSelf:'center'}}
-                    color={[
-                        '#F44336',
-                        '#2196F3',
-                        '#009688',
-                    ]}/>
+                    color={['#F44336', '#2196F3', '#009688',]}/>
             </View>)
         } else {
             return (
@@ -94,9 +91,8 @@ export default class POIListView extends React.PureComponent {
             <View>
                 <SearchBar
                     lightTheme
-                    inputStyle={{
-                        backgroundColor:"#fff"}}
-                    containerStyle={{backgroundColor:'transparent',borderTopColor:'transparent',borderBottomColor:'transparent',marginHorizontal:10,marginVertical:10}}
+                    inputStyle={styles.searchBarInputStyle}
+                    containerStyle={styles.searchBarContainerStyle}
                     placeholder='Type Here...' />
                 {this.renderOptions()}
             </View>

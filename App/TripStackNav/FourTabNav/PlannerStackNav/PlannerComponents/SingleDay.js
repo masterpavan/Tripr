@@ -1,8 +1,9 @@
 import React, {Componenent} from 'react';
-import {Image, Text, TouchableOpacity, View, StyleSheet} from 'react-native';
+import {Image, Text, View} from 'react-native';
 import {Button} from 'react-native-elements';
 import {Agenda} from 'react-native-calendars';
 import {eventController} from "../PlannerStackNavConfig";
+import styles from "../PlannerStyleSheet";
 
 export default class SingleDayView extends React.Component {
 
@@ -31,7 +32,7 @@ export default class SingleDayView extends React.Component {
 
     render() {
         return (
-            <View style={{flex: 1}}>
+            <View style={styles.singleDayView}>
                 <Agenda
                     items={this.state.items}
                     loadItemsForMonth={this.loadItems.bind(this)}
@@ -53,17 +54,10 @@ export default class SingleDayView extends React.Component {
                     // theme={{calendarBackground: 'red', agendaKnobColor: 'green'}}
                     //renderDay={(day, item) => (<Text>{day ? day.day: 'item'}</Text>)}
                 />
-                <View style={{alignItems:"center"}}>
+                <View style={styles.addEventView}>
                     <Button
-                        buttonStyle={{
-                            width:50,
-                            height:50,
-                            backgroundColor:'transparent',
-                        }}
-                        textStyle={{
-                            fontSize:40,
-                            color:'#15bdd9'
-                        }}
+                        buttonStyle={styles.addEventButtonStyle}
+                        textStyle={styles.addEventTextStyle}
                         title='+'
                         onPress={() => {
                             //this.setState({screen: "addTrip"})
@@ -177,28 +171,3 @@ export default class SingleDayView extends React.Component {
         return date.toISOString().split('T')[0];
     }
 }
-
-const styles = StyleSheet.create({
-    item: {
-        backgroundColor: 'white',
-        flex: 1,
-        borderRadius: 5,
-        padding: 10,
-        marginRight: 10,
-        marginTop: 17
-    },
-    emptyDate: {
-        height: 15,
-        flex:1,
-        paddingTop: 30
-    },
-    buttonStyle: {
-        width:45,
-        height:20,
-        backgroundColor:'transparent',
-    },
-    textStyle:{
-        fontSize:10,
-        color:'#15bdd9'
-    }
-});

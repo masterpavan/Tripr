@@ -33,13 +33,13 @@ export default class CreateOfflineRegion extends React.Component {
     async createPack (packName, long, lat) {
         this.setState({name:packName, percentage:0, offlineRegion:null});
         const COORDINATES = [long, lat];
-        const bounds = geoViewport.bounds(COORDINATES, 1, [1, 1], MAPBOX_VECTOR_TILE_SIZE);
+        const bounds = geoViewport.bounds(COORDINATES, 11, [500, 500], MAPBOX_VECTOR_TILE_SIZE);
 
         const options = {
             name: packName,
             styleURL: MapboxGL.StyleURL.Street,
             bounds: [[bounds[0], bounds[1]], [bounds[2], bounds[3]]],
-            minZoom: 0,
+            minZoom: 11,
             maxZoom: 22
         };
 

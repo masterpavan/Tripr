@@ -1,10 +1,11 @@
 import { SearchBar } from 'react-native-elements'
-import React, {Component} from "react";
-import {Image, Text, TouchableOpacity, View} from 'react-native';
+import React from "react";
+import {Image, View} from 'react-native';
 import ButtonSquare from "../../../../../assets/elements/ButtonSquare";
-import styles from "../../../../../assets/styles/ChooseCityPlannerStyles";
 import NetIcon from "../../../../../assets/elements/NetIcon";
 import Metrics from "../../../../../assets/styles/Themes/Metrics";
+import styles from "../DiscoverStyleSheet";
+
 
 export default class DiscoverTileView extends React.Component {
 

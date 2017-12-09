@@ -1,10 +1,10 @@
-import React, {Componenent} from 'react';
+import React from 'react';
 import {View} from 'react-native';
 import { Button, FormLabel, FormInput } from 'react-native-elements'
 import {eventController} from "../PlannerStackNavConfig";
 import DatePicker from 'react-native-datepicker';
 import formStyles from "../../../../../assets/styles/FormStyles";
-import Metrics from "../../../../../assets/styles/Themes/Metrics";
+import styles from "../PlannerStyleSheet";
 
 export default class EditEventView extends React.Component {
     constructor(props) {
@@ -21,7 +21,7 @@ export default class EditEventView extends React.Component {
 
     render() {
         return (
-			<View style={{backgroundColor:'transparent', flex:1}}>
+			<View style={styles.formBackgroundView}>
 				<FormLabel containerStyle={formStyles.labelContainerStyle}
 						   labelStyle={formStyles.labelStyle}>
 					EVENT NAME
@@ -40,13 +40,9 @@ export default class EditEventView extends React.Component {
 				/>
 				<FormLabel containerStyle={formStyles.labelContainerStyle}
 						   labelStyle={formStyles.labelStyle}>EVENT TIMES</FormLabel>
-				<View style={{
-                    flexDirection: 'row',
-                    flex: 0,
-                    height: 80,
-                    flexWrap: 'wrap'}}>
+				<View style={styles.timeChooser}>
 					<DatePicker
-						style={[formStyles.dateContainer,{marginLeft: 30,marginRight: 15}]}
+						style={styles.dateContainer}
 						date={this.state.start}
 						mode="time"
 						showIcon={false}
@@ -58,7 +54,7 @@ export default class EditEventView extends React.Component {
 						onDateChange={(date) => {this.setState({start: date})}}
 					/>
 					<DatePicker
-						style={[formStyles.dateContainer,{marginLeft: 30,marginRight: 15}]}
+						style={styles.dateContainer}
 						date={this.state.end}
 						mode="time"
 						showIcon={false}
@@ -70,17 +66,13 @@ export default class EditEventView extends React.Component {
 						onDateChange={(date) => {this.setState({end: date})}}
 					/>
 				</View>
-				<View style={{
-                    flexDirection: 'row',
-                    flex: 1,
-                    flexWrap: 'wrap'
-                }}>
+				<View style={styles.editOrCancelButtonView}>
 					<Button
-						containerViewStyle={{width: (Metrics.screenWidth/2)-15, marginLeft:10, marginRight:0 }}
-						buttonStyle={{backgroundColor:"#f58d4e",marginLeft:0}} title="Edit Event" onPress={()=>{this.submit()}}/>
+						containerViewStyle={styles.editOrCancelButtonContainer}
+						buttonStyle={styles.editButtonStyle} title="Edit Event" onPress={()=>{this.submit()}}/>
 					<Button
-						containerViewStyle={{width: (Metrics.screenWidth/2)-15, marginLeft:10, marginRight:0}}
-						buttonStyle={{backgroundColor:"#494949"}}
+						containerViewStyle={styles.editOrCancelButtonContainer}
+						buttonStyle={styles.cancelButtonStyle}
 						title="Cancel" onPress={()=>{this.props.navigation.goBack()}}/>
 				</View>
 			</View>
