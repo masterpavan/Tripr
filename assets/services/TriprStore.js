@@ -157,14 +157,17 @@ export default class TriprStore {
 
     /*POI LIST METHODS*/
     static async initializeCurrentCityPackage(cityID) {
-        let returnObj = {loading: false};
+        let returnObj = {isLoading: false};
         let cityPackage = await AsyncStorage.getItem(cityID);
         console.log('(INFO) [TriprStore.initializeCurrentCityPackage] city package in the users local storage is: ', JSON.parse(cityPackage));
 
         if (!cityPackage) {
             console.log('(INFO) [TriprStore.initializeCurrentCityPackage] local city package doesnt exist. fetching from the database.');
             let cityPackage = await this.readCityPackageFromFirebase(cityID);
-            if(cityPackage.POIList.length === 0) returnObj.offlineMessage = true;
+            if(cityPackage.POIList.length === 0) {
+                console.log('(INFO) [TriprStore.initializeCurrentCityPackage] fetched nothing from the database. returning offline message.');
+                returnObj.offlineMessage = true;
+            }
             else {
                 console.log('(INFO) [TriprStore.initializeCurrentCityPackage] we made a new cityPackage:', cityPackage);
                 console.log("(INFO) [TriprStore.initializeCurrentCityPackage] cityPackage being stored in Async @ currentCityPackage is: ", cityPackage);

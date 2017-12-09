@@ -111,11 +111,18 @@ export default StyleSheet.create({
         flex:1
     },
 
-    dateContainer: {
+    dateContainerLeft: {
         width: (Metrics.screenWidth / 2) - 45,
         height: 40,
         marginLeft: 30,
         marginRight: 15
+    },
+
+    dateContainerRight: {
+        width: (Metrics.screenWidth / 2) - 45,
+        height: 40,
+        marginLeft: 15,
+        marginRight: 30
     },
 
     addButtonView: {
