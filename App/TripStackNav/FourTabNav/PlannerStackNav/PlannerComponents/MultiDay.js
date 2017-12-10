@@ -86,8 +86,18 @@ export default class MultiDayView extends React.Component {
             }
             let split = currDate.split("-");
             split[2] = parseInt(split[2]) + 1;
+            if(split[2] === 32) {
+                split[2] = 1;
+                split[1] = parseInt(split[1]) + 1;
+                if(split[1] === 13) {
+                    split[1] = 1;
+                    split[0] = parseInt(split[0]) + 1;
+                }
+            }
             if((split[2].toString().length == 1))
                 split[2] = "0" + split[2];
+            if((split[1].toString().length == 1))
+                split[1] = "0" + split[1];
             currDate = split[0] + "-" + split[1] + "-" + split[2];
             console.log(currDate);
         }
