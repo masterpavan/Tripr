@@ -1,7 +1,7 @@
 
 
 import React, { Component } from 'react';
-import {TripStackNav} from "./App/TripStackNav/TripStackNavConfig";
+import {TripStackNav} from "./App/Modules/TripManagement/TripStackNavConfig";
 import Mapbox from '@mapbox/react-native-mapbox-gl';
 import MapboxGL from '@mapbox/react-native-mapbox-gl';
 import {AsyncStorage} from "react-native";
