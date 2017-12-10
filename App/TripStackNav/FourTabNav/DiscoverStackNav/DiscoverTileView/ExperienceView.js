@@ -144,7 +144,7 @@ export default class ExperienceView extends React.Component {
         return (
             <View>
 
-                <View style={{marginTop:8,flexDirection: 'row', justifyContent: 'space-between',}}>
+                <View style={{marginTop:8,flexDirection: 'row', justifyContent: 'space-between'}}>
                     <TouchableOpacity
                         style={{
                             justifyContent: 'center',
@@ -154,7 +154,7 @@ export default class ExperienceView extends React.Component {
                             backgroundColor:this.state.screen === "tiles" ? '#fff':'transparent',
                         }}
                         onPress={() => {
-                            this.setState({screen: "tiles"})
+                            this.setState({screen: "tiles", currentCategory: null})
                         }}>
 
                         <Icon

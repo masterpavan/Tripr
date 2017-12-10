@@ -44,6 +44,11 @@ export default class MultiDayView extends React.Component {
       this.updateMarked.bind(this);
     }
 
+    componentDidMount() {
+        this.refresh().done();
+
+    }
+
     render() {
         return (
         <View style={styles.calenderView}>

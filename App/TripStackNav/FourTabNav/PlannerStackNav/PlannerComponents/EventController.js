@@ -81,6 +81,7 @@ export default class EventController {
     async initializeEvent(tripName, cityName, date) {
         var value = await AsyncStorage.getItem("events");
         let events = await JSON.parse(value);
+        if(!events) events = {};
         if (!events.hasOwnProperty(tripName))
             events[tripName] = {};
         if (!events[tripName].hasOwnProperty(cityName))
