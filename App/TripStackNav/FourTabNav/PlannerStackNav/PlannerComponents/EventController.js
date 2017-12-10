@@ -1,5 +1,5 @@
 import React from 'react';
-import {AsyncStorage} from 'react-native';
+import {AsyncStorage, Alert} from 'react-native';
 
 export default class EventController {
     /*events[tripId][cityName][date] = {
@@ -22,6 +22,7 @@ export default class EventController {
         console.log(start);
         console.log(end);
         if(this.timeIsLessThanOrEqual(end, start)) {
+            Alert.alert('Alert','Your start time wasn\'t before your end time, so it won\'t be added');
             return false;
         }
         let value = await AsyncStorage.getItem("events");
@@ -32,7 +33,10 @@ export default class EventController {
             if ((this.timeIsLessThanOrEqual(item.start,start) && this.timeIsLessThan(start,item.end)) ||
                     (this.timeIsLessThan(item.start, end) && this.timeIsLessThanOrEqual(end,item.end))) exit = true;
         });
-        if (exit) return false;
+        if (exit) {
+            Alert.alert('Alert','Your event conflicts with another event, so it won\'t be added');
+            return false;
+        }
         let newItem = {name: name, start: start, end: end, address: address, id: 0};
         dayItems.map((item) => {
             if (this.timeIsLessThanOrEqual(item.end, start)) {
