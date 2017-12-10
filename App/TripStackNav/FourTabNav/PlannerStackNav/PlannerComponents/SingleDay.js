@@ -113,11 +113,12 @@ export default class SingleDayView extends React.Component {
 
     renderItem(item) {
         return (
-            <View style={[styles.item, {height: (item.end - item.start) * 50}]}>
+            <View style={[styles.item, {height: 75}]}>
                 <View style={{flexDirection: 'row', alignItems:'center'}}>
                     <View style={{flex:1}}>
                         <Text>{item.start} - {item.end}</Text>
                         <Text>{item.name}</Text>
+                        <Text>at {item.address}</Text>
                     </View>
                     <Button buttonStyle={styles.buttonStyle}
                             textStyle = {styles.textStyle}
@@ -158,7 +159,7 @@ export default class SingleDayView extends React.Component {
 
     renderEmptyDate() {
         return (
-            <View style={styles.emptyDate}><Text>This is empty date!</Text></View>
+            <View style={styles.emptyDate}><Text>You don't have any events planned for this day!</Text></View>
         );
     }
 
