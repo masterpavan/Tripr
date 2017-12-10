@@ -1,12 +1,36 @@
 import React from 'react';
-import {View} from 'react-native';
+import {Image, View} from 'react-native';
 import { Button, FormLabel, FormInput } from 'react-native-elements'
 import {eventController} from "../PlannerStackNavConfig";
 import DatePicker from 'react-native-datepicker';
 import formStyles from "../../../../../assets/styles/FormStyles";
 import styles from "../PlannerStyleSheet";
+import Metrics from "../../../../../assets/styles/Themes/Metrics";
 
 export default class EditEventView extends React.Component {
+
+    static navigationOptions = ({ navigation, screenProps }) => ({
+        title: `Planner`,
+        tabBarIcon: <Image source={require('../../../../../assets/images/calendar_icon.png')}
+						   style={{
+                               height: 30,
+                               width: 30,
+                               resizeMode: 'contain'
+                           }} />,
+        tabBarLabel: "Planner",
+        headerTitle: `Planner`.toUpperCase(),
+        headerStyle: {
+        },
+        headerTitleStyle: {
+            color:'#494949',
+            alignSelf:'center',
+            fontFamily: 'LeagueSpartan',
+            fontSize:Metrics.h2,
+            fontWeight:'200'
+        },
+        headerRight:(<View/>)
+    });
+
     constructor(props) {
         super(props);
         this.state = {
