@@ -11,6 +11,7 @@ import {GTC, triprTripController} from "../TripStackNavConfig";
 import Metrics from "../../../assets/styles/Themes/Metrics";
 import EditTripComponent from "./EditTripComponent";
 import * as Progress from 'react-native-progress';
+import NetIcon from "../../../assets/elements/NetIcon";
 
 const details = StyleSheet.create({
     container: {
@@ -100,7 +101,7 @@ export default class TripDetailView extends React.Component {
             fontSize:Metrics.h2,
             fontWeight:'200'
         },
-        headerRight:(<View></View>)
+        headerRight:(<NetIcon/>)
     });
 
     constructor(props) {

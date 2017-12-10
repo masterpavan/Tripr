@@ -1,4 +1,4 @@
-package com.simplenavtest;
+package com.trip.r;
 
 import android.app.Application;
 

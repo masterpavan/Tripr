@@ -4,19 +4,31 @@ import money from 'money';
 import convert from 'convert-units';
 import styles from '../../../../../assets/styles/ConversionListStyles';
 import currOpts from './currencies.json';
+import Metrics from "../../../../../assets/styles/Themes/Metrics";
 
 export default class ConversionListView extends React.Component {
 
-    static navigationOptions = {
-        title: 'Conversion',
+    static navigationOptions = ({ navigation, screenProps }) => ({
+        title: `Converter`,
         tabBarIcon: <Image source={require('../../../../../assets/images/tools_icon.png')}
                            style={{
                                height: 30,
                                width: 30,
                                resizeMode: 'contain'
                            }} />,
-        tabBarLabel: "Tools"
-    };
+        tabBarLabel: "Tools",
+        headerTitle: `Converter`.toUpperCase(),
+        headerStyle: {
+        },
+        headerTitleStyle: {
+            color:'#494949',
+            alignSelf:'center',
+            fontFamily: 'LeagueSpartan',
+            fontSize:Metrics.h2,
+            fontWeight:'200'
+        },
+        headerRight:(<View/>)
+    });
 
     constructor(props) {
         super(props)

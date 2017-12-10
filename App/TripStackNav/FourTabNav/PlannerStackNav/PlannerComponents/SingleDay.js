@@ -4,20 +4,30 @@ import {Button} from 'react-native-elements';
 import {Agenda} from 'react-native-calendars';
 import {eventController} from "../PlannerStackNavConfig";
 import styles from "../PlannerStyleSheet";
+import Metrics from "../../../../../assets/styles/Themes/Metrics";
 
 export default class SingleDayView extends React.Component {
 
     static navigationOptions = ({ navigation, screenProps }) => ({
-        //title: `Planner for ${navigation.state.params.cityName}`,
-
+        title: `Planner`,
         tabBarIcon: <Image source={require('../../../../../assets/images/calendar_icon.png')}
                            style={{
                                height: 30,
                                width: 30,
                                resizeMode: 'contain'
                            }} />,
-        tabBarLabel: "Planner"
-
+        tabBarLabel: "Planner",
+        headerTitle: `Planner`.toUpperCase(),
+        headerStyle: {
+        },
+        headerTitleStyle: {
+            color:'#494949',
+            alignSelf:'center',
+            fontFamily: 'LeagueSpartan',
+            fontSize:Metrics.h2,
+            fontWeight:'200'
+        },
+        headerRight:(<View/>)
     });
 
     constructor(props) {
