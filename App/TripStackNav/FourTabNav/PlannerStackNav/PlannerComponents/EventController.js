@@ -22,7 +22,7 @@ export default class EventController {
         console.log(start);
         console.log(end);
         if(this.timeIsLessThanOrEqual(end, start)) {
-            Alert.alert('Your start time wasn\'t before your end time, so it won\'t be added');
+            Alert.alert('Alert','Your start time wasn\'t before your end time, so it won\'t be added');
             return false;
         }
         let value = await AsyncStorage.getItem("events");
@@ -34,7 +34,7 @@ export default class EventController {
                     (this.timeIsLessThan(item.start, end) && this.timeIsLessThanOrEqual(end,item.end))) exit = true;
         });
         if (exit) {
-            Alert.alert('Your event conflicts with another event, so it won\'t be added');
+            Alert.alert('Alert','Your event conflicts with another event, so it won\'t be added');
             return false;
         }
         let newItem = {name: name, start: start, end: end, address: address, id: 0};
